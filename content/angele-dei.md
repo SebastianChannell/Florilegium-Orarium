@@ -2,9 +2,7 @@
 id: angele-dei
 title: Angele Dei
 type: prayer
-language: Latin
-aliases: Guardian Angel Prayer
-keywords: angel, guardian, protection
+search: Guardian Angel Prayer, angel, guardian, protection
 ---
 Ángele Dei,
 qui custos es mei,

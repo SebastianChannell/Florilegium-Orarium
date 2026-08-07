@@ -7,20 +7,14 @@ const items = prepareLibrary([
     id: "ave-maria",
     title: "Ave Maria",
     type: "prayer",
-    language: "Latin",
-    aliases: ["Hail Mary"],
-    keywords: ["rosary"],
-    incipit: "Ave María, grátia plena",
+    search: ["Hail Mary", "rosary"],
     text: "Ave María, grátia plena, Dóminus tecum.",
   },
   {
     id: "salve-regina",
     title: "Salve Regina",
     type: "hymn",
-    language: "Latin",
-    aliases: ["Hail Holy Queen"],
-    keywords: ["compline"],
-    incipit: "Salve, Regína",
+    search: ["Hail Holy Queen", "compline"],
     text: "Ad te clamámus, éxsules fílii Evæ.",
   },
 ]);
@@ -33,7 +27,7 @@ test("search finds titles without requiring accent marks", () => {
   assert.deepEqual(searchLibrary(items, "Maria").map((item) => item.id), ["ave-maria"]);
 });
 
-test("search finds aliases and full text", () => {
+test("search finds the consolidated search field and full text", () => {
   assert.deepEqual(searchLibrary(items, "holy queen").map((item) => item.id), ["salve-regina"]);
   assert.deepEqual(searchLibrary(items, "exsules filii").map((item) => item.id), ["salve-regina"]);
 });

@@ -2,9 +2,7 @@
 id: veni-creator-spiritus
 title: Veni Creator Spiritus
 type: hymn
-language: Latin
-aliases: Come Creator Spirit
-keywords: holy ghost, pentecost, ordination
+search: Come Creator Spirit, holy ghost, pentecost, ordination
 ---
 Veni, Creátor Spíritus,
 mentes tuórum vísita,

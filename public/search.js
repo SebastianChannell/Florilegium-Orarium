@@ -13,19 +13,15 @@ export function normalizeSearchText(value = "") {
 
 export function prepareLibrary(items) {
   return items.map((item) => {
-    const aliases = normalizeSearchText(item.aliases.join(" "));
-    const keywords = normalizeSearchText(item.keywords.join(" "));
+    const search = normalizeSearchText(item.search.join(" "));
     const title = normalizeSearchText(item.title);
-    const incipit = normalizeSearchText(item.incipit);
     const text = normalizeSearchText(item.text);
 
     return {
       ...item,
       _search: {
-        aliases,
-        haystack: `${title} ${aliases} ${keywords} ${incipit} ${text}`,
-        incipit,
-        keywords,
+        haystack: `${title} ${search} ${text}`,
+        search,
         text,
         title,
       },
@@ -41,13 +37,11 @@ function rankItem(item, normalizedQuery, tokens) {
   let score = 0;
   if (item._search.title === normalizedQuery) score += 1_000;
   if (item._search.title.startsWith(normalizedQuery)) score += 500;
-  if (item._search.aliases.includes(normalizedQuery)) score += 300;
+  if (item._search.search.includes(normalizedQuery)) score += 300;
 
   for (const token of tokens) {
     if (item._search.title.includes(token)) score += 100;
-    if (item._search.aliases.includes(token)) score += 70;
-    if (item._search.keywords.includes(token)) score += 35;
-    if (item._search.incipit.includes(token)) score += 25;
+    if (item._search.search.includes(token)) score += 70;
     if (item._search.text.includes(token)) score += 5;
   }
 

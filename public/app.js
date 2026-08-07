@@ -4,7 +4,6 @@ const elements = {
   backButton: document.querySelector("#back-button"),
   browseView: document.querySelector("#browse-view"),
   filters: [...document.querySelectorAll("[data-filter]")],
-  readerMeta: document.querySelector("#reader-meta"),
   readerText: document.querySelector("#reader-text"),
   readerTitle: document.querySelector("#reader-title"),
   readerView: document.querySelector("#reader-view"),
@@ -20,8 +19,6 @@ const state = {
   items: [],
   query: "",
 };
-
-const labelForType = (type) => (type === "prayer" ? "Prayer" : "Hymn");
 
 function pageUrl({ item, query = state.query, filter = state.filter } = {}) {
   const url = new URL(window.location.href);
@@ -41,24 +38,11 @@ function makeResult(item) {
   link.href = pageUrl({ item: item.id });
   link.dataset.itemId = item.id;
 
-  const heading = document.createElement("div");
-  heading.className = "result-heading";
-
   const title = document.createElement("h2");
   title.className = "result-title";
   title.textContent = item.title;
 
-  const kind = document.createElement("span");
-  kind.className = "result-kind";
-  kind.textContent = `${labelForType(item.type)} · ${item.language}`;
-
-  const incipit = document.createElement("p");
-  incipit.className = "result-incipit";
-  incipit.dir = "auto";
-  incipit.textContent = item.incipit;
-
-  heading.append(title, kind);
-  link.append(heading, incipit);
+  link.append(title);
   listItem.append(link);
   return listItem;
 }
@@ -93,7 +77,6 @@ function openReader(item, { push = true } = {}) {
     return;
   }
 
-  elements.readerMeta.textContent = `${labelForType(item.type)} · ${item.language}`;
   elements.readerTitle.textContent = item.title;
   elements.readerText.textContent = item.text;
   elements.browseView.hidden = true;

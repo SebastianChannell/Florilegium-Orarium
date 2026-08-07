@@ -2,9 +2,7 @@
 id: salve-regina
 title: Salve Regina
 type: hymn
-language: Latin
-aliases: Hail Holy Queen
-keywords: marian antiphon, compline, blessed virgin
+search: Hail Holy Queen, marian antiphon, compline, blessed virgin
 ---
 Salve, Regína, mater misericórdiæ;
 vita, dulcédo et spes nostra, salve.

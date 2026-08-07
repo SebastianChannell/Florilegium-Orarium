@@ -41,7 +41,7 @@ function parseTextFile(filename) {
     metadata[key] = value;
   }
 
-  const requiredFields = ["id", "title", "type", "language"];
+  const requiredFields = ["id", "title", "type"];
   for (const field of requiredFields) {
     if (!metadata[field]) {
       throw new Error(`${filename}: missing required field “${field}”`);
@@ -69,10 +69,7 @@ function parseTextFile(filename) {
     id: metadata.id,
     title: metadata.title,
     type: metadata.type,
-    language: metadata.language,
-    aliases: splitList(metadata.aliases),
-    keywords: splitList(metadata.keywords),
-    incipit: text.split("\n").find((line) => line.trim())?.trim() ?? "",
+    search: splitList(metadata.search),
     text,
   };
 }

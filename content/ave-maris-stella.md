@@ -2,9 +2,7 @@
 id: ave-maris-stella
 title: Ave maris stella
 type: hymn
-language: Latin
-aliases: Hail Star of the Sea
-keywords: marian, vespers, blessed virgin
+search: Hail Star of the Sea, marian, vespers, blessed virgin
 ---
 Ave, maris stella,
 Dei Mater alma,

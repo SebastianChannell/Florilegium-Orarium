@@ -2,9 +2,7 @@
 id: tantum-ergo
 title: Tantum ergo
 type: hymn
-language: Latin
-aliases: Tantum Ergo Sacramentum
-keywords: eucharist, benediction, pange lingua
+search: Tantum Ergo Sacramentum, eucharist, benediction, pange lingua
 ---
 Tantum ergo Sacraméntum
 venerémur cérnui,

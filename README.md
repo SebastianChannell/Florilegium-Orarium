@@ -13,9 +13,7 @@ Create a Markdown file in `content/`. Keep the body as the prayer or hymn alone,
 id: anima-christi
 title: Anima Christi
 type: prayer
-language: Latin
-aliases: Soul of Christ
-keywords: communion, thanksgiving
+search: Soul of Christ, communion, thanksgiving
 ---
 Anima Christi, sanctifica me.
 Corpus Christi, salva me.
@@ -26,9 +24,8 @@ Required fields:
 - `id`: lowercase letters, numbers, and hyphens; it should match the filename
 - `title`: the title shown in search results
 - `type`: `prayer` or `hymn`
-- `language`: for example `Latin`, `Greek`, `Greek · Transliteration`, or `Arabic`
 
-`aliases` and `keywords` are optional comma-separated search terms. They help someone find a text without appearing on its reading page.
+`search` is an optional comma-separated list for alternate titles and useful subjects. The title and complete text are searched automatically, and the contents of `search` never appear on the reading page.
 
 ## Local use
 
