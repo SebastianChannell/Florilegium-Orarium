@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#070606">
+    <meta name="color-scheme" content="dark">
+    <meta name="description" content="A quiet, searchable collection of prayers and hymns in their original languages.">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Orarium — Sacrum Florilegium</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+    <link rel="manifest" href="./manifest.webmanifest">
+    <link rel="stylesheet" href="./styles.css">
+    <script type="module" src="./app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to texts</a>
+
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="wordmark" href="./" aria-label="Orarium home">
+          <span>Sacrum Florilegium</span>
+          <strong>Orarium</strong>
+        </a>
+        <p class="subtitle">Prayers and hymns, without distraction.</p>
+      </header>
+
+      <main id="main-content">
+        <section id="browse-view" aria-labelledby="browse-heading">
+          <h1 id="browse-heading" class="visually-hidden">Prayers and hymns</h1>
+
+          <form class="search" role="search" id="search-form">
+            <label class="visually-hidden" for="search-input">Search prayers and hymns</label>
+            <svg class="search-icon" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20">
+              <circle cx="11" cy="11" r="6.5"></circle>
+              <path d="m16 16 4 4"></path>
+            </svg>
+            <input
+              id="search-input"
+              name="q"
+              type="search"
+              inputmode="search"
+              autocomplete="off"
+              spellcheck="false"
+              placeholder="Search title, opening words, or text"
+            >
+          </form>
+
+          <div class="browse-tools">
+            <div class="filters" aria-label="Text type">
+              <button class="filter is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+              <button class="filter" type="button" data-filter="prayer" aria-pressed="false">Prayers</button>
+              <button class="filter" type="button" data-filter="hymn" aria-pressed="false">Hymns</button>
+            </div>
+            <p id="result-count" class="result-count" aria-live="polite">Loading…</p>
+          </div>
+
+          <div id="status-message" class="status-message" hidden></div>
+          <ol id="results" class="results" aria-label="Texts"></ol>
+        </section>
+
+        <article id="reader-view" class="reader" aria-labelledby="reader-title" hidden>
+          <button id="back-button" class="back-button" type="button">← All texts</button>
+          <p id="reader-meta" class="reader-meta"></p>
+          <h1 id="reader-title" tabindex="-1"></h1>
+          <div id="reader-text" class="reader-text" dir="auto"></div>
+        </article>
+      </main>
+
+      <footer class="site-footer">
+        <span aria-hidden="true">✠</span>
+        <span>Sacrum Florilegium</span>
+      </footer>
+    </div>
+
+    <noscript>
+      <p class="noscript">JavaScript is required to search and open the texts.</p>
+    </noscript>
+  </body>
+</html>
