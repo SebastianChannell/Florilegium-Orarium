@@ -52,8 +52,12 @@ function rankItem(item, normalizedQuery, tokens) {
   return score;
 }
 
-export function searchLibrary(items, query = "", filter = "all") {
-  const eligible = filter === "all" ? items : items.filter((item) => item.type === filter);
+export function searchLibrary(items, query = "", filter = "all", devotions = []) {
+  const selectedDevotions = new Set(devotions);
+  const matchingType = filter === "all" ? items : items.filter((item) => item.type === filter);
+  const eligible = selectedDevotions.size === 0
+    ? matchingType
+    : matchingType.filter((item) => selectedDevotions.has(item.devotion));
   const normalizedQuery = normalizeSearchText(query);
 
   if (!normalizedQuery) {

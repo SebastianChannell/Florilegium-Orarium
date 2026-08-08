@@ -47,6 +47,20 @@
             >
           </form>
 
+          <details id="devotion-filter" class="devotion-filter">
+            <summary>
+              <span>Devotions</span>
+              <span id="devotion-selection" class="devotion-selection" aria-live="polite">All</span>
+            </summary>
+            <div class="devotion-panel">
+              <fieldset>
+                <legend class="visually-hidden">Choose one or more devotions</legend>
+                <div id="devotion-options" class="devotion-options"></div>
+              </fieldset>
+              <button id="clear-devotions" class="devotion-clear" type="button" hidden>Clear selection</button>
+            </div>
+          </details>
+
           <div class="browse-tools">
             <div class="filters" aria-label="Text type">
               <button class="filter is-active" type="button" data-filter="all" aria-pressed="true">All</button>

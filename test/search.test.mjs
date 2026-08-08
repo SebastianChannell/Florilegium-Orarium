@@ -24,6 +24,14 @@ const items = prepareLibrary([
     search: ["Hail Holy Queen", "compline"],
     text: "Ad te clamámus, éxsules fílii Evæ.",
   },
+  {
+    id: "veni-creator-spiritus",
+    title: "Veni Creator Spiritus",
+    type: "hymn",
+    devotion: "Holy Ghost",
+    search: ["Come Creator Spirit", "Pentecost"],
+    text: "Veni, Creátor Spíritus, mentes tuórum vísita.",
+  },
 ]);
 
 test("normalization ignores accents and traditional ligatures", () => {
@@ -42,6 +50,18 @@ test("search finds the consolidated search field and full text", () => {
 test("type filters remain active during search", () => {
   assert.equal(searchLibrary(items, "hail", "prayer")[0].id, "ave-maria");
   assert.equal(searchLibrary(items, "hail", "hymn")[0].id, "salve-regina");
+});
+
+test("one or more devotions can be combined with the type filter", () => {
+  assert.deepEqual(
+    searchLibrary(items, "", "all", ["Blessed Virgin Mary", "Holy Ghost"]).map((item) => item.id),
+    ["ave-maria", "salve-regina", "veni-creator-spiritus"],
+  );
+  assert.deepEqual(
+    searchLibrary(items, "", "prayer", new Set(["Blessed Virgin Mary", "Holy Ghost"]))
+      .map((item) => item.id),
+    ["ave-maria"],
+  );
 });
 
 test("search finds a primary devotion", () => {
