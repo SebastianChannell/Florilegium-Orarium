@@ -2,6 +2,7 @@
 id: sanctorum-meritis-inclita
 title: Sanctórum méritis ínclita
 type: hymn
+devotion: Saints and Martyrs
 search: Common of Martyrs, Vespers, Roman Office
 ---
 Sanctórum méritis ínclita gáudia

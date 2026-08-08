@@ -2,6 +2,7 @@
 id: kyrie-eleison
 title: Kyrie eleison
 type: hymn
+devotion: Holy Mass
 search: Lord have mercy, Mass Ordinary, Greek transliteration
 ---
 Kyrie Eleison

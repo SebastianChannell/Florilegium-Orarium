@@ -2,6 +2,7 @@
 id: pange-lingua-gloriosi
 title: Pange lingua gloriosi
 type: hymn
+devotion: Holy Eucharist
 search: Corpus Christi, Eucharistic hymn, Tantum ergo
 ---
 Pange, lingua, gloriósi

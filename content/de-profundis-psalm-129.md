@@ -2,6 +2,7 @@
 id: de-profundis-psalm-129
 title: De profundis — Psalm 129
 type: hymn
+devotion: Holy Souls
 search: Psalm 130, Out of the depths, Requiem
 ---
 De profundis clamavi ad te, Domine:

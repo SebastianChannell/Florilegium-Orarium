@@ -1,4 +1,4 @@
-import { prepareLibrary, searchLibrary } from "./search.js";
+import { groupByDevotion, prepareLibrary, searchLibrary } from "./search.js";
 
 const elements = {
   backButton: document.querySelector("#back-button"),
@@ -38,7 +38,7 @@ function makeResult(item) {
   link.href = pageUrl({ item: item.id });
   link.dataset.itemId = item.id;
 
-  const title = document.createElement("h2");
+  const title = document.createElement("span");
   title.className = "result-title";
   title.textContent = item.title;
 
@@ -47,9 +47,36 @@ function makeResult(item) {
   return listItem;
 }
 
+function makeDevotionGroup({ devotion, items }, index) {
+  const section = document.createElement("section");
+  section.className = "index-section";
+
+  const headingRow = document.createElement("div");
+  headingRow.className = "index-heading";
+
+  const heading = document.createElement("h2");
+  heading.id = `devotion-${index + 1}`;
+  heading.textContent = devotion;
+  section.setAttribute("aria-labelledby", heading.id);
+
+  const count = document.createElement("span");
+  count.className = "index-count";
+  count.textContent = String(items.length);
+  count.setAttribute("aria-label", `${items.length} ${items.length === 1 ? "text" : "texts"}`);
+
+  const list = document.createElement("ol");
+  list.className = "index-entries";
+  list.append(...items.map(makeResult));
+
+  headingRow.append(heading, count);
+  section.append(headingRow, list);
+  return section;
+}
+
 function renderList() {
   const matches = searchLibrary(state.items, state.query, state.filter);
-  elements.results.replaceChildren(...matches.map(makeResult));
+  const groups = groupByDevotion(matches);
+  elements.results.replaceChildren(...groups.map(makeDevotionGroup));
   elements.resultCount.textContent = `${matches.length} ${matches.length === 1 ? "text" : "texts"}`;
   elements.statusMessage.hidden = matches.length !== 0;
   elements.statusMessage.textContent = state.query

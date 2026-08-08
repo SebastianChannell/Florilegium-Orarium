@@ -2,6 +2,7 @@
 id: immense-caeli-conditor
 title: Imménse cæli Cónditor
 type: hymn
+devotion: Divine Office
 search: Monday Vespers, creation hymn, Roman Office
 ---
 Imménse cæli Cónditor,

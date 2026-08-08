@@ -2,6 +2,7 @@
 id: tantum-ergo
 title: Tantum ergo
 type: hymn
+devotion: Holy Eucharist
 search: Tantum Ergo Sacramentum, eucharist, benediction, pange lingua
 ---
 Tantum ergo Sacraméntum

@@ -2,6 +2,7 @@
 id: alma-redemptoris-mater
 title: Alma Redemptoris Mater
 type: hymn
+devotion: Blessed Virgin Mary
 search: Loving Mother of the Redeemer, Marian antiphon
 ---
 Alma Redemptoris Mater,

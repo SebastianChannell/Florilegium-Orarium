@@ -2,6 +2,7 @@
 id: pater-noster
 title: Pater noster
 type: prayer
+devotion: God the Father
 search: Our Father, Oratio Dominica, dominical, daily, mass
 ---
 Pater noster, qui es in cælis:

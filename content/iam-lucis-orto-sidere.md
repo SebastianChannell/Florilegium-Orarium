@@ -2,6 +2,7 @@
 id: iam-lucis-orto-sidere
 title: Iam lucis orto sidere
 type: hymn
+devotion: Divine Office
 search: Prime, morning hymn, Roman Office
 ---
 Iam lucis orto sídere,

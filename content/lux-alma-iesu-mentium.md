@@ -2,6 +2,7 @@
 id: lux-alma-iesu-mentium
 title: Lux alma, Iesu mentium
 type: hymn
+devotion: Our Lord Jesus Christ
 search: Transfiguration, Lauds, St. Bernard of Clairvaux
 ---
 Lux alma, Iesu, méntium,

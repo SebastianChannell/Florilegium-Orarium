@@ -2,6 +2,7 @@
 id: ave-maria
 title: Ave Maria
 type: prayer
+devotion: Blessed Virgin Mary
 search: Hail Mary, Angelic Salutation, blessed virgin, rosary, marian
 ---
 Ave María, grátia plena, Dóminus tecum;

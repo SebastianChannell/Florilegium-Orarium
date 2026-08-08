@@ -2,6 +2,7 @@
 id: quicumque-christum-quaeritis
 title: Quicumque Christum quæritis
 type: hymn
+devotion: Our Lord Jesus Christ
 search: Transfiguration, Vespers, Matins, Prudentius
 ---
 Quicúmque Christum quǽritis,

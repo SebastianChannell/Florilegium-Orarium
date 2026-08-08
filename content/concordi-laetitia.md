@@ -2,6 +2,7 @@
 id: concordi-laetitia
 title: Concordi lætitia
 type: hymn
+devotion: Blessed Virgin Mary
 search: Eastertide, Marian hymn, Virgin Mary
 ---
 Concordi lætitia,

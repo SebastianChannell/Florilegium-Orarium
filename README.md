@@ -13,6 +13,7 @@ Create a Markdown file in `content/`. Keep the body as the prayer or hymn alone,
 id: anima-christi
 title: Anima Christi
 type: prayer
+devotion: Holy Eucharist
 search: Soul of Christ, communion, thanksgiving
 ---
 Anima Christi, sanctifica me.
@@ -22,10 +23,11 @@ Corpus Christi, salva me.
 Required fields:
 
 - `id`: lowercase letters, numbers, and hyphens; it should match the filename
-- `title`: the title shown in search results
+- `title`: the title shown in the index and search results
 - `type`: `prayer` or `hymn`
+- `devotion`: one primary devotion that determines the text's section in the index
 
-`search` is an optional comma-separated list for alternate titles and useful subjects. The title and complete text are searched automatically, and the contents of `search` never appear on the reading page.
+`search` is an optional comma-separated list for alternate titles, secondary devotions, and useful subjects. The title, primary devotion, and complete text are searched automatically, and the contents of `search` never appear on the reading page.
 
 ## Local use
 

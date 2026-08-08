@@ -2,6 +2,7 @@
 id: benedictus
 title: Benedictus
 type: hymn
+devotion: Divine Office
 search: Canticle of Zechariah, Lauds, Luke 1, Roman Office
 ---
 Benedictus Dominus ☩ Deus Israel, *

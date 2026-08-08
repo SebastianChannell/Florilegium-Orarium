@@ -2,6 +2,7 @@
 id: agnus-dei
 title: Agnus Dei
 type: hymn
+devotion: Holy Mass
 search: Lamb of God, Mass Ordinary
 ---
 Agnus Dei,

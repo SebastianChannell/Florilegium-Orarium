@@ -2,6 +2,7 @@
 id: in-paradisum
 title: In paradisum
 type: hymn
+devotion: Holy Souls
 search: Funeral chant, Requiem
 ---
 In paradisum dedúcant te Angeli:

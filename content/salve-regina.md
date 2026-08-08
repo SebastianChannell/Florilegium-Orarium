@@ -2,6 +2,7 @@
 id: salve-regina
 title: Salve Regina
 type: hymn
+devotion: Blessed Virgin Mary
 search: Hail Holy Queen, marian antiphon, compline, blessed virgin
 ---
 Salve, Regína, mater misericórdiæ;

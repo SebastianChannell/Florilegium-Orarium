@@ -2,6 +2,7 @@
 id: veni-creator-spiritus
 title: Veni Creator Spiritus
 type: hymn
+devotion: Holy Ghost
 search: Come Creator Spirit, holy ghost, pentecost, ordination
 ---
 Veni, Creátor Spíritus,

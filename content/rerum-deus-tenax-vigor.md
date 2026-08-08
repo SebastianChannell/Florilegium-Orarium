@@ -2,6 +2,7 @@
 id: rerum-deus-tenax-vigor
 title: Rerum Deus tenax vigor
 type: hymn
+devotion: Divine Office
 search: None, afternoon hymn, Roman Office, St. Ambrose
 ---
 Rerum, Deus, tenax vigor,

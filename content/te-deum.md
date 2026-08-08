@@ -2,6 +2,7 @@
 id: te-deum
 title: Te Deum
 type: hymn
+devotion: Divine Office
 search: Ambrosian hymn, thanksgiving, Matins, Roman Office
 ---
 Te Deum laudámus:

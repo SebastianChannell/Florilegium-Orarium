@@ -2,6 +2,7 @@
 id: ave-maris-stella
 title: Ave maris stella
 type: hymn
+devotion: Blessed Virgin Mary
 search: Hail Star of the Sea, marian, vespers, blessed virgin
 ---
 Ave, maris stella,

@@ -2,6 +2,7 @@
 id: gloria-in-excelsis-deo
 title: Gloria in excelsis Deo
 type: hymn
+devotion: Holy Mass
 search: Greater Doxology, Mass Ordinary
 ---
 Glória in excélsis Deo,

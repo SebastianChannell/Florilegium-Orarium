@@ -2,6 +2,7 @@
 id: asperges-me
 title: Asperges me
 type: hymn
+devotion: Holy Mass
 search: Thou shalt sprinkle me, sprinkling rite, Mass
 ---
 Asperges me, Domine, hyssopo, et mundabor:

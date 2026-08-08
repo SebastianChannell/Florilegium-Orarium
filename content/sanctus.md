@@ -2,6 +2,7 @@
 id: sanctus
 title: Sanctus
 type: hymn
+devotion: Holy Mass
 search: Holy Holy Holy, Mass Ordinary
 ---
 Sanctus, Sanctus, Sanctus,

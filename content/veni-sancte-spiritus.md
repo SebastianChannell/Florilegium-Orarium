@@ -2,6 +2,7 @@
 id: veni-sancte-spiritus
 title: Veni Sancte Spiritus
 type: hymn
+devotion: Holy Ghost
 search: Golden Sequence, Pentecost, Come Holy Ghost
 ---
 Veni, Sancte Spiritus,

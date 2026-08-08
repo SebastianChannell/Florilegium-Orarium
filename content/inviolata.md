@@ -2,6 +2,7 @@
 id: inviolata
 title: Inviolata
 type: hymn
+devotion: Blessed Virgin Mary
 search: Marian hymn, Prosa Inviolata
 ---
 Inviolata, integra, et casta es, Maria,

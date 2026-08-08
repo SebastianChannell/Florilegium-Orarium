@@ -2,6 +2,7 @@
 id: credo
 title: Credo
 type: hymn
+devotion: Holy Mass
 search: Nicene Creed, Mass Ordinary
 ---
 Credo in unum Deum, Patrem omnipoténtem, factórem cæli et terræ, visibílium ómnium et invisibílium.

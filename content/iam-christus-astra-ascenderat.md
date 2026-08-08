@@ -2,6 +2,7 @@
 id: iam-christus-astra-ascenderat
 title: Iam Christus astra ascenderat
 type: hymn
+devotion: Holy Ghost
 search: Pentecost, Matins, Roman Office
 ---
 Iam Christus astra ascénderat,
