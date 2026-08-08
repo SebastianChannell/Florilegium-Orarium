@@ -29,6 +29,8 @@ Required fields:
 
 `search` is an optional comma-separated list for alternate titles, secondary devotions, and useful subjects. The title, primary devotion, and complete text are searched automatically, and the contents of `search` never appear on the reading page.
 
+Begin each liturgical versicle and response on its own line with `V.` or `R.`. The reader automatically displays those markers in the established purple (`#8451CF`) for every current and future text; no HTML or other formatting is needed in the content file.
+
 ## Add a Little Office
 
 A Little Office appears once in the devotional index and links to separate Hour pages. Its parent file has an ordered `children` list and no body:
