@@ -3,6 +3,8 @@ id: little-office-immaculate-conception-sext
 title: Little Office of the Immaculate Conception — Sext
 type: prayer
 devotion: Immaculate Conception
+parent: little-office-of-the-immaculate-conception
+hour: Sext
 search: Little Office, Our Lady, Blessed Virgin Mary, Father Lasance, Sext, Sexta
 ---
 V. Domina, in adjutorium meum intende.

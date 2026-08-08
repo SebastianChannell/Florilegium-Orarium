@@ -3,6 +3,8 @@ id: little-office-immaculate-conception-matins
 title: Little Office of the Immaculate Conception — Matins
 type: prayer
 devotion: Immaculate Conception
+parent: little-office-of-the-immaculate-conception
+hour: Matins
 search: Little Office, Our Lady, Blessed Virgin Mary, Father Lasance, Matins, Matutinum
 ---
 Eja, mea labia, nunc annuntiate

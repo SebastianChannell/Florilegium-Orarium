@@ -3,6 +3,8 @@ id: little-office-immaculate-conception-compline
 title: Little Office of the Immaculate Conception — Compline
 type: prayer
 devotion: Immaculate Conception
+parent: little-office-of-the-immaculate-conception
+hour: Compline
 search: Little Office, Our Lady, Blessed Virgin Mary, Father Lasance, Compline, Completorium
 ---
 V. Convertat nos, Domina, tuis precibus placatus Jesus Christus Filius tuus.

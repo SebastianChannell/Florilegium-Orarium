@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import {
+  browseLibrary,
   groupByDevotion,
   normalizeSearchText,
   prepareLibrary,
@@ -87,5 +88,36 @@ test("the index groups and sorts texts by devotion", () => {
       { devotion: "Blessed Virgin Mary", titles: ["Ave Maria", "Salve Regina"] },
       { devotion: "God the Father", titles: ["Pater noster"] },
     ],
+  );
+});
+
+test("Little Office Hours search through one visible parent item", () => {
+  const office = prepareLibrary([
+    {
+      id: "little-office-example",
+      title: "Little Office Example",
+      type: "prayer",
+      devotion: "Example Devotion",
+      search: ["Matins", "Vespers"],
+      text: "",
+      children: ["little-office-example-vespers"],
+    },
+    {
+      id: "little-office-example-vespers",
+      title: "Little Office Example — Vespers",
+      type: "prayer",
+      devotion: "Example Devotion",
+      search: ["Vesperae"],
+      text: "Before the ending of the day, Creator of the world, we pray.",
+      parent: "little-office-example",
+      hour: "Vespers",
+    },
+  ]);
+
+  const visible = browseLibrary(office);
+  assert.deepEqual(visible.map((item) => item.id), ["little-office-example"]);
+  assert.deepEqual(
+    searchLibrary(visible, "ending of the day").map((item) => item.id),
+    ["little-office-example"],
   );
 });

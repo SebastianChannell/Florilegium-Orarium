@@ -12,9 +12,9 @@ export function normalizeSearchText(value = "") {
 }
 
 export function prepareLibrary(items) {
-  return items.map((item) => {
+  const prepared = items.map((item) => {
     const devotion = normalizeSearchText(item.devotion);
-    const search = normalizeSearchText(item.search.join(" "));
+    const search = normalizeSearchText((item.search ?? []).join(" "));
     const title = normalizeSearchText(item.title);
     const text = normalizeSearchText(item.text);
 
@@ -29,6 +29,30 @@ export function prepareLibrary(items) {
       },
     };
   });
+
+  const itemsById = new Map(prepared.map((item) => [item.id, item]));
+  for (const item of prepared) {
+    if (!item.children?.length) continue;
+
+    const childText = item.children
+      .map((childId) => itemsById.get(childId)?._search.text ?? "")
+      .filter(Boolean)
+      .join(" ");
+
+    item._search.text = `${item._search.text} ${childText}`.trim();
+    item._search.haystack = [
+      item._search.title,
+      item._search.devotion,
+      item._search.search,
+      item._search.text,
+    ].join(" ");
+  }
+
+  return prepared;
+}
+
+export function browseLibrary(items) {
+  return items.filter((item) => !item.parent);
 }
 
 function rankItem(item, normalizedQuery, tokens) {

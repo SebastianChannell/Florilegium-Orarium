@@ -3,6 +3,8 @@ id: little-office-immaculate-conception-prime
 title: Little Office of the Immaculate Conception — Prime
 type: prayer
 devotion: Immaculate Conception
+parent: little-office-of-the-immaculate-conception
+hour: Prime
 search: Little Office, Our Lady, Blessed Virgin Mary, Father Lasance, Prime, Prima
 ---
 V. Domina, in adjutorium meum intende.

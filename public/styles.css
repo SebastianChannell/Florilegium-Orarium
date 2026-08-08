@@ -287,6 +287,8 @@ a {
 .devotion-filter summary:focus-visible,
 .devotion-clear:focus-visible,
 .back-button:focus-visible,
+.index-heading:focus-visible,
+.office-hour-link:focus-visible,
 .result-link:focus-visible,
 .wordmark:focus-visible {
   outline: 2px solid var(--accent);
@@ -315,18 +317,42 @@ a {
 }
 
 .index-section + .index-section {
-  margin-top: 1.1rem;
+  margin-top: 0.15rem;
 }
 
 .index-heading {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0 0.2rem 0.25rem;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.3rem;
+  padding: 0.25rem 0.35rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.index-heading::-webkit-details-marker {
+  display: none;
+}
+
+.index-heading::before {
+  flex: 0 0 1rem;
+  color: var(--accent);
+  content: "+";
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.index-section[open] > .index-heading::before {
+  content: "−";
+}
+
+.index-heading:hover {
+  background: var(--surface);
 }
 
 .index-heading h2 {
+  flex: 1 1 auto;
   margin: 0;
   color: var(--accent);
   font-size: 0.68rem;
@@ -337,6 +363,7 @@ a {
 }
 
 .index-count {
+  flex: 0 0 auto;
   color: var(--faint);
   font-size: 0.68rem;
   font-variant-numeric: tabular-nums;
@@ -347,7 +374,7 @@ a {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: 2rem;
   margin: 0;
-  padding: 0;
+  padding: 0 0.2rem 0 1.85rem;
   list-style: none;
 }
 
@@ -409,6 +436,43 @@ a {
   font-weight: 400;
   letter-spacing: -0.015em;
   line-height: 1.15;
+}
+
+.office-hours {
+  margin-top: 1.75rem;
+}
+
+.office-hours-label {
+  margin: 0 0 0.45rem;
+  color: var(--accent);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.office-hours-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.15rem 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.office-hour-link {
+  display: flex;
+  align-items: center;
+  min-height: 2.5rem;
+  padding: 0.35rem 0.5rem;
+  border-radius: 0.3rem;
+  font-family: var(--serif);
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+.office-hour-link:hover {
+  background: var(--surface-hover);
 }
 
 .reader-text {
@@ -493,7 +557,8 @@ a {
 
 @media (max-width: 38rem) {
   .devotion-options,
-  .index-entries {
+  .index-entries,
+  .office-hours-list {
     grid-template-columns: 1fr;
   }
 }

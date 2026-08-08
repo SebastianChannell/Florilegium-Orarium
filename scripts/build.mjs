@@ -23,7 +23,7 @@ const splitList = (value = "") =>
 
 function parseTextFile(filename) {
   const source = readFileSync(join(contentDirectory, filename), "utf8").replace(/\r\n/g, "\n");
-  const match = source.match(/^---\n([\s\S]*?)\n---\n([\s\S]+)$/);
+  const match = source.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
 
   if (!match) {
     throw new Error(`${filename}: expected YAML-style metadata between --- lines`);
@@ -60,9 +60,18 @@ function parseTextFile(filename) {
     throw new Error(`${filename}: type must be “prayer” or “hymn”`);
   }
 
+  const children = splitList(metadata.children);
   const text = match[2].trim();
-  if (!text) {
+  if (!text && children.length === 0) {
     throw new Error(`${filename}: prayer or hymn text cannot be empty`);
+  }
+
+  if (metadata.parent && children.length > 0) {
+    throw new Error(`${filename}: an Hour cannot also be an office index`);
+  }
+
+  if (Boolean(metadata.parent) !== Boolean(metadata.hour)) {
+    throw new Error(`${filename}: parent and hour must be provided together`);
   }
 
   return {
@@ -72,6 +81,8 @@ function parseTextFile(filename) {
     devotion: metadata.devotion,
     search: splitList(metadata.search),
     text,
+    ...(metadata.parent ? { parent: metadata.parent, hour: metadata.hour } : {}),
+    ...(children.length > 0 ? { children } : {}),
   };
 }
 
@@ -94,6 +105,34 @@ for (const item of items) {
     throw new Error(`Duplicate id “${item.id}”`);
   }
   ids.add(item.id);
+}
+
+const itemsById = new Map(items.map((item) => [item.id, item]));
+for (const item of items) {
+  if (item.children) {
+    if (new Set(item.children).size !== item.children.length) {
+      throw new Error(`${item.id}: children must not contain duplicate ids`);
+    }
+
+    for (const childId of item.children) {
+      const child = itemsById.get(childId);
+      if (!child) throw new Error(`${item.id}: unknown child id “${childId}”`);
+      if (child.parent !== item.id) {
+        throw new Error(`${childId}: parent must be “${item.id}”`);
+      }
+      if (child.type !== item.type || child.devotion !== item.devotion) {
+        throw new Error(`${childId}: type and devotion must match its office index`);
+      }
+    }
+  }
+
+  if (item.parent) {
+    const parent = itemsById.get(item.parent);
+    if (!parent) throw new Error(`${item.id}: unknown parent id “${item.parent}”`);
+    if (!parent.children?.includes(item.id)) {
+      throw new Error(`${item.id}: parent index must include this Hour in children`);
+    }
+  }
 }
 
 items.sort((left, right) => left.title.localeCompare(right.title, "en", { sensitivity: "base" }));

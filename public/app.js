@@ -1,4 +1,4 @@
-import { groupByDevotion, prepareLibrary, searchLibrary } from "./search.js";
+import { browseLibrary, groupByDevotion, prepareLibrary, searchLibrary } from "./search.js";
 
 const elements = {
   backButton: document.querySelector("#back-button"),
@@ -7,6 +7,8 @@ const elements = {
   devotionOptions: document.querySelector("#devotion-options"),
   devotionSelection: document.querySelector("#devotion-selection"),
   filters: [...document.querySelectorAll("[data-filter]")],
+  officeHours: document.querySelector("#office-hours"),
+  officeHoursList: document.querySelector("#office-hours-list"),
   readerText: document.querySelector("#reader-text"),
   readerTitle: document.querySelector("#reader-title"),
   readerView: document.querySelector("#reader-view"),
@@ -18,6 +20,7 @@ const elements = {
 };
 
 const state = {
+  currentItem: null,
   devotions: new Set(),
   filter: "all",
   items: [],
@@ -52,7 +55,7 @@ function syncDevotionControls() {
 }
 
 function buildDevotionOptions() {
-  const options = groupByDevotion(state.items).map(({ devotion }, index) => {
+  const options = groupByDevotion(browseLibrary(state.items)).map(({ devotion }, index) => {
     const label = document.createElement("label");
     label.className = "devotion-option";
     label.htmlFor = `devotion-option-${index + 1}`;
@@ -93,11 +96,12 @@ function makeResult(item) {
   return listItem;
 }
 
-function makeDevotionGroup({ devotion, items }, index) {
-  const section = document.createElement("section");
+function makeDevotionGroup({ devotion, items }, index, expanded) {
+  const section = document.createElement("details");
   section.className = "index-section";
+  section.open = expanded;
 
-  const headingRow = document.createElement("div");
+  const headingRow = document.createElement("summary");
   headingRow.className = "index-heading";
 
   const heading = document.createElement("h2");
@@ -120,9 +124,18 @@ function makeDevotionGroup({ devotion, items }, index) {
 }
 
 function renderList() {
-  const matches = searchLibrary(state.items, state.query, state.filter, state.devotions);
+  state.currentItem = null;
+  const matches = searchLibrary(
+    browseLibrary(state.items),
+    state.query,
+    state.filter,
+    state.devotions,
+  );
   const groups = groupByDevotion(matches);
-  elements.results.replaceChildren(...groups.map(makeDevotionGroup));
+  const expanded = Boolean(state.query || state.filter !== "all" || state.devotions.size);
+  elements.results.replaceChildren(
+    ...groups.map((group, index) => makeDevotionGroup(group, index, expanded)),
+  );
   elements.resultCount.textContent = `${matches.length} ${matches.length === 1 ? "text" : "texts"}`;
   elements.statusMessage.hidden = matches.length !== 0;
   elements.statusMessage.textContent = state.query
@@ -146,20 +159,65 @@ function setFilter(filter, { updateUrl = true } = {}) {
   if (updateUrl) history.replaceState({ view: "list" }, "", pageUrl());
 }
 
-function openReader(item, { push = true } = {}) {
+function makeOfficeHour(child) {
+  const listItem = document.createElement("li");
+
+  const link = document.createElement("a");
+  link.className = "office-hour-link";
+  link.href = pageUrl({ item: child.id });
+  link.dataset.officeItemId = child.id;
+  link.textContent = child.hour;
+
+  listItem.append(link);
+  return listItem;
+}
+
+function openReader(item, {
+  entryRoot = false,
+  fromOffice = false,
+  push = true,
+  replace = false,
+} = {}) {
   if (!item) {
     showBrowse({ replace: true });
     return;
   }
 
+  state.currentItem = item;
   elements.readerTitle.textContent = item.title;
   elements.readerText.textContent = item.text;
+  elements.readerText.hidden = !item.text;
+
+  const children = (item.children ?? [])
+    .map((childId) => state.items.find((candidate) => candidate.id === childId))
+    .filter(Boolean);
+  const isOfficeIndex = children.length > 0;
+  elements.officeHours.hidden = !isOfficeIndex;
+  elements.officeHours.setAttribute("aria-label", `Hours of ${item.title}`);
+  elements.officeHoursList.replaceChildren(...children.map(makeOfficeHour));
+
+  const parent = item.parent
+    ? state.items.find((candidate) => candidate.id === item.parent)
+    : null;
+  elements.backButton.textContent = parent ? "← Office Hours" : "← All texts";
+  elements.backButton.setAttribute(
+    "aria-label",
+    parent ? `Back to ${parent.title}` : "Back to all texts",
+  );
   elements.browseView.hidden = true;
   elements.readerView.hidden = false;
   document.title = `${item.title} — Orarium`;
 
+  const historyState = {
+    view: "reader",
+    item: item.id,
+    ...(entryRoot ? { entryRoot: true } : {}),
+    ...(fromOffice ? { fromOffice: true } : {}),
+  };
   if (push) {
-    history.pushState({ view: "reader", item: item.id }, "", pageUrl({ item: item.id }));
+    history.pushState(historyState, "", pageUrl({ item: item.id }));
+  } else if (replace) {
+    history.replaceState(historyState, "", pageUrl({ item: item.id }));
   }
 
   window.scrollTo({ top: 0, behavior: "auto" });
@@ -232,8 +290,30 @@ elements.results.addEventListener("click", (event) => {
   openReader(state.items.find((item) => item.id === link.dataset.itemId));
 });
 
+elements.officeHours.addEventListener("click", (event) => {
+  const link = event.target.closest("[data-office-item-id]");
+  if (!link || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+  event.preventDefault();
+  openReader(
+    state.items.find((item) => item.id === link.dataset.officeItemId),
+    { fromOffice: true },
+  );
+});
+
 elements.backButton.addEventListener("click", () => {
-  if (history.state?.view === "reader") {
+  if (state.currentItem?.parent) {
+    if (history.state?.fromOffice) {
+      history.back();
+      return;
+    }
+
+    const parent = state.items.find((item) => item.id === state.currentItem.parent);
+    openReader(parent, {
+      entryRoot: Boolean(history.state?.entryRoot),
+      push: false,
+      replace: true,
+    });
+  } else if (history.state?.view === "reader" && !history.state?.entryRoot) {
     history.back();
   } else {
     showBrowse({ replace: true });
@@ -256,7 +336,14 @@ async function start() {
     const library = await response.json();
     state.items = prepareLibrary(library.items);
     buildDevotionOptions();
-    history.replaceState({ view: "list" }, "", window.location.href);
+    const initialItem = new URLSearchParams(window.location.search).get("text");
+    history.replaceState(
+      initialItem
+        ? { view: "reader", item: initialItem, entryRoot: true }
+        : { view: "list", entryRoot: true },
+      "",
+      window.location.href,
+    );
     readLocation();
   } catch (error) {
     console.error(error);

@@ -3,6 +3,8 @@ id: little-office-immaculate-conception-vespers
 title: Little Office of the Immaculate Conception — Vespers
 type: prayer
 devotion: Immaculate Conception
+parent: little-office-of-the-immaculate-conception
+hour: Vespers
 search: Little Office, Our Lady, Blessed Virgin Mary, Father Lasance, Vespers, Vesperae
 ---
 V. Domina, in adjutorium meum intende.

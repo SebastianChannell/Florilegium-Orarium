@@ -29,6 +29,38 @@ Required fields:
 
 `search` is an optional comma-separated list for alternate titles, secondary devotions, and useful subjects. The title, primary devotion, and complete text are searched automatically, and the contents of `search` never appear on the reading page.
 
+## Add a Little Office
+
+A Little Office appears once in the devotional index and links to separate Hour pages. Its parent file has an ordered `children` list and no body:
+
+```md
+---
+id: little-office-example
+title: Little Office Example
+type: prayer
+devotion: Example Devotion
+search: Matins, Prime, Vespers
+children: little-office-example-matins, little-office-example-prime, little-office-example-vespers
+---
+```
+
+Each child file uses the normal content pattern, plus `parent` and `hour`:
+
+```md
+---
+id: little-office-example-matins
+title: Little Office Example — Matins
+type: prayer
+devotion: Example Devotion
+parent: little-office-example
+hour: Matins
+search: Matutinum
+---
+The complete text for Matins.
+```
+
+The build verifies both sides of every parent/child relationship. Hour pages remain directly linkable and searchable, but only their parent appears in the main index.
+
 ## Local use
 
 ```sh
