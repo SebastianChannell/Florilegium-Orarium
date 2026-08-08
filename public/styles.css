@@ -492,6 +492,10 @@ a {
   overflow-wrap: anywhere;
 }
 
+.liturgical-marker {
+  color: var(--accent);
+}
+
 .site-footer {
   display: flex;
   align-items: center;

@@ -1,4 +1,5 @@
 import { browseLibrary, groupByDevotion, prepareLibrary, searchLibrary } from "./search.js";
+import { splitLiturgicalText } from "./liturgical-text.js";
 
 const elements = {
   backButton: document.querySelector("#back-button"),
@@ -172,6 +173,19 @@ function makeOfficeHour(child) {
   return listItem;
 }
 
+function renderReaderText(text) {
+  const nodes = splitLiturgicalText(text).map((part) => {
+    if (!part.marker) return document.createTextNode(part.text);
+
+    const marker = document.createElement("span");
+    marker.className = "liturgical-marker";
+    marker.textContent = part.text;
+    return marker;
+  });
+
+  elements.readerText.replaceChildren(...nodes);
+}
+
 function openReader(item, {
   entryRoot = false,
   fromOffice = false,
@@ -185,7 +199,7 @@ function openReader(item, {
 
   state.currentItem = item;
   elements.readerTitle.textContent = item.title;
-  elements.readerText.textContent = item.text;
+  renderReaderText(item.text);
   elements.readerText.hidden = !item.text;
 
   const children = (item.children ?? [])
