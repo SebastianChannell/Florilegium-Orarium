@@ -5,5 +5,5 @@ type: prayer
 devotion: God
 search: Act of Love, Deus meus amo te, theological virtues, love of God
 ---
-Deus meus, amo te super omnia ex toto corde meo, quia es summe bonus et omni amore dignus; et propter amorem tui amo proximum meum sicut meipsum.
+O my God, I love Thee above all things, with my whole heart and soul, because Thou art all-good and worthy of all love. I love my neighbor as myself for love of Thee. I forgive all who have injured me, and ask pardon of all whom I have injured.
 Amen.

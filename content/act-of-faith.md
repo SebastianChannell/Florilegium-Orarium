@@ -5,5 +5,5 @@ type: prayer
 devotion: God
 search: Domine meus firma fide credo, creed, theological virtues
 ---
-Domine meus, firma fide credo et confiteor omnia et singula quae sancta Ecclesia Catolica proponit, quia tu, Deus, omnia revelasti, qui es aeterna veritas et sapientia, quae nec fallere nec falli potest. In hac fide vivere et mori statuo.
+O my God, I firmly believe that Thou art one God in three Divine Persons: Father, Son, and Holy Ghost. I believe that Thy Divine Son became man, and died for our sins, and that He will come to judge the living and the dead. I believe these and all the truths which the Holy Catholic Church teaches, because Thou hast revealed them, Who canst neither deceive nor be deceived.
 Amen.
