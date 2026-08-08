@@ -5,38 +5,33 @@ type: prayer
 devotion: Immaculate Conception
 parent: little-office-of-the-immaculate-conception
 hour: None
-search: Little Office, Our Lady, Blessed Virgin Mary, Father Lasance, None, Nona
+layout: parallel
+search: Little Office, Our Lady, Blessed Virgin Mary, Father Lasance, Latin, English, None, Nona
 ---
-V. Domina, in adjutorium meum intende.
-R. Me de manu hostium potenter defende.
-V. Gloria Patri, et Filio, et Spiritui Sancto.
-R. Sicut erat in principio, et nunc, et semper, et in sæcula sæculorum. Amen. Alleluia.
+| Latin | English |
+|---|---|
+| **V.** Domina, in adjutorium meum intende. | **V.** O Lady! make speed to befriend me. |
+| **R.** Me de manu hostium potenter defende. | **R.** From the hands of the enemy mightily defend me. |
+| **V.** Gloria Patri, et Filio, et Spiritui Sancto. | **V.** Glory be to the Father, and to the Son, and to the Holy Ghost. |
+| **R.** Sicut erat in principio, et nunc, et semper, et in sæcula sæculorum. Amen. Alleluia. | **R.** As it was in the beginning, is now, and ever shall be, world without end. Amen. Alleluia. |
 
-Hymn
+## Hymnus — Hymn
 
-Salve, urbs refugii,
-Turrisque munita
-David, propugnaculis
-Armisque insignita.
-In conceptione
-Charitate ignita,
-Draconis potestas
-Est a te contrita.
-O mulier fortis,
-Et invicta Judith!
-Pulchra Abisag virgo
-Verum fovens David!
-Rachel curatorem
-Ægypti gestavit:
-Salvatorem mundi
-Maria portavit.
-Amen.
+| Latin | English |
+|---|---|
+| Salve, urbs refugii,<br>Turrisque munita<br>David, propugnaculis<br>Armisque insignita. | Hail, City of refuge!<br>Hail, David’s high tower,<br>With battlements crowned<br>And girded with power! |
+| In conceptione<br>Charitate ignita,<br>Draconis potestas<br>Est a te contrita. | Filled at thy conception<br>With love and with light!<br>The dragon by thee<br>Was shorn of his might. |
+| O mulier fortis,<br>Et invicta Judith!<br>Pulchra Abisag virgo<br>Verum fovens David! | O woman most valiant!<br>O Judith thrice blest!<br>As David was nursed<br>In fair Abisag’s breast; |
+| Rachel curatorem<br>Ægypti gestavit:<br>Salvatorem mundi<br>Maria portavit. | As the saviour of Egypt<br>Upon Rachel’s knee;<br>So the world’s great Redeemer<br>Was cherished by thee. |
+| Amen. | Amen. |
 
-V. Tota pulchra es, amica mea.
-R. Et macula originalis nunquam fuit in te.
-V. Domina, protege orationem meam.
-R. Et clamor meus ad te veniat.
-V. Benedicamus Domino.
-R. Deo gratias.
-V. Fidelium animæ per misericordiam Dei requiescant in pace.
-R. Amen.
+| Latin | English |
+|---|---|
+| **V.** Tota pulchra es, amica mea. | **V.** Thou art all fair, my beloved. |
+| **R.** Et macula originalis nunquam fuit in te. | **R.** And the original stain was never in thee. |
+| **V.** Domina, protege orationem meam. | **V.** O Lady! aid my prayer. |
+| **R.** Et clamor meus ad te veniat. | **R.** And let my cry come unto thee. |
+| **V.** Benedicamus Domino. | **V.** Let us bless the Lord. |
+| **R.** Deo gratias. | **R.** Thanks be to God. |
+| **V.** Fidelium animæ per misericordiam Dei requiescant in pace. | **V.** May the souls of the faithful, through the mercy of God, rest in peace. |
+| **R.** Amen. | **R.** Amen. |

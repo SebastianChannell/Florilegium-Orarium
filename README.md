@@ -6,7 +6,7 @@ The site is deliberately static: the texts live in this repository, the search r
 
 ## Add a text
 
-Create a Markdown file in `content/`. Keep the body as the prayer or hymn alone, without a translation or commentary.
+Create a Markdown file in `content/`. Keep the body as the prayer or hymn alone, without commentary. A normal entry contains one language; the bilingual Little Office pattern is described below.
 
 ```md
 ---
@@ -60,6 +60,28 @@ search: Matutinum
 ---
 The complete text for Matins.
 ```
+
+For a side-by-side Latin and English Hour, add `layout: parallel` and write its sections as two-column Markdown tables:
+
+```md
+---
+id: little-office-example-matins
+title: Little Office Example — Matins
+type: prayer
+devotion: Example Devotion
+parent: little-office-example
+hour: Matins
+layout: parallel
+---
+## Hymnus — Hymn
+
+| Latin | English |
+|---|---|
+| V. Deus in adjutorium meum intende. | V. O God, come to my assistance. |
+| R. Domine, ad adjuvandum me festina. | R. O Lord, make haste to help me. |
+```
+
+The reader keeps both columns together on desktop and mobile. Headings span both columns, and named table headings such as `Absolutio` / `Absolution` are retained as paired subheadings.
 
 The build verifies both sides of every parent/child relationship. Hour pages remain directly linkable and searchable, but only their parent appears in the main index.
 

@@ -1,5 +1,6 @@
 import { browseLibrary, groupByDevotion, prepareLibrary, searchLibrary } from "./search.js";
 import { splitLiturgicalText } from "./liturgical-text.js";
+import { parseParallelText } from "./parallel-text.js";
 
 const elements = {
   backButton: document.querySelector("#back-button"),
@@ -173,8 +174,8 @@ function makeOfficeHour(child) {
   return listItem;
 }
 
-function renderReaderText(text) {
-  const nodes = splitLiturgicalText(text).map((part) => {
+function makeLiturgicalNodes(text) {
+  return splitLiturgicalText(text).map((part) => {
     if (!part.marker) return document.createTextNode(part.text);
 
     const marker = document.createElement("span");
@@ -182,8 +183,69 @@ function renderReaderText(text) {
     marker.textContent = part.text;
     return marker;
   });
+}
 
-  elements.readerText.replaceChildren(...nodes);
+function makeParallelCell(text, language) {
+  const cell = document.createElement("div");
+  cell.className = "parallel-cell";
+  cell.lang = language;
+  cell.append(...makeLiturgicalNodes(text));
+  return cell;
+}
+
+function renderParallelText(text) {
+  const languageRow = document.createElement("div");
+  languageRow.className = "parallel-language-row";
+
+  const latinLabel = document.createElement("span");
+  latinLabel.lang = "la";
+  latinLabel.textContent = "Latin";
+
+  const englishLabel = document.createElement("span");
+  englishLabel.lang = "en";
+  englishLabel.textContent = "English";
+
+  languageRow.append(latinLabel, englishLabel);
+
+  const blocks = parseParallelText(text).map((block) => {
+    if (block.type === "heading") {
+      const heading = document.createElement("div");
+      heading.className = `parallel-heading parallel-heading-${block.level}`;
+      heading.setAttribute("role", "heading");
+      heading.setAttribute("aria-level", String(Math.min(block.level, 6)));
+      heading.textContent = block.text;
+      return heading;
+    }
+
+    if (block.type === "pair") {
+      const row = document.createElement("div");
+      row.className = `parallel-pair parallel-${block.kind}`;
+      row.append(
+        makeParallelCell(block.latin, "la"),
+        makeParallelCell(block.english, "en"),
+      );
+      return row;
+    }
+
+    const note = document.createElement("div");
+    note.className = "parallel-note";
+    note.append(...makeLiturgicalNodes(block.text));
+    return note;
+  });
+
+  elements.readerText.replaceChildren(languageRow, ...blocks);
+}
+
+function renderReaderText(item) {
+  const isParallel = item.layout === "parallel";
+  elements.readerText.classList.toggle("is-parallel", isParallel);
+
+  if (isParallel) {
+    renderParallelText(item.text);
+    return;
+  }
+
+  elements.readerText.replaceChildren(...makeLiturgicalNodes(item.text));
 }
 
 function openReader(item, {
@@ -199,7 +261,7 @@ function openReader(item, {
 
   state.currentItem = item;
   elements.readerTitle.textContent = item.title;
-  renderReaderText(item.text);
+  renderReaderText(item);
   elements.readerText.hidden = !item.text;
 
   const children = (item.children ?? [])

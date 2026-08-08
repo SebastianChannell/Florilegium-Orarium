@@ -9,6 +9,7 @@ import {
 } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { parseParallelText } from "../public/parallel-text.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const contentDirectory = join(root, "content");
@@ -60,6 +61,10 @@ function parseTextFile(filename) {
     throw new Error(`${filename}: type must be “prayer” or “hymn”`);
   }
 
+  if (metadata.layout && metadata.layout !== "parallel") {
+    throw new Error(`${filename}: layout must be “parallel” when provided`);
+  }
+
   const children = splitList(metadata.children);
   const text = match[2].trim();
   if (!text && children.length === 0) {
@@ -74,6 +79,20 @@ function parseTextFile(filename) {
     throw new Error(`${filename}: parent and hour must be provided together`);
   }
 
+  if (metadata.layout === "parallel") {
+    const blocks = parseParallelText(text);
+    const pairs = blocks.filter((block) => block.type === "pair");
+    if (pairs.length === 0) {
+      throw new Error(`${filename}: parallel layout requires a Latin and English table`);
+    }
+    if (blocks.some((block) => block.type === "note")) {
+      throw new Error(`${filename}: text outside a parallel table must be a heading`);
+    }
+    if (pairs.some((pair) => !pair.latin || !pair.english)) {
+      throw new Error(`${filename}: every parallel row requires both Latin and English`);
+    }
+  }
+
   return {
     id: metadata.id,
     title: metadata.title,
@@ -81,6 +100,7 @@ function parseTextFile(filename) {
     devotion: metadata.devotion,
     search: splitList(metadata.search),
     text,
+    ...(metadata.layout ? { layout: metadata.layout } : {}),
     ...(metadata.parent ? { parent: metadata.parent, hour: metadata.hour } : {}),
     ...(children.length > 0 ? { children } : {}),
   };

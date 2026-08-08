@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 import { test } from "node:test";
 import { splitLiturgicalText } from "../public/liturgical-text.js";
+import { parseParallelText } from "../public/parallel-text.js";
 
 const contentDirectory = new URL("../content/", import.meta.url);
 const stylesheet = readFileSync(new URL("../public/styles.css", import.meta.url), "utf8");
@@ -29,16 +30,40 @@ test("every versicle and response marker in the content collection is identified
   for (const filename of readdirSync(contentDirectory).filter((name) => name.endsWith(".md"))) {
     const source = readFileSync(new URL(filename, contentDirectory), "utf8");
     const body = source.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, "");
-    const expected = body
-      .split(/\r?\n/)
-      .map((line) => line.match(/^[\t ]*([VR]\.)(?=[\t ]|$)/)?.[1])
-      .filter(Boolean);
-    const actual = splitLiturgicalText(body)
-      .filter((part) => part.marker)
-      .map((part) => part.text);
+    const isParallel = /^layout:\s*parallel$/m.test(source);
+    const segments = isParallel
+      ? parseParallelText(body).flatMap((block) => {
+          if (block.type === "pair") return [block.latin, block.english];
+          if (block.type === "note") return [block.text];
+          return [];
+        })
+      : [body];
+    let fileMarkerCount = 0;
 
-    assert.deepEqual(actual, expected, `${filename}: every V. and R. must be highlighted`);
-    markerCount += actual.length;
+    for (const segment of segments) {
+      const expected = segment
+        .split(/\r?\n/)
+        .map((line) => line.match(/^[\t ]*([VR]\.)(?=[\t ]|$)/)?.[1])
+        .filter(Boolean);
+      const actual = splitLiturgicalText(segment)
+        .filter((part) => part.marker)
+        .map((part) => part.text);
+
+      assert.deepEqual(actual, expected, `${filename}: every V. and R. must be highlighted`);
+      markerCount += actual.length;
+      fileMarkerCount += actual.length;
+    }
+
+    if (isParallel) {
+      const sourceMarkerCount = [...body.matchAll(
+        /(?:^|\n|<br\s*\/?\s*>|\|\s)(?:\*\*)?([VR]\.)(?:\*\*)?(?=[\t ])/g,
+      )].length;
+      assert.equal(
+        fileMarkerCount,
+        sourceMarkerCount,
+        `${filename}: no table marker may be lost during parallel rendering`,
+      );
+    }
   }
 
   assert.ok(markerCount > 0, "the collection should include liturgical markers");

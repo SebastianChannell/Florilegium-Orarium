@@ -5,6 +5,7 @@ const APP_SHELL = [
   "./styles.css",
   "./app.js",
   "./liturgical-text.js",
+  "./parallel-text.js",
   "./search.js",
   "./library.json",
   "./manifest.webmanifest",
