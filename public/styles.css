@@ -7,6 +7,8 @@
   --faint: #6f6964;
   --line: #292424;
   --accent: #8451CF;
+  --rubric: #D06E6E;
+  --rubric-line: rgba(208, 110, 110, 0.22);
   --serif: Georgia, "Times New Roman", serif;
   --sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
@@ -445,6 +447,13 @@ a {
   outline: none;
 }
 
+.reader.is-office h1 {
+  color: var(--rubric);
+  font-size: clamp(1.35rem, 5vw, 1.75rem);
+  font-style: italic;
+  font-weight: 700;
+}
+
 .office-hours {
   margin-top: 1.75rem;
 }
@@ -494,6 +503,15 @@ a {
 
 .liturgical-marker {
   color: var(--accent);
+  font-style: italic;
+  font-weight: 700;
+}
+
+.liturgical-label,
+.liturgical-cross {
+  color: var(--rubric);
+  font-style: italic;
+  font-weight: 700;
 }
 
 .reader-text.is-parallel {
@@ -510,7 +528,7 @@ a {
 }
 
 .parallel-language-row {
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.9rem;
   color: var(--accent);
   font-family: var(--sans);
   font-size: 0.66rem;
@@ -520,28 +538,37 @@ a {
 }
 
 .parallel-heading {
-  margin: 2rem 0 0.9rem;
-  color: var(--text);
+  margin: 1.85rem 0 0.6rem;
+  color: var(--rubric);
   font-family: var(--serif);
   font-size: 1.12rem;
-  font-weight: 400;
+  font-style: italic;
+  font-weight: 700;
   line-height: 1.35;
   text-align: center;
 }
 
+.parallel-heading.is-paired {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 1.5rem;
+  text-align: left;
+}
+
 .parallel-heading-3,
 .parallel-heading-4 {
-  margin-top: 1.5rem;
-  color: var(--muted);
-  font-family: var(--sans);
-  font-size: 0.72rem;
+  margin-top: 1.45rem;
+  color: var(--rubric);
+  font-family: var(--serif);
+  font-size: 0.98rem;
+  font-style: italic;
   font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: normal;
+  text-transform: none;
 }
 
 .parallel-pair + .parallel-pair {
-  margin-top: 1rem;
+  margin-top: 0.55rem;
 }
 
 .parallel-cell {
@@ -551,23 +578,38 @@ a {
 }
 
 .parallel-subheading {
-  margin-top: 1.4rem;
-  color: var(--muted);
-  font-family: var(--sans);
-  font-size: 0.78rem;
+  margin-top: 1.2rem;
+  color: var(--rubric);
+  font-family: var(--serif);
+  font-size: 0.9rem;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.parallel-rubric {
+  margin: 0.7rem 0;
+  color: var(--rubric);
+  font-size: 0.86em;
   font-style: italic;
   line-height: 1.45;
 }
 
 .parallel-note {
   margin: 1rem 0;
-  color: var(--muted);
-  font-family: var(--sans);
-  font-size: 0.78rem;
+  color: var(--rubric);
+  font-family: var(--serif);
+  font-size: 0.86rem;
   font-style: italic;
   line-height: 1.55;
   text-align: center;
   white-space: pre-wrap;
+}
+
+.reader-text.is-office .parallel-pair > .parallel-cell:nth-child(2),
+.reader-text.is-office .parallel-heading.is-paired > span:nth-child(2) {
+  border-left: 1px solid var(--rubric-line);
+  padding-left: 0.75rem;
 }
 
 .site-footer {
@@ -648,8 +690,14 @@ a {
   }
 
   .parallel-language-row,
-  .parallel-pair {
+  .parallel-pair,
+  .parallel-heading.is-paired {
     column-gap: 0.75rem;
+  }
+
+  .reader-text.is-office .parallel-pair > .parallel-cell:nth-child(2),
+  .reader-text.is-office .parallel-heading.is-paired > span:nth-child(2) {
+    padding-left: 0.5rem;
   }
 }
 

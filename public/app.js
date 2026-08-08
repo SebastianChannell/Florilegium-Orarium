@@ -1,6 +1,6 @@
 import { browseLibrary, groupByDevotion, prepareLibrary, searchLibrary } from "./search.js";
 import { splitLiturgicalText } from "./liturgical-text.js";
-import { parseParallelText } from "./parallel-text.js";
+import { parseParallelText, splitParallelHeading } from "./parallel-text.js";
 
 const elements = {
   backButton: document.querySelector("#back-button"),
@@ -176,12 +176,12 @@ function makeOfficeHour(child) {
 
 function makeLiturgicalNodes(text) {
   return splitLiturgicalText(text).map((part) => {
-    if (!part.marker) return document.createTextNode(part.text);
+    if (part.kind === "text") return document.createTextNode(part.text);
 
-    const marker = document.createElement("span");
-    marker.className = "liturgical-marker";
-    marker.textContent = part.text;
-    return marker;
+    const token = document.createElement("span");
+    token.className = `liturgical-${part.kind}`;
+    token.textContent = part.text;
+    return token;
   });
 }
 
@@ -213,7 +213,23 @@ function renderParallelText(text) {
       heading.className = `parallel-heading parallel-heading-${block.level}`;
       heading.setAttribute("role", "heading");
       heading.setAttribute("aria-level", String(Math.min(block.level, 6)));
-      heading.textContent = block.text;
+
+      const parts = splitParallelHeading(block.text);
+      if (parts.latin && parts.english) {
+        heading.classList.add("is-paired");
+
+        const latin = document.createElement("span");
+        latin.lang = "la";
+        latin.textContent = parts.latin;
+
+        const english = document.createElement("span");
+        english.lang = "en";
+        english.textContent = parts.english;
+
+        heading.append(latin, english);
+      } else {
+        heading.textContent = parts.text;
+      }
       return heading;
     }
 
@@ -238,7 +254,10 @@ function renderParallelText(text) {
 
 function renderReaderText(item) {
   const isParallel = item.layout === "parallel";
+  const isOffice = isParallel && Boolean(item.parent);
   elements.readerText.classList.toggle("is-parallel", isParallel);
+  elements.readerText.classList.toggle("is-office", isOffice);
+  elements.readerView.classList.toggle("is-office", isOffice);
 
   if (isParallel) {
     renderParallelText(item.text);

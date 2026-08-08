@@ -79,9 +79,15 @@ layout: parallel
 |---|---|
 | V. Deus in adjutorium meum intende. | V. O God, come to my assistance. |
 | R. Domine, ad adjuvandum me festina. | R. O Lord, make haste to help me. |
+
+| Latin | English |
+|---|---|
+| *A Septuagesima usque ad Pascha, loco Alleluia, dicitur:* | *From Septuagesima until Easter, instead of Alleluia, say:* |
 ```
 
-The reader keeps both columns together on desktop and mobile. Headings span both columns, and named table headings such as `Absolutio` / `Absolution` are retained as paired subheadings.
+The reader keeps both columns together on desktop and mobile. A heading separated by an em dash, such as `## Hymnus — Hymn`, is placed into matching Latin and English columns. Headings use the red, bold, italic Office hierarchy; named table headings such as `Absolutio` / `Absolution` are retained as paired subheadings.
+
+Put recitation directions and seasonal rubrics in italics on both sides of the table, as in the example above. They render in liturgical red. `Ant.` labels and cross symbols receive the same red treatment automatically, while every line-opening `V.` and `R.` remains in the established purple (`#8451CF`). These rules are shared by every current and future bilingual Little Office Hour.
 
 The build verifies both sides of every parent/child relationship. Hour pages remain directly linkable and searchable, but only their parent appears in the main index.
 

@@ -24,6 +24,19 @@ test("letters in ordinary prose are not treated as liturgical markers", () => {
   assert.equal(splitLiturgicalText(text).some((part) => part.marker), false);
 });
 
+test("antiphon labels and crosses receive their own liturgical roles", () => {
+  const parts = splitLiturgicalText("Ant. Salva nos, Domine.\nV. Deus, ☩ in adjutorium meum intende.");
+
+  assert.deepEqual(
+    parts.filter((part) => part.kind !== "text").map((part) => [part.kind, part.text]),
+    [
+      ["label", "Ant."],
+      ["marker", "V."],
+      ["cross", "☩"],
+    ],
+  );
+});
+
 test("every versicle and response marker in the content collection is identified", () => {
   let markerCount = 0;
 
@@ -72,4 +85,10 @@ test("every versicle and response marker in the content collection is identified
 test("liturgical markers use the established purple accent", () => {
   assert.match(stylesheet, /--accent:\s*#8451CF;/);
   assert.match(stylesheet, /\.liturgical-marker\s*\{[^}]*color:\s*var\(--accent\);[^}]*\}/s);
+});
+
+test("Office rubrics, labels, and crosses use the Divinum-inspired red", () => {
+  assert.match(stylesheet, /--rubric:\s*#D06E6E;/);
+  assert.match(stylesheet, /\.liturgical-label,\s*\n\.liturgical-cross\s*\{[^}]*color:\s*var\(--rubric\);/s);
+  assert.match(stylesheet, /\.parallel-rubric\s*\{[^}]*color:\s*var\(--rubric\);[^}]*font-style:\s*italic;/s);
 });

@@ -18,18 +18,77 @@ function cleanHeading(value = "") {
     .replace(/_([^_]+)_/g, "$1");
 }
 
+function hasOuterEmphasis(value = "") {
+  const trimmed = String(value).trim();
+  return /^\*(?!\*)([\s\S]*?)(?<!\*)\*$/.test(trimmed)
+    || /^_(?!_)([\s\S]*?)(?<!_)_$/.test(trimmed);
+}
+
 function splitTableRow(line) {
   const trimmed = line.trim().replace(/^\|/, "").replace(/\|$/, "");
-  return trimmed.split(/(?<!\\)\|/).map(cleanInlineText);
+  return trimmed.split(/(?<!\\)\|/).map((cell) => ({
+    text: cleanInlineText(cell),
+    emphasized: hasOuterEmphasis(cell),
+  }));
 }
 
 function isDelimiterRow(cells) {
-  return cells.length >= 2 && cells.every((cell) => /^:?-{3,}:?$/.test(cell));
+  return cells.length >= 2 && cells.every((cell) => /^:?-{3,}:?$/.test(cell.text));
 }
 
 function isLanguageHeader(cells) {
-  return cells[0]?.toLocaleLowerCase() === "latin"
-    && cells[1]?.toLocaleLowerCase() === "english";
+  return cells[0]?.text.toLocaleLowerCase() === "latin"
+    && cells[1]?.text.toLocaleLowerCase() === "english";
+}
+
+function isRubricText(text = "") {
+  return /\b(?:dicitur|dicuntur|omittitur|omittuntur|secreto|loco alleluia|instead of alleluia|is said|are said|said silently|say:)\b/i.test(text);
+}
+
+function pairKind(cells) {
+  if (cells.slice(0, 2).some((cell) => cell.emphasized)) return "rubric";
+  if (cells.slice(0, 2).some((cell) => isRubricText(cell.text))) return "rubric";
+  return "text";
+}
+
+const ENGLISH_HEADING = /^(?:Ordinary|Hymn|Antiphon|Conclusion of the Hour|Commendation|The Commendation|Let Us Pray|Prayer|Collect|Another Prayer|Invitatory|Lesson(?: I)?|Little Chapter|Responsory|Short Responsory|Psalm from Various Psalms [IVX]+)$/i;
+
+export function splitParallelHeading(value = "") {
+  const text = cleanHeading(value);
+  const parts = text.split(/\s+—\s+/);
+  const english = parts.at(-1) ?? "";
+
+  if (parts.length > 1 && ENGLISH_HEADING.test(english)) {
+    const latin = parts.slice(0, -1).join(" — ");
+    const source = latin.match(/^Capitulum\s+—\s+(.+)$/i)?.[1];
+    return {
+      latin,
+      english: source ? `${english} — ${source}` : english,
+    };
+  }
+
+  const psalm = text.match(/^Psalmus\s+(.+?)(?:\s+—\s+.+)?$/i);
+  if (psalm) {
+    return { latin: text, english: `Psalm ${psalm[1]}` };
+  }
+
+  const canticle = text.match(/^Canticum\s+(.+?)(?:\s+—\s+(.+))?$/i);
+  if (canticle) {
+    const names = new Map([
+      ["Beatæ Mariæ Virginis", "Canticle of the Blessed Virgin Mary"],
+      ["Simeonis", "Canticle of Simeon"],
+      ["Zachariæ", "Canticle of Zachary"],
+    ]);
+    const translated = names.get(canticle[1]);
+    if (translated) {
+      return {
+        latin: text,
+        english: canticle[2] ? `${translated} — ${canticle[2]}` : translated,
+      };
+    }
+  }
+
+  return { text };
 }
 
 export function parseParallelText(source = "") {
@@ -68,8 +127,8 @@ export function parseParallelText(source = "") {
           blocks.push({
             type: "pair",
             kind: "subheading",
-            latin: rows[0][0] ?? "",
-            english: rows[0][1] ?? "",
+            latin: rows[0][0]?.text ?? "",
+            english: rows[0][1]?.text ?? "",
           });
         }
 
@@ -77,9 +136,9 @@ export function parseParallelText(source = "") {
           if (row.length < 2) continue;
           blocks.push({
             type: "pair",
-            kind: "text",
-            latin: row[0],
-            english: row[1],
+            kind: pairKind(row),
+            latin: row[0].text,
+            english: row[1].text,
           });
         }
         continue;
@@ -89,9 +148,9 @@ export function parseParallelText(source = "") {
         if (row.length < 2) continue;
         blocks.push({
           type: "pair",
-          kind: "text",
-          latin: row[0],
-          english: row[1],
+          kind: pairKind(row),
+          latin: row[0].text,
+          english: row[1].text,
         });
       }
       continue;
