@@ -62,10 +62,12 @@ a {
 
 .site-header {
   padding: 3.25rem 0 2.25rem;
+  text-align: center;
 }
 
 .wordmark {
   display: inline-flex;
+  align-items: center;
   flex-direction: column;
   text-decoration: none;
 }
@@ -410,7 +412,7 @@ a {
 }
 
 .reader {
-  padding: 0 0 4rem;
+  padding: 0;
 }
 
 .back-button {
@@ -436,6 +438,11 @@ a {
   font-weight: 400;
   letter-spacing: -0.015em;
   line-height: 1.15;
+  text-align: center;
+}
+
+.reader h1:focus {
+  outline: none;
 }
 
 .office-hours {
@@ -489,8 +496,8 @@ a {
   display: flex;
   align-items: center;
   gap: 0.55rem;
-  margin-top: 4rem;
-  padding: 1.5rem 0 2.5rem;
+  margin-top: 1rem;
+  padding: 1rem 0 2rem;
   color: var(--faint);
   font-size: 0.65rem;
   letter-spacing: 0.12em;

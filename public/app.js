@@ -132,7 +132,7 @@ function renderList() {
     state.devotions,
   );
   const groups = groupByDevotion(matches);
-  const expanded = Boolean(state.query || state.filter !== "all" || state.devotions.size);
+  const expanded = Boolean(state.query);
   elements.results.replaceChildren(
     ...groups.map((group, index) => makeDevotionGroup(group, index, expanded)),
   );
