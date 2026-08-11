@@ -291,6 +291,7 @@ a {
 .devotion-filter summary:focus-visible,
 .devotion-clear:focus-visible,
 .back-button:focus-visible,
+.devotional-link:focus-visible,
 .index-heading:focus-visible,
 .office-hour-link:focus-visible,
 .result-link:focus-visible,
@@ -511,6 +512,87 @@ a {
 .liturgical-cross {
   color: var(--rubric);
   font-style: italic;
+  font-weight: 700;
+}
+
+.reader-text.is-devotional {
+  line-height: 1.75;
+  white-space: normal;
+}
+
+.devotional-paragraph {
+  margin: 0 0 1.05rem;
+  white-space: pre-wrap;
+}
+
+.devotional-heading {
+  color: var(--rubric);
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.devotional-heading-2 {
+  margin: 2.15rem 0 0.85rem;
+  font-size: 1.12rem;
+  text-align: center;
+}
+
+.devotional-heading-3 {
+  margin: 1.35rem 0 0.15rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.devotional-rubric {
+  margin: -0.35rem 0 1.2rem;
+  color: var(--rubric);
+  font-size: 0.82em;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.devotional-note {
+  display: grid;
+  grid-template-columns: 0.8rem minmax(0, 1fr);
+  column-gap: 0.35rem;
+  margin: 1.2rem 0;
+  color: var(--muted);
+  font-size: 0.76em;
+  font-style: italic;
+  line-height: 1.55;
+}
+
+.devotional-note::before {
+  color: var(--rubric);
+  content: "¶";
+  font-style: normal;
+  font-weight: 700;
+}
+
+.devotional-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin: 0.25rem 0 1.1rem;
+  border-radius: 0.2rem;
+  color: var(--text);
+  font-size: 0.86em;
+  font-style: italic;
+  text-decoration: none;
+}
+
+.devotional-link:hover span:last-child {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 0.2em;
+}
+
+.devotional-link-arrow {
+  color: var(--accent);
+  font-style: normal;
   font-weight: 700;
 }
 

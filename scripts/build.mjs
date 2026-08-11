@@ -9,6 +9,7 @@ import {
 } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { parseDevotionalText } from "../public/devotional-text.js";
 import { parseParallelText } from "../public/parallel-text.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -61,8 +62,8 @@ function parseTextFile(filename) {
     throw new Error(`${filename}: type must be “prayer” or “hymn”`);
   }
 
-  if (metadata.layout && metadata.layout !== "parallel") {
-    throw new Error(`${filename}: layout must be “parallel” when provided`);
+  if (metadata.layout && !new Set(["devotional", "parallel"]).has(metadata.layout)) {
+    throw new Error(`${filename}: layout must be “devotional” or “parallel” when provided`);
   }
 
   const children = splitList(metadata.children);
@@ -90,6 +91,13 @@ function parseTextFile(filename) {
     }
     if (pairs.some((pair) => !pair.latin || !pair.english)) {
       throw new Error(`${filename}: every parallel row requires both Latin and English`);
+    }
+  }
+
+  if (metadata.layout === "devotional") {
+    const blocks = parseDevotionalText(text);
+    if (blocks.length === 0 || blocks.every((block) => block.type !== "paragraph")) {
+      throw new Error(`${filename}: devotional layout requires prayer text`);
     }
   }
 
@@ -129,6 +137,14 @@ for (const item of items) {
 
 const itemsById = new Map(items.map((item) => [item.id, item]));
 for (const item of items) {
+  if (item.layout === "devotional") {
+    for (const block of parseDevotionalText(item.text)) {
+      if (block.type === "link" && !itemsById.has(block.item)) {
+        throw new Error(`${item.id}: unknown linked text id “${block.item}”`);
+      }
+    }
+  }
+
   if (item.children) {
     if (new Set(item.children).size !== item.children.length) {
       throw new Error(`${item.id}: children must not contain duplicate ids`);

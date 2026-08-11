@@ -31,6 +31,37 @@ Required fields:
 
 Begin each liturgical versicle and response on its own line with `V.` or `R.`. The reader automatically displays those markers in the established purple (`#8451CF`) for every current and future text; no HTML or other formatting is needed in the content file.
 
+## Add a structured prayer sequence
+
+Use `layout: devotional` when one index entry contains several prayers, intentions, or short notes that should be read as a single sequence. The body remains readable Markdown:
+
+```md
+---
+id: evening-prayers
+title: Evening Prayers
+type: prayer
+devotion: Sacred Heart of Jesus
+layout: devotional
+---
+Eternal Father, I offer Thee all the works of this day.
+
+### First intention
+
+The prayer text.
+
+*A short recitation direction or refrain.*
+
+> A quiet note retained from the source prayer book.
+
+[Recite the Act of Contrition.](?text=act-of-contrition)
+
+## A second prayer
+
+The prayer text.
+```
+
+Second-level headings mark major prayers; third-level headings mark intentions or smaller divisions. Italic-only paragraphs are rendered as red rubrics, blockquotes as subdued pilcrow notes, and `?text=` links open another Orarium text while preserving a natural return to the sequence. Prayer, rubric, and note blocks still use the shared liturgical renderer, so future line-opening `V.` and `R.` markers remain purple automatically.
+
 ## Add a Little Office
 
 A Little Office appears once in the devotional index and links to separate Hour pages. Its parent file has an ordered `children` list and no body:

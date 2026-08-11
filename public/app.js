@@ -1,4 +1,5 @@
 import { browseLibrary, groupByDevotion, prepareLibrary, searchLibrary } from "./search.js";
+import { parseDevotionalText } from "./devotional-text.js";
 import { splitLiturgicalText } from "./liturgical-text.js";
 import { parseParallelText, splitParallelHeading } from "./parallel-text.js";
 
@@ -252,15 +253,57 @@ function renderParallelText(text) {
   elements.readerText.replaceChildren(languageRow, ...blocks);
 }
 
+function makeDevotionalBlock(block) {
+  if (block.type === "heading") {
+    const heading = document.createElement(`h${block.level}`);
+    heading.className = `devotional-heading devotional-heading-${block.level}`;
+    heading.textContent = block.text;
+    return heading;
+  }
+
+  if (block.type === "link") {
+    const link = document.createElement("a");
+    link.className = "devotional-link";
+    link.href = pageUrl({ item: block.item });
+    link.dataset.devotionalItemId = block.item;
+
+    const arrow = document.createElement("span");
+    arrow.className = "devotional-link-arrow";
+    arrow.setAttribute("aria-hidden", "true");
+    arrow.textContent = "→";
+
+    const label = document.createElement("span");
+    label.textContent = block.text;
+    link.append(arrow, label);
+    return link;
+  }
+
+  const element = document.createElement(block.type === "note" ? "aside" : "p");
+  element.className = `devotional-${block.type}`;
+  element.append(...makeLiturgicalNodes(block.text));
+  return element;
+}
+
+function renderDevotionalText(text) {
+  elements.readerText.replaceChildren(...parseDevotionalText(text).map(makeDevotionalBlock));
+}
+
 function renderReaderText(item) {
   const isParallel = item.layout === "parallel";
+  const isDevotional = item.layout === "devotional";
   const isOffice = isParallel && Boolean(item.parent);
   elements.readerText.classList.toggle("is-parallel", isParallel);
+  elements.readerText.classList.toggle("is-devotional", isDevotional);
   elements.readerText.classList.toggle("is-office", isOffice);
   elements.readerView.classList.toggle("is-office", isOffice);
 
   if (isParallel) {
     renderParallelText(item.text);
+    return;
+  }
+
+  if (isDevotional) {
+    renderDevotionalText(item.text);
     return;
   }
 
@@ -270,6 +313,7 @@ function renderReaderText(item) {
 function openReader(item, {
   entryRoot = false,
   fromOffice = false,
+  fromItem = null,
   push = true,
   replace = false,
 } = {}) {
@@ -294,10 +338,21 @@ function openReader(item, {
   const parent = item.parent
     ? state.items.find((candidate) => candidate.id === item.parent)
     : null;
-  elements.backButton.textContent = parent ? "← Office Hours" : "← All texts";
+  const linkedFrom = fromItem
+    ? state.items.find((candidate) => candidate.id === fromItem)
+    : null;
+  elements.backButton.textContent = parent
+    ? "← Office Hours"
+    : linkedFrom
+      ? `← ${linkedFrom.title}`
+      : "← All texts";
   elements.backButton.setAttribute(
     "aria-label",
-    parent ? `Back to ${parent.title}` : "Back to all texts",
+    parent
+      ? `Back to ${parent.title}`
+      : linkedFrom
+        ? `Back to ${linkedFrom.title}`
+        : "Back to all texts",
   );
   elements.browseView.hidden = true;
   elements.readerView.hidden = false;
@@ -308,6 +363,7 @@ function openReader(item, {
     item: item.id,
     ...(entryRoot ? { entryRoot: true } : {}),
     ...(fromOffice ? { fromOffice: true } : {}),
+    ...(linkedFrom ? { fromItem: linkedFrom.id } : {}),
   };
   if (push) {
     history.pushState(historyState, "", pageUrl({ item: item.id }));
@@ -339,7 +395,10 @@ function readLocation() {
 
   const selectedId = params.get("text");
   if (selectedId) {
-    openReader(state.items.find((item) => item.id === selectedId), { push: false });
+    openReader(state.items.find((item) => item.id === selectedId), {
+      fromItem: history.state?.fromItem,
+      push: false,
+    });
   } else {
     renderList();
   }
@@ -395,6 +454,15 @@ elements.officeHours.addEventListener("click", (event) => {
   );
 });
 
+elements.readerText.addEventListener("click", (event) => {
+  const link = event.target.closest("[data-devotional-item-id]");
+  if (!link || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+  event.preventDefault();
+  const target = state.items.find((item) => item.id === link.dataset.devotionalItemId);
+  if (!target) return;
+  openReader(target, { fromItem: state.currentItem?.id });
+});
+
 elements.backButton.addEventListener("click", () => {
   if (state.currentItem?.parent) {
     if (history.state?.fromOffice) {
@@ -408,6 +476,8 @@ elements.backButton.addEventListener("click", () => {
       push: false,
       replace: true,
     });
+  } else if (history.state?.fromItem) {
+    history.back();
   } else if (history.state?.view === "reader" && !history.state?.entryRoot) {
     history.back();
   } else {
