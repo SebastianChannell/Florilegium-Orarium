@@ -541,6 +541,7 @@ a {
 
 .devotional-heading-3 {
   margin: 1.35rem 0 0.15rem;
+  color: var(--text);
   font-size: 0.82rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;

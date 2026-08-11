@@ -60,7 +60,7 @@ The prayer text.
 The prayer text.
 ```
 
-Second-level headings mark major prayers; third-level headings mark intentions or smaller divisions. Italic-only paragraphs are rendered as red rubrics, blockquotes as subdued pilcrow notes, and `?text=` links open another Orarium text while preserving a natural return to the sequence. Prayer, rubric, and note blocks still use the shared liturgical renderer, so future line-opening `V.` and `R.` markers remain purple automatically.
+Second-level headings mark major prayers and render in rubric red. Third-level headings mark spoken intentions or smaller divisions and render in the normal white text color. Italic-only paragraphs are rendered as red rubrics, blockquotes as subdued pilcrow notes, and `?text=` links open another Orarium text while preserving a natural return to the sequence. In keeping with “say the black, do the red,” spoken prayer text should remain plain rather than being italicized as a rubric. Prayer, rubric, and note blocks still use the shared liturgical renderer, so future line-opening `V.` and `R.` markers remain purple automatically.
 
 ## Add a Little Office
 
