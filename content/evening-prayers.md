@@ -12,19 +12,19 @@ Eternal Father, I offer Thee the Sacred Heart of Jesus, with all Its Love, all I
 
 all the sins I have committed this day, and during all my life.
 
-*Glory be to the Father, etc.*
+Glory be to the Father, etc.
 
 ### To purify
 
 the good I have done in my poor way this day, and during all my life.
 
-*Glory be to the Father, etc.*
+Glory be to the Father, etc.
 
 ### To make up
 
 for the good I ought to have done and that I have neglected this day and during all my life.
 
-*Glory be to the Father, etc.*
+Glory be to the Father, etc.
 
 > A cloistered nun, who had just died, appeared to her superioress, who was praying for her, and said: “I went straight to Heaven, for, by means of this prayer, recited every evening, I paid my debts.”
 
@@ -40,4 +40,6 @@ Eternal Father, we offer Thee the most Precious Blood of Jesus, shed for us with
 
 > The source records: “100 days’ indulgence.”
 
-> The source adds: “The wise Christian, at evening prayer, will include prayers for the ‘Grace of a happy death’; see page 344.”
+> The source adds: “The wise Christian, at evening prayer, will include prayers for the ‘Grace of a happy death.’”
+
+[Recite the Prayer for a Happy Death.](?text=prayer-for-a-happy-death)
