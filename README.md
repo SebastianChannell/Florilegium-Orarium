@@ -6,7 +6,7 @@ The site is deliberately static: the texts live in this repository, the search r
 
 ## Add a text
 
-Create a Markdown file in `content/`. Keep the body as the prayer or hymn alone, without a translation or commentary.
+Create a Markdown file in `content/`. Keep the body as the prayer or hymn alone, without commentary. A normal entry contains one language; the bilingual Little Office pattern is described below.
 
 ```md
 ---
@@ -30,6 +30,37 @@ Required fields:
 `search` is an optional comma-separated list for alternate titles, secondary devotions, and useful subjects. The title, primary devotion, and complete text are searched automatically, and the contents of `search` never appear on the reading page.
 
 Begin each liturgical versicle and response on its own line with `V.` or `R.`. The reader automatically displays those markers in the established purple (`#8451CF`) for every current and future text; no HTML or other formatting is needed in the content file.
+
+## Add a structured prayer sequence
+
+Use `layout: devotional` when one index entry contains several prayers, intentions, or short notes that should be read as a single sequence. The body remains readable Markdown:
+
+```md
+---
+id: evening-prayers
+title: Evening Prayers
+type: prayer
+devotion: Sacred Heart of Jesus
+layout: devotional
+---
+Eternal Father, I offer Thee all the works of this day.
+
+### First intention
+
+The prayer text.
+
+*A short recitation direction or refrain.*
+
+> A quiet note retained from the source prayer book.
+
+[Recite the Act of Contrition.](?text=act-of-contrition)
+
+## A second prayer
+
+The prayer text.
+```
+
+Second-level headings mark major prayers; third-level headings mark intentions or smaller divisions. Italic-only paragraphs are rendered as red rubrics, blockquotes as subdued pilcrow notes, and `?text=` links open another Orarium text while preserving a natural return to the sequence. Prayer, rubric, and note blocks still use the shared liturgical renderer, so future line-opening `V.` and `R.` markers remain purple automatically.
 
 ## Add a Little Office
 
@@ -60,6 +91,34 @@ search: Matutinum
 ---
 The complete text for Matins.
 ```
+
+For a side-by-side Latin and English Hour, add `layout: parallel` and write its sections as two-column Markdown tables:
+
+```md
+---
+id: little-office-example-matins
+title: Little Office Example — Matins
+type: prayer
+devotion: Example Devotion
+parent: little-office-example
+hour: Matins
+layout: parallel
+---
+## Hymnus — Hymn
+
+| Latin | English |
+|---|---|
+| V. Deus in adjutorium meum intende. | V. O God, come to my assistance. |
+| R. Domine, ad adjuvandum me festina. | R. O Lord, make haste to help me. |
+
+| Latin | English |
+|---|---|
+| *A Septuagesima usque ad Pascha, loco Alleluia, dicitur:* | *From Septuagesima until Easter, instead of Alleluia, say:* |
+```
+
+The reader keeps both columns together on desktop and mobile. A heading separated by an em dash, such as `## Hymnus — Hymn`, is placed into matching Latin and English columns. Headings use the red, bold, italic Office hierarchy; named table headings such as `Absolutio` / `Absolution` are retained as paired subheadings.
+
+Put recitation directions and seasonal rubrics in italics on both sides of the table, as in the example above. They render in liturgical red. `Ant.` labels and cross symbols receive the same red treatment automatically, while every line-opening `V.` and `R.` remains in the established purple (`#8451CF`). These rules are shared by every current and future bilingual Little Office Hour.
 
 The build verifies both sides of every parent/child relationship. Hour pages remain directly linkable and searchable, but only their parent appears in the main index.
 

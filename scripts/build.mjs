@@ -9,6 +9,8 @@ import {
 } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { parseDevotionalText } from "../public/devotional-text.js";
+import { parseParallelText } from "../public/parallel-text.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const contentDirectory = join(root, "content");
@@ -60,6 +62,10 @@ function parseTextFile(filename) {
     throw new Error(`${filename}: type must be “prayer” or “hymn”`);
   }
 
+  if (metadata.layout && !new Set(["devotional", "parallel"]).has(metadata.layout)) {
+    throw new Error(`${filename}: layout must be “devotional” or “parallel” when provided`);
+  }
+
   const children = splitList(metadata.children);
   const text = match[2].trim();
   if (!text && children.length === 0) {
@@ -74,6 +80,27 @@ function parseTextFile(filename) {
     throw new Error(`${filename}: parent and hour must be provided together`);
   }
 
+  if (metadata.layout === "parallel") {
+    const blocks = parseParallelText(text);
+    const pairs = blocks.filter((block) => block.type === "pair");
+    if (pairs.length === 0) {
+      throw new Error(`${filename}: parallel layout requires a Latin and English table`);
+    }
+    if (blocks.some((block) => block.type === "note")) {
+      throw new Error(`${filename}: text outside a parallel table must be a heading`);
+    }
+    if (pairs.some((pair) => !pair.latin || !pair.english)) {
+      throw new Error(`${filename}: every parallel row requires both Latin and English`);
+    }
+  }
+
+  if (metadata.layout === "devotional") {
+    const blocks = parseDevotionalText(text);
+    if (blocks.length === 0 || blocks.every((block) => block.type !== "paragraph")) {
+      throw new Error(`${filename}: devotional layout requires prayer text`);
+    }
+  }
+
   return {
     id: metadata.id,
     title: metadata.title,
@@ -81,6 +108,7 @@ function parseTextFile(filename) {
     devotion: metadata.devotion,
     search: splitList(metadata.search),
     text,
+    ...(metadata.layout ? { layout: metadata.layout } : {}),
     ...(metadata.parent ? { parent: metadata.parent, hour: metadata.hour } : {}),
     ...(children.length > 0 ? { children } : {}),
   };
@@ -109,6 +137,14 @@ for (const item of items) {
 
 const itemsById = new Map(items.map((item) => [item.id, item]));
 for (const item of items) {
+  if (item.layout === "devotional") {
+    for (const block of parseDevotionalText(item.text)) {
+      if (block.type === "link" && !itemsById.has(block.item)) {
+        throw new Error(`${item.id}: unknown linked text id “${block.item}”`);
+      }
+    }
+  }
+
   if (item.children) {
     if (new Set(item.children).size !== item.children.length) {
       throw new Error(`${item.id}: children must not contain duplicate ids`);

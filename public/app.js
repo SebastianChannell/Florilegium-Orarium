@@ -1,5 +1,7 @@
 import { browseLibrary, groupByDevotion, prepareLibrary, searchLibrary } from "./search.js";
+import { parseDevotionalText } from "./devotional-text.js";
 import { splitLiturgicalText } from "./liturgical-text.js";
+import { parseParallelText, splitParallelHeading } from "./parallel-text.js";
 
 const elements = {
   backButton: document.querySelector("#back-button"),
@@ -173,22 +175,145 @@ function makeOfficeHour(child) {
   return listItem;
 }
 
-function renderReaderText(text) {
-  const nodes = splitLiturgicalText(text).map((part) => {
-    if (!part.marker) return document.createTextNode(part.text);
+function makeLiturgicalNodes(text) {
+  return splitLiturgicalText(text).map((part) => {
+    if (part.kind === "text") return document.createTextNode(part.text);
 
-    const marker = document.createElement("span");
-    marker.className = "liturgical-marker";
-    marker.textContent = part.text;
-    return marker;
+    const token = document.createElement("span");
+    token.className = `liturgical-${part.kind}`;
+    token.textContent = part.text;
+    return token;
+  });
+}
+
+function makeParallelCell(text, language) {
+  const cell = document.createElement("div");
+  cell.className = "parallel-cell";
+  cell.lang = language;
+  cell.append(...makeLiturgicalNodes(text));
+  return cell;
+}
+
+function renderParallelText(text) {
+  const languageRow = document.createElement("div");
+  languageRow.className = "parallel-language-row";
+
+  const latinLabel = document.createElement("span");
+  latinLabel.lang = "la";
+  latinLabel.textContent = "Latin";
+
+  const englishLabel = document.createElement("span");
+  englishLabel.lang = "en";
+  englishLabel.textContent = "English";
+
+  languageRow.append(latinLabel, englishLabel);
+
+  const blocks = parseParallelText(text).map((block) => {
+    if (block.type === "heading") {
+      const heading = document.createElement("div");
+      heading.className = `parallel-heading parallel-heading-${block.level}`;
+      heading.setAttribute("role", "heading");
+      heading.setAttribute("aria-level", String(Math.min(block.level, 6)));
+
+      const parts = splitParallelHeading(block.text);
+      if (parts.latin && parts.english) {
+        heading.classList.add("is-paired");
+
+        const latin = document.createElement("span");
+        latin.lang = "la";
+        latin.textContent = parts.latin;
+
+        const english = document.createElement("span");
+        english.lang = "en";
+        english.textContent = parts.english;
+
+        heading.append(latin, english);
+      } else {
+        heading.textContent = parts.text;
+      }
+      return heading;
+    }
+
+    if (block.type === "pair") {
+      const row = document.createElement("div");
+      row.className = `parallel-pair parallel-${block.kind}`;
+      row.append(
+        makeParallelCell(block.latin, "la"),
+        makeParallelCell(block.english, "en"),
+      );
+      return row;
+    }
+
+    const note = document.createElement("div");
+    note.className = "parallel-note";
+    note.append(...makeLiturgicalNodes(block.text));
+    return note;
   });
 
-  elements.readerText.replaceChildren(...nodes);
+  elements.readerText.replaceChildren(languageRow, ...blocks);
+}
+
+function makeDevotionalBlock(block) {
+  if (block.type === "heading") {
+    const heading = document.createElement(`h${block.level}`);
+    heading.className = `devotional-heading devotional-heading-${block.level}`;
+    heading.textContent = block.text;
+    return heading;
+  }
+
+  if (block.type === "link") {
+    const link = document.createElement("a");
+    link.className = "devotional-link";
+    link.href = pageUrl({ item: block.item });
+    link.dataset.devotionalItemId = block.item;
+
+    const arrow = document.createElement("span");
+    arrow.className = "devotional-link-arrow";
+    arrow.setAttribute("aria-hidden", "true");
+    arrow.textContent = "→";
+
+    const label = document.createElement("span");
+    label.textContent = block.text;
+    link.append(arrow, label);
+    return link;
+  }
+
+  const element = document.createElement(block.type === "note" ? "aside" : "p");
+  element.className = `devotional-${block.type}`;
+  element.append(...makeLiturgicalNodes(block.text));
+  return element;
+}
+
+function renderDevotionalText(text) {
+  elements.readerText.replaceChildren(...parseDevotionalText(text).map(makeDevotionalBlock));
+}
+
+function renderReaderText(item) {
+  const isParallel = item.layout === "parallel";
+  const isDevotional = item.layout === "devotional";
+  const isOffice = isParallel && Boolean(item.parent);
+  elements.readerText.classList.toggle("is-parallel", isParallel);
+  elements.readerText.classList.toggle("is-devotional", isDevotional);
+  elements.readerText.classList.toggle("is-office", isOffice);
+  elements.readerView.classList.toggle("is-office", isOffice);
+
+  if (isParallel) {
+    renderParallelText(item.text);
+    return;
+  }
+
+  if (isDevotional) {
+    renderDevotionalText(item.text);
+    return;
+  }
+
+  elements.readerText.replaceChildren(...makeLiturgicalNodes(item.text));
 }
 
 function openReader(item, {
   entryRoot = false,
   fromOffice = false,
+  fromItem = null,
   push = true,
   replace = false,
 } = {}) {
@@ -199,7 +324,7 @@ function openReader(item, {
 
   state.currentItem = item;
   elements.readerTitle.textContent = item.title;
-  renderReaderText(item.text);
+  renderReaderText(item);
   elements.readerText.hidden = !item.text;
 
   const children = (item.children ?? [])
@@ -213,10 +338,21 @@ function openReader(item, {
   const parent = item.parent
     ? state.items.find((candidate) => candidate.id === item.parent)
     : null;
-  elements.backButton.textContent = parent ? "← Office Hours" : "← All texts";
+  const linkedFrom = fromItem
+    ? state.items.find((candidate) => candidate.id === fromItem)
+    : null;
+  elements.backButton.textContent = parent
+    ? "← Office Hours"
+    : linkedFrom
+      ? `← ${linkedFrom.title}`
+      : "← All texts";
   elements.backButton.setAttribute(
     "aria-label",
-    parent ? `Back to ${parent.title}` : "Back to all texts",
+    parent
+      ? `Back to ${parent.title}`
+      : linkedFrom
+        ? `Back to ${linkedFrom.title}`
+        : "Back to all texts",
   );
   elements.browseView.hidden = true;
   elements.readerView.hidden = false;
@@ -227,6 +363,7 @@ function openReader(item, {
     item: item.id,
     ...(entryRoot ? { entryRoot: true } : {}),
     ...(fromOffice ? { fromOffice: true } : {}),
+    ...(linkedFrom ? { fromItem: linkedFrom.id } : {}),
   };
   if (push) {
     history.pushState(historyState, "", pageUrl({ item: item.id }));
@@ -258,7 +395,10 @@ function readLocation() {
 
   const selectedId = params.get("text");
   if (selectedId) {
-    openReader(state.items.find((item) => item.id === selectedId), { push: false });
+    openReader(state.items.find((item) => item.id === selectedId), {
+      fromItem: history.state?.fromItem,
+      push: false,
+    });
   } else {
     renderList();
   }
@@ -314,6 +454,15 @@ elements.officeHours.addEventListener("click", (event) => {
   );
 });
 
+elements.readerText.addEventListener("click", (event) => {
+  const link = event.target.closest("[data-devotional-item-id]");
+  if (!link || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+  event.preventDefault();
+  const target = state.items.find((item) => item.id === link.dataset.devotionalItemId);
+  if (!target) return;
+  openReader(target, { fromItem: state.currentItem?.id });
+});
+
 elements.backButton.addEventListener("click", () => {
   if (state.currentItem?.parent) {
     if (history.state?.fromOffice) {
@@ -327,6 +476,8 @@ elements.backButton.addEventListener("click", () => {
       push: false,
       replace: true,
     });
+  } else if (history.state?.fromItem) {
+    history.back();
   } else if (history.state?.view === "reader" && !history.state?.entryRoot) {
     history.back();
   } else {

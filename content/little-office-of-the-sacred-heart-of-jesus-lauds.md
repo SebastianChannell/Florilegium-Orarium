@@ -5,47 +5,41 @@ type: prayer
 devotion: Sacred Heart of Jesus
 parent: little-office-of-the-sacred-heart-of-jesus
 hour: Lauds
-search: Little Office, Heart of Jesus, Lauds, Laudes
+layout: parallel
+search: Little Office, Heart of Jesus, Latin, English, Lauds, Laudes
 ---
-V. O God, ☩ come to my assistance.
-R. O Lord, make haste to help me.
+## Ordinarium — Ordinary
 
-V. Glory be to the Father, and to the Son, and to the Holy Ghost,
-R. As it was in the beginning, is now, and ever shall be, world without end. Amen. Alleluia.
+| Latin | English |
+|---|---|
+| V. Deus, ☩ in adjutorium meum intende. | V. O God, ☩ come to my assistance. |
+| R. Domine, ad adjuvandum me festina. | R. O Lord, make haste to help me. |
+| V. Gloria Patri, et Filio, et Spiritui Sancto. | V. Glory be to the Father, and to the Son, and to the Holy Ghost. |
+| R. Sicut erat in principio, et nunc, et semper, et in sæcula sæculorum. Amen. Alleluia. | R. As it was in the beginning, is now, and ever shall be, world without end. Amen. Alleluia. |
+| A Septuagesima usque ad Pascha, loco Alleluia, dicitur: | From Septuagesima until Easter, instead of Alleluia, say: |
+| Laus tibi, Domine, Rex æternæ gloriæ. | Praise be to Thee, O Lord, King of everlasting glory. |
 
-From Septuagesima till Paschal time, instead of Alleluia, is said:
-Praise be to Thee, O Lord, King of eternal glory.
+| Latin | English |
+|---|---|
+| V. Cor Iesu, flagrans amore nostri. | V. Heart of Jesus, inflamed with love of us. |
+| R. Inflamma cor nostrum amore tui. | R. Inflame our hearts with love of Thee. |
 
-V. Heart of Jesus, inflamed with love of us,
-R. Inflame our hearts with love of thee.
+## Hymnus — Hymn
 
-Hymn
+| Latin | English |
+|---|---|
+| Cor digna sedes Numine,<br>te sacra virtus Flaminis,<br>illapsa in alvum Virginis,<br>puro creavit sanguine.<br><br>Tu Trinitatis gloria,<br>in te Patris sunt gaudia,<br>iungit tibi se Filius,<br>in te quiescit Spiritus.<br><br>Orbi salus tu perdito,<br>secura pax fidelium,<br>puris asylum mentibus,<br>castis recessus cordibus.<br><br>Cor Iesu, o melle dulcius,<br>puris amicum mentibus,<br>puris amandum cordibus,<br>in corde regnes omnium. Amen. | O Heart, the Godhead’s worthy throne,<br>Thee did the Spirit’s power create,<br>In Mary’s womb immaculate,—<br>The Virgin Mother’s holy One.<br><br>Praised is through thee the Trinity;<br>Thou art the Father’s bliss; the Son<br>Hath knit thee with Himself in one;<br>And rests the Holy Ghost in thee.<br><br>In thee the wrecked world safety finds,<br>And faithful souls their peace secure,<br>A cloister too, where chaste and pure<br>Serenely rest their hearts and minds.<br><br>Sweeter art thou than honey stored;<br>O Sacred Heart, to thee are dear<br>Pure minds, to thee pure hearts draw near.<br>Be thou by every heart adored. Amen. |
 
-O Heart, the Godhead’s worthy throne,
-Thee did the Spirit’s power create,
-In Mary’s womb immaculate,—
-The Virgin Mother’s holy One.
+## Antiphona — Antiphon
 
-Praised is through thee the Trinity;
-Thou art the Father’s bliss; the Son
-Hath knit thee with Himself in one;
-And rests the Holy Ghost in thee.
+| Latin | English |
+|---|---|
+| Ant. O sacrum Cor Iesu, salutis nostræ sitientissimum, revoca nos prævaricatores ad Cor, ut non moriamur in peccatis nostris. | Ant. O Sacred Heart of Jesus, thirsting for our salvation, recall us faithless wanderers to a right mind, that we may not die in our sins. |
 
-In thee the wrecked world safety finds,
-And faithful souls their peace secure,
-A cloister too, where chaste and pure
-Serenely rest their hearts and minds.
+## Conclusio Horæ — Conclusion of the Hour
 
-Sweeter art thou than honey stored;
-O Sacred Heart, to thee are dear
-Pure minds, to thee pure hearts draw near.
-Be thou by every heart adored. Amen.
-
-Ant. O Sacred Heart of Jesus, thirsting for our salvation, recall us faithless wanderers to a right mind, that we may not die in our sins.
-
-V. My heart is ready, O God of my heart, to do Thy will.
-R. My God, I have willed it, that Thy law be ever in the midst of my heart.
-
-Let us pray.
-
-O Lord Jesus, Who hast deigned to open to the Church, Thy spouse, the unspeakable delights and riches of Thy Heart; grant that we, Thy servants, may be worthy to be enriched and refreshed with the heavenly graces springing from this sweetest source. Who livest and reignest world without end. Amen.
+| Latin | English |
+|---|---|
+| V. Paratum cor meum, Deus cordis mei, ut faciam voluntatem tuam. | V. My heart is ready, O God of my heart, to do Thy will. |
+| R. Deus meus, volui, et legem tuam in medio cordis mei. | R. My God, I have willed it, that Thy law be ever in the midst of my heart. |
+| Domine Iesu, qui ineffabiles Cordis tui dulcedines ac divitias Ecclesiæ, Sponsæ tuæ, singulari dilectione aperire dignatus es: concede nobis famulis tuis, ut gratiis cælestibus ex hoc dulcissimo fonte manantibus ditari et recreari mereamur. Qui vivis et regnas in sæcula sæculorum. Amen. | O Lord Jesus, Who hast deigned to open to the Church, Thy spouse, the unspeakable delights and riches of Thy Heart; grant that we, Thy servants, may be worthy to be enriched and refreshed with the heavenly graces springing from this sweetest source. Who livest and reignest world without end. Amen. |

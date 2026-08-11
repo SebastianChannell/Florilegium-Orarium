@@ -7,6 +7,8 @@
   --faint: #6f6964;
   --line: #292424;
   --accent: #8451CF;
+  --rubric: #D06E6E;
+  --rubric-line: rgba(208, 110, 110, 0.22);
   --serif: Georgia, "Times New Roman", serif;
   --sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
@@ -289,6 +291,7 @@ a {
 .devotion-filter summary:focus-visible,
 .devotion-clear:focus-visible,
 .back-button:focus-visible,
+.devotional-link:focus-visible,
 .index-heading:focus-visible,
 .office-hour-link:focus-visible,
 .result-link:focus-visible,
@@ -445,6 +448,13 @@ a {
   outline: none;
 }
 
+.reader.is-office h1 {
+  color: var(--rubric);
+  font-size: clamp(1.35rem, 5vw, 1.75rem);
+  font-style: italic;
+  font-weight: 700;
+}
+
 .office-hours {
   margin-top: 1.75rem;
 }
@@ -494,6 +504,194 @@ a {
 
 .liturgical-marker {
   color: var(--accent);
+  font-style: italic;
+  font-weight: 700;
+}
+
+.liturgical-label,
+.liturgical-cross {
+  color: var(--rubric);
+  font-style: italic;
+  font-weight: 700;
+}
+
+.reader-text.is-devotional {
+  line-height: 1.75;
+  white-space: normal;
+}
+
+.devotional-paragraph {
+  margin: 0 0 1.05rem;
+  white-space: pre-wrap;
+}
+
+.devotional-heading {
+  color: var(--rubric);
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.devotional-heading-2 {
+  margin: 2.15rem 0 0.85rem;
+  font-size: 1.12rem;
+  text-align: center;
+}
+
+.devotional-heading-3 {
+  margin: 1.35rem 0 0.15rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.devotional-rubric {
+  margin: -0.35rem 0 1.2rem;
+  color: var(--rubric);
+  font-size: 0.82em;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.devotional-note {
+  display: grid;
+  grid-template-columns: 0.8rem minmax(0, 1fr);
+  column-gap: 0.35rem;
+  margin: 1.2rem 0;
+  color: var(--muted);
+  font-size: 0.76em;
+  font-style: italic;
+  line-height: 1.55;
+}
+
+.devotional-note::before {
+  color: var(--rubric);
+  content: "¶";
+  font-style: normal;
+  font-weight: 700;
+}
+
+.devotional-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin: 0.25rem 0 1.1rem;
+  border-radius: 0.2rem;
+  color: var(--text);
+  font-size: 0.86em;
+  font-style: italic;
+  text-decoration: none;
+}
+
+.devotional-link:hover span:last-child {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 0.2em;
+}
+
+.devotional-link-arrow {
+  color: var(--accent);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.reader-text.is-parallel {
+  font-size: clamp(1.02rem, 3.8vw, 1.18rem);
+  line-height: 1.72;
+  white-space: normal;
+}
+
+.parallel-language-row,
+.parallel-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 1.5rem;
+}
+
+.parallel-language-row {
+  margin-bottom: 0.9rem;
+  color: var(--accent);
+  font-family: var(--sans);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.parallel-heading {
+  margin: 1.85rem 0 0.6rem;
+  color: var(--rubric);
+  font-family: var(--serif);
+  font-size: 1.12rem;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.parallel-heading.is-paired {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 1.5rem;
+  text-align: left;
+}
+
+.parallel-heading-3,
+.parallel-heading-4 {
+  margin-top: 1.45rem;
+  color: var(--rubric);
+  font-family: var(--serif);
+  font-size: 0.98rem;
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.parallel-pair + .parallel-pair {
+  margin-top: 0.55rem;
+}
+
+.parallel-cell {
+  min-width: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.parallel-subheading {
+  margin-top: 1.2rem;
+  color: var(--rubric);
+  font-family: var(--serif);
+  font-size: 0.9rem;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.parallel-rubric {
+  margin: 0.7rem 0;
+  color: var(--rubric);
+  font-size: 0.86em;
+  font-style: italic;
+  line-height: 1.45;
+}
+
+.parallel-note {
+  margin: 1rem 0;
+  color: var(--rubric);
+  font-family: var(--serif);
+  font-size: 0.86rem;
+  font-style: italic;
+  line-height: 1.55;
+  text-align: center;
+  white-space: pre-wrap;
+}
+
+.reader-text.is-office .parallel-pair > .parallel-cell:nth-child(2),
+.reader-text.is-office .parallel-heading.is-paired > span:nth-child(2) {
+  border-left: 1px solid var(--rubric-line);
+  padding-left: 0.75rem;
 }
 
 .site-footer {
@@ -571,6 +769,17 @@ a {
   .index-entries,
   .office-hours-list {
     grid-template-columns: 1fr;
+  }
+
+  .parallel-language-row,
+  .parallel-pair,
+  .parallel-heading.is-paired {
+    column-gap: 0.75rem;
+  }
+
+  .reader-text.is-office .parallel-pair > .parallel-cell:nth-child(2),
+  .reader-text.is-office .parallel-heading.is-paired > span:nth-child(2) {
+    padding-left: 0.5rem;
   }
 }
 
