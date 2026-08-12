@@ -36,7 +36,7 @@ Eternal Father, we offer Thee the most Precious Blood of Jesus, shed for us with
 
 “May the blessing of God Almighty, Father and Son and Holy Ghost, descend upon us and remain forever. Amen.”
 
-*Our Father, Hail Mary, Glory.*
+Our Father, Hail Mary, Glory.
 
 > The source records: “100 days’ indulgence.”
 
