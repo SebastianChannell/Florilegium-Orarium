@@ -4,6 +4,7 @@ title: Aspiration of St. Clare
 type: prayer
 devotion: Spiritual Warfare
 search: aspiration, clare
+layout: devotional
 ---
 Deliver not to beasts, O Lord, the souls of those who confess to Thee.
 
