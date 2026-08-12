@@ -53,6 +53,28 @@ test("the photographed Evening Prayers are retained as one structured entry", ()
   );
 });
 
+test("the photographed Morning Prayer is retained as one structured entry", () => {
+  const source = readFileSync(new URL("../content/morning-prayer.md", import.meta.url), "utf8");
+  const body = source.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, "");
+  const blocks = parseDevotionalText(body);
+
+  assert.match(source, /^devotion: Sacred Heart of Jesus$/m);
+  assert.match(source, /^layout: devotional$/m);
+  assert.match(body, /through the Immaculate Heart of Mary/);
+  assert.match(body, /I renew my baptismal vows/);
+  assert.match(body, /I take Jesus Christ for my Model and my Guide/);
+  assert.deepEqual(blocks.map((block) => block.type), [
+    "rubric",
+    "paragraph",
+    "paragraph",
+    "rubric",
+  ]);
+  assert.deepEqual(
+    blocks.filter((block) => block.type === "rubric").map((block) => block.text),
+    ["Bless yourself on rising.", "Our Father, Hail Mary, Glory, etc."],
+  );
+});
+
 test("the linked Prayer for a Happy Death retains the three invocations", () => {
   const source = readFileSync(
     new URL("../content/prayer-for-a-happy-death.md", import.meta.url),
