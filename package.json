@@ -7,6 +7,7 @@
     "build": "node scripts/build.mjs",
     "check": "npm run build && node --test",
     "dev": "npm run build && node scripts/serve.mjs",
+    "translate:spanish": "node scripts/translate-spanish.mjs",
     "translations:check": "node scripts/spanish-audit.mjs"
   },
   "engines": {

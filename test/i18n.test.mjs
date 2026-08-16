@@ -7,13 +7,14 @@ import { splitLiturgicalText } from "../public/liturgical-text.js";
 import { parseParallelText } from "../public/parallel-text.js";
 import { browseLibrary, groupByDevotion, prepareLibrary, searchLibrary } from "../public/search.js";
 import { parallelHeadingsEs, parallelTextEs, textEs } from "../translations/es.mjs";
+import { loadGeneratedTranslations } from "../scripts/spanish-translation-data.mjs";
 
 const library = JSON.parse(
   readFileSync(new URL("../dist/library.json", import.meta.url), "utf8"),
 ).items;
 
 test("every text has complete Spanish display metadata", () => {
-  assert.equal(library.length, 99);
+  assert.ok(library.length >= 99);
 
   for (const item of library) {
     const spanish = item.translations?.es;
@@ -30,8 +31,10 @@ test("every text has complete Spanish display metadata", () => {
 
 test("every non-Latin reading text has a structurally complete Spanish body", () => {
   const translatedItems = library.filter((item) => item.language && item.language !== "la");
-  assert.equal(translatedItems.length, 21);
-  assert.equal(Object.keys(textEs).length, translatedItems.length);
+  const generated = loadGeneratedTranslations(new URL("../translations/es/", import.meta.url).pathname);
+  const translatedIds = new Set([...Object.keys(textEs), ...generated.keys()]);
+  assert.ok(translatedItems.length >= 21);
+  assert.equal(translatedIds.size, translatedItems.length);
 
   for (const item of translatedItems) {
     const spanish = item.translations.es.text;

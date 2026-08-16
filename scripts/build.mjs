@@ -11,18 +11,21 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseDevotionalText } from "../public/devotional-text.js";
 import { parseParallelText, splitParallelHeading } from "../public/parallel-text.js";
+import { loadGeneratedTranslations, sourceFingerprint } from "./spanish-translation-data.mjs";
 import {
   devotionsEs,
   hoursEs,
   parallelHeadingsEs,
   parallelTextEs,
   searchEs,
+  sourceHashesEs,
   textEs,
   titlesEs,
 } from "../translations/es.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const contentDirectory = join(root, "content");
+const generatedTranslationsDirectory = join(root, "translations", "es");
 const publicDirectory = join(root, "public");
 const outputDirectory = join(root, "dist");
 
@@ -212,6 +215,7 @@ for (const item of items) {
 }
 
 const itemsById = new Map(items.map((item) => [item.id, item]));
+const generatedTranslations = loadGeneratedTranslations(generatedTranslationsDirectory);
 for (const item of items) {
   if (item.layout === "devotional") {
     for (const block of parseDevotionalText(item.text)) {
@@ -247,13 +251,32 @@ for (const item of items) {
   }
 }
 
-for (const collection of [titlesEs, searchEs, textEs]) {
+for (const collection of [titlesEs, searchEs, textEs, sourceHashesEs]) {
   for (const id of Object.keys(collection)) {
     if (!itemsById.has(id)) throw new Error(`Spanish translation references unknown id “${id}”`);
   }
 }
 
+for (const [id, generated] of generatedTranslations) {
+  const item = itemsById.get(id);
+  if (!item) throw new Error(`${generated.filename}: generated translation references unknown id “${id}”`);
+  if (!item.language || item.language === "la" || item.layout === "parallel") {
+    throw new Error(`${generated.filename}: generated body translations are only for non-Latin reading texts`);
+  }
+  const fingerprint = sourceFingerprint(item);
+  if (generated.sourceHash !== fingerprint) {
+    throw new Error(`${generated.filename}: Spanish translation is stale; regenerate it from the current source`);
+  }
+}
+
+const curatedIds = Object.keys(textEs).sort();
+const fingerprintIds = Object.keys(sourceHashesEs).sort();
+if (JSON.stringify(curatedIds) !== JSON.stringify(fingerprintIds)) {
+  throw new Error("Every curated Spanish body must have exactly one source fingerprint");
+}
+
 for (const item of items) {
+  const generated = generatedTranslations.get(item.id);
   const devotion = devotionsEs[item.devotion];
   if (!devotion) throw new Error(`${item.id}: missing Spanish devotion “${item.devotion}”`);
 
@@ -265,21 +288,25 @@ for (const item of items) {
 
   const title = item.parent
     ? `${parentTitle} — ${hour}`
-    : titlesEs[item.id] ?? item.title;
+    : generated?.title ?? titlesEs[item.id] ?? item.title;
   const translation = {
     title,
     devotion,
-    search: [...item.search, ...(searchEs[item.id] ?? [])],
+    search: [...item.search, ...(generated?.search ?? searchEs[item.id] ?? [])],
     ...(hour ? { hour } : {}),
   };
 
   if (item.layout === "parallel") {
     translation.text = translateParallelText(item);
   } else if (item.language && item.language !== "la") {
-    if (!Object.hasOwn(textEs, item.id)) {
+    const translatedText = generated?.text ?? textEs[item.id];
+    if (!translatedText) {
       throw new Error(`${item.id}: non-Latin source text requires a complete Spanish translation`);
     }
-    translation.text = textEs[item.id].trim();
+    if (!generated && sourceHashesEs[item.id] !== sourceFingerprint(item)) {
+      throw new Error(`${item.id}: curated Spanish translation is stale; regenerate it from the current source`);
+    }
+    translation.text = translatedText.trim();
     if (!translation.text) throw new Error(`${item.id}: Spanish translation cannot be empty`);
 
     if (item.layout === "devotional") {
