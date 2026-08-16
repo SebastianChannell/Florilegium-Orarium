@@ -4,6 +4,7 @@ title: Prayer Before Any Good Work
 type: prayer
 devotion: Our Lord Jesus Christ
 search: O Jesus sweet Jesus, work, duty, good intention, daily prayer
+language: en
 ---
 O Jesus, sweet Jesus, O Jesus divine,
 My life and my death unto Thee I resign.

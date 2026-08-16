@@ -4,6 +4,8 @@ A small, distraction-free collection of prayers and hymns for Sacrum Florilegium
 
 The site is deliberately static: the texts live in this repository, the search runs in the browser, and Cloudflare Pages serves the generated files. There is no database, account, analytics script, or R2 dependency.
 
+The header language control switches the complete interface between English and Spanish. The choice is saved on the device and is also represented by `?lang=es` in shareable URLs. Search covers both languages in either mode. Latin texts are never replaced; bilingual Little Offices switch between **Latin | English** and **Latin | Español**.
+
 ## Add a text
 
 Create a Markdown file in `content/`. Keep the body as the prayer or hymn alone, without commentary. A normal entry contains one language; the bilingual Little Office pattern is described below.
@@ -29,6 +31,8 @@ Required fields:
 
 `search` is an optional comma-separated list for alternate titles, secondary devotions, and useful subjects. The title, primary devotion, and complete text are searched automatically, and the contents of `search` never appear on the reading page.
 
+For any non-Latin body, add its BCP 47 language tag, such as `language: en` for English, `language: ga` for Irish, or `language: el-Latn` for transliterated Greek. The build then requires its full Spanish body in `textEs` within `translations/es.mjs`; this prevents a future non-Latin entry from silently falling back to its source language in Spanish mode. Add a Spanish title in `titlesEs`, useful alternate terms in `searchEs`, and any new devotion name in `devotionsEs`. Latin bodies omit `language` and remain unchanged in both modes.
+
 Begin each liturgical versicle and response on its own line with `V.` or `R.`. The reader automatically displays those markers in the established purple (`#8451CF`) for every current and future text; no HTML or other formatting is needed in the content file.
 
 ## Add a structured prayer sequence
@@ -41,6 +45,7 @@ id: evening-prayers
 title: Evening Prayers
 type: prayer
 devotion: Sacred Heart of Jesus
+language: en
 layout: devotional
 ---
 Eternal Father, I offer Thee all the works of this day.
@@ -117,6 +122,8 @@ layout: parallel
 ```
 
 The reader keeps both columns together on desktop and mobile. A heading separated by an em dash, such as `## Hymnus — Hymn`, is placed into matching Latin and English columns. Headings use the red, bold, italic Office hierarchy; named table headings such as `Absolutio` / `Absolution` are retained as paired subheadings.
+
+Spanish Office translations live in the shared `parallelHeadingsEs` and `parallelTextEs` maps in `translations/es.mjs`. The build reconstructs every Spanish Hour, verifies all paired rows, and rejects a translation if it changes the Latin column. Run `npm run translations:check` to list any English headings, rows, or complete reading texts that still need Spanish before building.
 
 Put recitation directions and seasonal rubrics in italics on both sides of the table, as in the example above. They render in liturgical red. `Ant.` labels and cross symbols receive the same red treatment automatically, while every line-opening `V.` and `R.` remains in the established purple (`#8451CF`). These rules are shared by every current and future bilingual Little Office Hour.
 

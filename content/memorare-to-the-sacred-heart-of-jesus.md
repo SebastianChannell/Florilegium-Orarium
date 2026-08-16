@@ -4,6 +4,7 @@ title: Memorare to the Sacred Heart of Jesus
 type: prayer
 devotion: Sacred Heart of Jesus
 search: Remember O most sweet Jesus, Divine Heart, mercy
+language: en
 ---
 Remember, O most sweet Jesus, that none who have had recourse to Thy Sacred Heart, implored its assistance, or called for mercy, have ever been abandoned.
 

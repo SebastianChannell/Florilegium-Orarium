@@ -4,6 +4,7 @@ title: Evening Prayers
 type: prayer
 devotion: Sacred Heart of Jesus
 search: bedtime, night, daily prayers, evening offering, good night blessing, Precious Blood, examination of conscience, grace of a happy death
+language: en
 layout: devotional
 ---
 Eternal Father, I offer Thee the Sacred Heart of Jesus, with all Its Love, all Its Sufferings and all Its Merits:

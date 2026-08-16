@@ -1,16 +1,25 @@
 import { browseLibrary, groupByDevotion, prepareLibrary, searchLibrary } from "./search.js";
 import { parseDevotionalText } from "./devotional-text.js";
+import { localizedField, localizedText, supportedLanguages, uiText } from "./i18n.js";
 import { splitLiturgicalText } from "./liturgical-text.js";
 import { parseParallelText, splitParallelHeading } from "./parallel-text.js";
 
 const elements = {
   backButton: document.querySelector("#back-button"),
   browseView: document.querySelector("#browse-view"),
+  browseHeading: document.querySelector("#browse-heading"),
   clearDevotions: document.querySelector("#clear-devotions"),
+  devotionsLabel: document.querySelector("#devotions-label"),
+  devotionsLegend: document.querySelector("#devotions-legend"),
   devotionOptions: document.querySelector("#devotion-options"),
   devotionSelection: document.querySelector("#devotion-selection"),
   filters: [...document.querySelectorAll("[data-filter]")],
+  homeLink: document.querySelector("#home-link"),
+  languageButtons: [...document.querySelectorAll("[data-language]")],
+  languageSwitch: document.querySelector("#language-switch"),
+  metaDescription: document.querySelector("#meta-description"),
   officeHours: document.querySelector("#office-hours"),
+  officeHoursLabel: document.querySelector("#office-hours-label"),
   officeHoursList: document.querySelector("#office-hours-list"),
   readerText: document.querySelector("#reader-text"),
   readerTitle: document.querySelector("#reader-title"),
@@ -19,14 +28,34 @@ const elements = {
   results: document.querySelector("#results"),
   searchForm: document.querySelector("#search-form"),
   searchInput: document.querySelector("#search-input"),
+  searchLabel: document.querySelector("#search-label"),
+  skipLink: document.querySelector("#skip-link"),
   statusMessage: document.querySelector("#status-message"),
+  typeFilters: document.querySelector("#type-filters"),
 };
+
+function preferredLanguage() {
+  const requested = new URLSearchParams(window.location.search).get("lang");
+  if (supportedLanguages.has(requested)) return requested;
+
+  try {
+    const stored = window.localStorage.getItem("orarium-language");
+    if (supportedLanguages.has(stored)) return stored;
+  } catch {
+    // Local storage may be unavailable in a private browsing context.
+  }
+
+  return navigator.languages?.some((language) => language.toLocaleLowerCase().startsWith("es"))
+    ? "es"
+    : "en";
+}
 
 const state = {
   currentItem: null,
   devotions: new Set(),
   filter: "all",
   items: [],
+  language: preferredLanguage(),
   query: "",
 };
 
@@ -38,6 +67,7 @@ function pageUrl({
 } = {}) {
   const url = new URL(window.location.href);
   url.search = "";
+  if (state.language !== "en") url.searchParams.set("lang", state.language);
   if (item) url.searchParams.set("text", item);
   if (query) url.searchParams.set("q", query);
   if (filter !== "all") url.searchParams.set("type", filter);
@@ -47,18 +77,50 @@ function pageUrl({
   return `${url.pathname}${url.search}`;
 }
 
+function updateInterfaceCopy() {
+  document.documentElement.lang = state.language;
+  elements.metaDescription.content = uiText(state.language, "description");
+  elements.skipLink.textContent = uiText(state.language, "skip");
+  elements.homeLink.setAttribute("aria-label", uiText(state.language, "home"));
+  elements.browseHeading.textContent = uiText(state.language, "title");
+  elements.searchLabel.textContent = uiText(state.language, "search");
+  elements.searchInput.placeholder = uiText(state.language, "searchPlaceholder");
+  elements.devotionsLabel.textContent = uiText(state.language, "devotions");
+  elements.devotionsLegend.textContent = uiText(state.language, "chooseDevotions");
+  elements.clearDevotions.textContent = uiText(state.language, "clearSelection");
+  elements.typeFilters.setAttribute("aria-label", uiText(state.language, "textType"));
+  elements.results.setAttribute("aria-label", uiText(state.language, "devotionalIndex"));
+  elements.officeHoursLabel.textContent = uiText(state.language, "hours");
+  elements.languageSwitch.setAttribute("aria-label", uiText(state.language, "language"));
+
+  const filterLabels = {
+    all: uiText(state.language, "all"),
+    prayer: uiText(state.language, "prayers"),
+    hymn: uiText(state.language, "hymns"),
+  };
+  for (const button of elements.filters) button.textContent = filterLabels[button.dataset.filter];
+
+  for (const button of elements.languageButtons) {
+    const active = button.dataset.language === state.language;
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-pressed", String(active));
+  }
+}
+
 function syncDevotionControls() {
   for (const checkbox of elements.devotionOptions.querySelectorAll("[data-devotion]")) {
     checkbox.checked = state.devotions.has(checkbox.value);
   }
 
   const count = state.devotions.size;
-  elements.devotionSelection.textContent = count === 0 ? "All" : `${count} selected`;
+  elements.devotionSelection.textContent = count === 0
+    ? uiText(state.language, "all")
+    : uiText(state.language, "selected", count);
   elements.clearDevotions.hidden = count === 0;
 }
 
 function buildDevotionOptions() {
-  const options = groupByDevotion(browseLibrary(state.items)).map(({ devotion }, index) => {
+  const options = groupByDevotion(browseLibrary(state.items), state.language).map(({ key, devotion }, index) => {
     const label = document.createElement("label");
     label.className = "devotion-option";
     label.htmlFor = `devotion-option-${index + 1}`;
@@ -67,8 +129,8 @@ function buildDevotionOptions() {
     checkbox.id = label.htmlFor;
     checkbox.type = "checkbox";
     checkbox.name = "devotion";
-    checkbox.value = devotion;
-    checkbox.dataset.devotion = devotion;
+    checkbox.value = key;
+    checkbox.dataset.devotion = key;
 
     const name = document.createElement("span");
     name.textContent = devotion;
@@ -92,7 +154,7 @@ function makeResult(item) {
 
   const title = document.createElement("span");
   title.className = "result-title";
-  title.textContent = item.title;
+  title.textContent = localizedField(item, "title", state.language);
 
   link.append(title);
   listItem.append(link);
@@ -115,7 +177,7 @@ function makeDevotionGroup({ devotion, items }, index, expanded) {
   const count = document.createElement("span");
   count.className = "index-count";
   count.textContent = String(items.length);
-  count.setAttribute("aria-label", `${items.length} ${items.length === 1 ? "text" : "texts"}`);
+  count.setAttribute("aria-label", uiText(state.language, "textCount", items.length));
 
   const list = document.createElement("ol");
   list.className = "index-entries";
@@ -133,19 +195,22 @@ function renderList() {
     state.query,
     state.filter,
     state.devotions,
+    state.language,
   );
-  const groups = groupByDevotion(matches);
+  const groups = groupByDevotion(matches, state.language);
   const expanded = Boolean(state.query);
   elements.results.replaceChildren(
     ...groups.map((group, index) => makeDevotionGroup(group, index, expanded)),
   );
-  elements.resultCount.textContent = `${matches.length} ${matches.length === 1 ? "text" : "texts"}`;
+  elements.resultCount.textContent = uiText(state.language, "textCount", matches.length);
   elements.statusMessage.hidden = matches.length !== 0;
   elements.statusMessage.textContent = state.query
-    ? `No text contains “${state.query}”.`
+    ? state.language === "es"
+      ? `Ningún texto contiene «${state.query}».`
+      : `No text contains “${state.query}”.`
     : state.devotions.size > 0 || state.filter !== "all"
-      ? "No texts match the selected filters."
-      : "No texts are available in this section.";
+      ? uiText(state.language, "noFilters")
+      : uiText(state.language, "noAvailable");
   elements.browseView.hidden = false;
   elements.readerView.hidden = true;
   document.title = "Orarium — Sacrum Florilegium";
@@ -159,7 +224,7 @@ function setFilter(filter, { updateUrl = true } = {}) {
     button.setAttribute("aria-pressed", String(active));
   }
   renderList();
-  if (updateUrl) history.replaceState({ view: "list" }, "", pageUrl());
+  if (updateUrl) history.replaceState({ view: "list", language: state.language }, "", pageUrl());
 }
 
 function makeOfficeHour(child) {
@@ -169,7 +234,7 @@ function makeOfficeHour(child) {
   link.className = "office-hour-link";
   link.href = pageUrl({ item: child.id });
   link.dataset.officeItemId = child.id;
-  link.textContent = child.hour;
+  link.textContent = localizedField(child, "hour", state.language);
 
   listItem.append(link);
   return listItem;
@@ -200,11 +265,11 @@ function renderParallelText(text) {
 
   const latinLabel = document.createElement("span");
   latinLabel.lang = "la";
-  latinLabel.textContent = "Latin";
+  latinLabel.textContent = uiText(state.language, "latin");
 
   const englishLabel = document.createElement("span");
-  englishLabel.lang = "en";
-  englishLabel.textContent = "English";
+  englishLabel.lang = state.language;
+  englishLabel.textContent = uiText(state.language, state.language === "es" ? "spanish" : "english");
 
   languageRow.append(latinLabel, englishLabel);
 
@@ -215,7 +280,7 @@ function renderParallelText(text) {
       heading.setAttribute("role", "heading");
       heading.setAttribute("aria-level", String(Math.min(block.level, 6)));
 
-      const parts = splitParallelHeading(block.text);
+      const parts = splitParallelHeading(block.text, state.language);
       if (parts.latin && parts.english) {
         heading.classList.add("is-paired");
 
@@ -224,7 +289,7 @@ function renderParallelText(text) {
         latin.textContent = parts.latin;
 
         const english = document.createElement("span");
-        english.lang = "en";
+        english.lang = state.language;
         english.textContent = parts.english;
 
         heading.append(latin, english);
@@ -239,7 +304,7 @@ function renderParallelText(text) {
       row.className = `parallel-pair parallel-${block.kind}`;
       row.append(
         makeParallelCell(block.latin, "la"),
-        makeParallelCell(block.english, "en"),
+        makeParallelCell(block.english, state.language),
       );
       return row;
     }
@@ -292,30 +357,34 @@ function renderReaderText(item) {
   const isParallel = item.layout === "parallel";
   const isDevotional = item.layout === "devotional";
   const isOffice = isParallel && Boolean(item.parent);
+  const hasLocalizedBody = Boolean(item.translations?.[state.language]?.text);
+  elements.readerText.lang = hasLocalizedBody ? state.language : item.language ?? "la";
   elements.readerText.classList.toggle("is-parallel", isParallel);
   elements.readerText.classList.toggle("is-devotional", isDevotional);
   elements.readerText.classList.toggle("is-office", isOffice);
   elements.readerView.classList.toggle("is-office", isOffice);
 
   if (isParallel) {
-    renderParallelText(item.text);
+    renderParallelText(localizedText(item, state.language));
     return;
   }
 
   if (isDevotional) {
-    renderDevotionalText(item.text);
+    renderDevotionalText(localizedText(item, state.language));
     return;
   }
 
-  elements.readerText.replaceChildren(...makeLiturgicalNodes(item.text));
+  elements.readerText.replaceChildren(...makeLiturgicalNodes(localizedText(item, state.language)));
 }
 
 function openReader(item, {
   entryRoot = false,
+  focus = true,
   fromOffice = false,
   fromItem = null,
   push = true,
   replace = false,
+  scroll = true,
 } = {}) {
   if (!item) {
     showBrowse({ replace: true });
@@ -323,7 +392,8 @@ function openReader(item, {
   }
 
   state.currentItem = item;
-  elements.readerTitle.textContent = item.title;
+  const itemTitle = localizedField(item, "title", state.language);
+  elements.readerTitle.textContent = itemTitle;
   renderReaderText(item);
   elements.readerText.hidden = !item.text;
 
@@ -332,7 +402,10 @@ function openReader(item, {
     .filter(Boolean);
   const isOfficeIndex = children.length > 0;
   elements.officeHours.hidden = !isOfficeIndex;
-  elements.officeHours.setAttribute("aria-label", `Hours of ${item.title}`);
+  elements.officeHours.setAttribute(
+    "aria-label",
+    state.language === "es" ? `Horas de ${itemTitle}` : `Hours of ${itemTitle}`,
+  );
   elements.officeHoursList.replaceChildren(...children.map(makeOfficeHour));
 
   const parent = item.parent
@@ -342,21 +415,27 @@ function openReader(item, {
     ? state.items.find((candidate) => candidate.id === fromItem)
     : null;
   elements.backButton.textContent = parent
-    ? "← Office Hours"
+    ? uiText(state.language, "backToOffice")
     : linkedFrom
-      ? `← ${linkedFrom.title}`
-      : "← All texts";
+      ? `← ${localizedField(linkedFrom, "title", state.language)}`
+      : uiText(state.language, "backToAll");
   elements.backButton.setAttribute(
     "aria-label",
     parent
-      ? `Back to ${parent.title}`
+      ? state.language === "es"
+        ? `Volver a ${localizedField(parent, "title", state.language)}`
+        : `Back to ${localizedField(parent, "title", state.language)}`
       : linkedFrom
-        ? `Back to ${linkedFrom.title}`
-        : "Back to all texts",
+        ? state.language === "es"
+          ? `Volver a ${localizedField(linkedFrom, "title", state.language)}`
+          : `Back to ${localizedField(linkedFrom, "title", state.language)}`
+        : state.language === "es"
+          ? "Volver a todos los textos"
+          : "Back to all texts",
   );
   elements.browseView.hidden = true;
   elements.readerView.hidden = false;
-  document.title = `${item.title} — Orarium`;
+  document.title = `${itemTitle} — Orarium`;
 
   const historyState = {
     view: "reader",
@@ -364,6 +443,7 @@ function openReader(item, {
     ...(entryRoot ? { entryRoot: true } : {}),
     ...(fromOffice ? { fromOffice: true } : {}),
     ...(linkedFrom ? { fromItem: linkedFrom.id } : {}),
+    language: state.language,
   };
   if (push) {
     history.pushState(historyState, "", pageUrl({ item: item.id }));
@@ -371,19 +451,69 @@ function openReader(item, {
     history.replaceState(historyState, "", pageUrl({ item: item.id }));
   }
 
-  window.scrollTo({ top: 0, behavior: "auto" });
-  elements.readerTitle.focus({ preventScroll: true });
+  if (scroll) window.scrollTo({ top: 0, behavior: "auto" });
+  if (focus) elements.readerTitle.focus({ preventScroll: true });
 }
 
 function showBrowse({ replace = false } = {}) {
   renderList();
   const method = replace ? "replaceState" : "pushState";
-  history[method]({ view: "list" }, "", pageUrl());
+  history[method]({ view: "list", language: state.language }, "", pageUrl());
   window.scrollTo({ top: 0, behavior: "auto" });
+}
+
+function rememberLanguage(language) {
+  try {
+    window.localStorage.setItem("orarium-language", language);
+  } catch {
+    // The URL still preserves the selected language when storage is unavailable.
+  }
+}
+
+function setLanguage(language, { updateUrl = true } = {}) {
+  if (!supportedLanguages.has(language)) return;
+  state.language = language;
+  rememberLanguage(language);
+  updateInterfaceCopy();
+  buildDevotionOptions();
+
+  if (state.currentItem) {
+    openReader(state.currentItem, {
+      entryRoot: Boolean(history.state?.entryRoot),
+      focus: false,
+      fromOffice: Boolean(history.state?.fromOffice),
+      fromItem: history.state?.fromItem,
+      push: false,
+      scroll: false,
+    });
+  } else {
+    renderList();
+  }
+
+  if (updateUrl) {
+    history.replaceState(
+      { ...history.state, language },
+      "",
+      pageUrl({ item: state.currentItem?.id }),
+    );
+  }
 }
 
 function readLocation() {
   const params = new URLSearchParams(window.location.search);
+  const requestedLanguage = params.get("lang");
+  const historyLanguage = history.state?.language;
+  const nextLanguage = supportedLanguages.has(requestedLanguage)
+    ? requestedLanguage
+    : supportedLanguages.has(historyLanguage)
+      ? historyLanguage
+      : state.language;
+  if (nextLanguage !== state.language) {
+    state.language = nextLanguage;
+    rememberLanguage(nextLanguage);
+    updateInterfaceCopy();
+    buildDevotionOptions();
+  }
   state.query = params.get("q") ?? "";
   const availableDevotions = new Set(state.items.map((item) => item.devotion));
   state.devotions = new Set(
@@ -406,10 +536,14 @@ function readLocation() {
 
 elements.searchForm.addEventListener("submit", (event) => event.preventDefault());
 
+for (const button of elements.languageButtons) {
+  button.addEventListener("click", () => setLanguage(button.dataset.language));
+}
+
 elements.searchInput.addEventListener("input", () => {
   state.query = elements.searchInput.value.trim();
   renderList();
-  history.replaceState({ view: "list" }, "", pageUrl());
+  history.replaceState({ view: "list", language: state.language }, "", pageUrl());
 });
 
 elements.devotionOptions.addEventListener("change", (event) => {
@@ -423,14 +557,14 @@ elements.devotionOptions.addEventListener("change", (event) => {
 
   syncDevotionControls();
   renderList();
-  history.replaceState({ view: "list" }, "", pageUrl());
+  history.replaceState({ view: "list", language: state.language }, "", pageUrl());
 });
 
 elements.clearDevotions.addEventListener("click", () => {
   state.devotions.clear();
   syncDevotionControls();
   renderList();
-  history.replaceState({ view: "list" }, "", pageUrl());
+  history.replaceState({ view: "list", language: state.language }, "", pageUrl());
 });
 
 for (const button of elements.filters) {
@@ -495,6 +629,8 @@ document.addEventListener("keydown", (event) => {
 });
 
 async function start() {
+  updateInterfaceCopy();
+  elements.resultCount.textContent = uiText(state.language, "loading");
   try {
     const response = await fetch("./library.json");
     if (!response.ok) throw new Error(`Library request failed with ${response.status}`);
@@ -504,17 +640,22 @@ async function start() {
     const initialItem = new URLSearchParams(window.location.search).get("text");
     history.replaceState(
       initialItem
-        ? { view: "reader", item: initialItem, entryRoot: true }
-        : { view: "list", entryRoot: true },
+        ? { view: "reader", item: initialItem, entryRoot: true, language: state.language }
+        : { view: "list", entryRoot: true, language: state.language },
       "",
       window.location.href,
     );
     readLocation();
+    history.replaceState(
+      { ...history.state, language: state.language },
+      "",
+      pageUrl({ item: initialItem ?? undefined }),
+    );
   } catch (error) {
     console.error(error);
     elements.results.replaceChildren();
-    elements.resultCount.textContent = "Unavailable";
-    elements.statusMessage.textContent = "The texts could not be loaded. Please try again.";
+    elements.resultCount.textContent = uiText(state.language, "unavailable");
+    elements.statusMessage.textContent = uiText(state.language, "errorLoading");
     elements.statusMessage.hidden = false;
   }
 

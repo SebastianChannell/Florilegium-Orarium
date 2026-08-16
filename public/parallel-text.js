@@ -38,7 +38,7 @@ function isDelimiterRow(cells) {
 
 function isLanguageHeader(cells) {
   return cells[0]?.text.toLocaleLowerCase() === "latin"
-    && cells[1]?.text.toLocaleLowerCase() === "english";
+    && new Set(["english", "español", "espanol"]).has(cells[1]?.text.toLocaleLowerCase());
 }
 
 function isRubricText(text = "") {
@@ -53,10 +53,17 @@ function pairKind(cells) {
 
 const ENGLISH_HEADING = /^(?:Ordinary|Hymn|Antiphon|Conclusion of the Hour|Commendation|The Commendation|Let Us Pray|Prayer|Collect|Another Prayer|Invitatory|Lesson(?: I)?|Little Chapter|Responsory|Short Responsory|Psalm from Various Psalms [IVX]+)$/i;
 
-export function splitParallelHeading(value = "") {
+export function splitParallelHeading(value = "", language = "en") {
   const text = cleanHeading(value);
   const parts = text.split(/\s+—\s+/);
   const english = parts.at(-1) ?? "";
+
+  if (language === "es" && parts.length > 1) {
+    return {
+      latin: parts.slice(0, -1).join(" — "),
+      english,
+    };
+  }
 
   if (parts.length > 1 && ENGLISH_HEADING.test(english)) {
     const latin = parts.slice(0, -1).join(" — ");

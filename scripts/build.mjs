@@ -10,7 +10,16 @@ import {
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseDevotionalText } from "../public/devotional-text.js";
-import { parseParallelText } from "../public/parallel-text.js";
+import { parseParallelText, splitParallelHeading } from "../public/parallel-text.js";
+import {
+  devotionsEs,
+  hoursEs,
+  parallelHeadingsEs,
+  parallelTextEs,
+  searchEs,
+  textEs,
+  titlesEs,
+} from "../translations/es.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const contentDirectory = join(root, "content");
@@ -66,6 +75,10 @@ function parseTextFile(filename) {
     throw new Error(`${filename}: layout must be “devotional” or “parallel” when provided`);
   }
 
+  if (metadata.language && !/^[a-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$/.test(metadata.language)) {
+    throw new Error(`${filename}: language must be a BCP 47 language tag such as “en” or “ga”`);
+  }
+
   const children = splitList(metadata.children);
   const text = match[2].trim();
   if (!text && children.length === 0) {
@@ -108,10 +121,73 @@ function parseTextFile(filename) {
     devotion: metadata.devotion,
     search: splitList(metadata.search),
     text,
+    ...(metadata.language ? { language: metadata.language } : {}),
     ...(metadata.layout ? { layout: metadata.layout } : {}),
     ...(metadata.parent ? { parent: metadata.parent, hour: metadata.hour } : {}),
     ...(children.length > 0 ? { children } : {}),
   };
+}
+
+function tableCell(value = "") {
+  return String(value)
+    .replace(/\|/g, "\\|")
+    .replace(/\n/g, "<br>");
+}
+
+function parallelKey(value = "") {
+  return createHash("sha256").update(String(value)).digest("hex").slice(0, 12);
+}
+
+function translateParallelText(item) {
+  const sourceBlocks = parseParallelText(item.text);
+  const translated = [];
+
+  for (const block of sourceBlocks) {
+    if (block.type === "heading") {
+      const parts = splitParallelHeading(block.text);
+      const sourceHeading = parts.english ?? parts.text;
+      const spanish = parallelHeadingsEs.get(sourceHeading);
+      if (!spanish) throw new Error(`${item.id}: missing Spanish heading “${sourceHeading}”`);
+      const latin = parts.latin ?? block.text;
+      translated.push(`${"#".repeat(block.level)} ${latin} — ${spanish}`);
+      continue;
+    }
+
+    if (block.type !== "pair") {
+      throw new Error(`${item.id}: every parallel block must be paired`);
+    }
+
+    const spanish = parallelTextEs.get(parallelKey(block.english));
+    if (!spanish) {
+      const preview = block.english.split("\n", 1)[0].slice(0, 80);
+      throw new Error(`${item.id}: missing Spanish parallel text “${preview}”`);
+    }
+
+    if (block.kind === "subheading") {
+      translated.push(
+        `| *${tableCell(block.latin)}* | *${tableCell(spanish)}* |\n|---|---|`,
+      );
+      continue;
+    }
+
+    const latin = block.kind === "rubric" ? `*${tableCell(block.latin)}*` : tableCell(block.latin);
+    const translation = block.kind === "rubric" ? `*${tableCell(spanish)}*` : tableCell(spanish);
+    translated.push(`| Latin | Español |\n|---|---|\n| ${latin} | ${translation} |`);
+  }
+
+  const text = translated.join("\n\n");
+  const translatedBlocks = parseParallelText(text);
+  const sourcePairs = sourceBlocks.filter((block) => block.type === "pair");
+  const translatedPairs = translatedBlocks.filter((block) => block.type === "pair");
+  if (translatedPairs.length !== sourcePairs.length) {
+    throw new Error(`${item.id}: Spanish parallel row count must match the source`);
+  }
+  for (let index = 0; index < sourcePairs.length; index += 1) {
+    if (translatedPairs[index].latin !== sourcePairs[index].latin) {
+      throw new Error(`${item.id}: Spanish mode must not alter Latin row ${index + 1}`);
+    }
+  }
+  return text;
 }
 
 rmSync(outputDirectory, { recursive: true, force: true });
@@ -168,6 +244,90 @@ for (const item of items) {
     if (!parent.children?.includes(item.id)) {
       throw new Error(`${item.id}: parent index must include this Hour in children`);
     }
+  }
+}
+
+for (const collection of [titlesEs, searchEs, textEs]) {
+  for (const id of Object.keys(collection)) {
+    if (!itemsById.has(id)) throw new Error(`Spanish translation references unknown id “${id}”`);
+  }
+}
+
+for (const item of items) {
+  const devotion = devotionsEs[item.devotion];
+  if (!devotion) throw new Error(`${item.id}: missing Spanish devotion “${item.devotion}”`);
+
+  const parentTitle = item.parent
+    ? titlesEs[item.parent] ?? itemsById.get(item.parent)?.title
+    : null;
+  const hour = item.hour ? hoursEs[item.hour] : null;
+  if (item.hour && !hour) throw new Error(`${item.id}: missing Spanish Hour “${item.hour}”`);
+
+  const title = item.parent
+    ? `${parentTitle} — ${hour}`
+    : titlesEs[item.id] ?? item.title;
+  const translation = {
+    title,
+    devotion,
+    search: [...item.search, ...(searchEs[item.id] ?? [])],
+    ...(hour ? { hour } : {}),
+  };
+
+  if (item.layout === "parallel") {
+    translation.text = translateParallelText(item);
+  } else if (item.language && item.language !== "la") {
+    if (!Object.hasOwn(textEs, item.id)) {
+      throw new Error(`${item.id}: non-Latin source text requires a complete Spanish translation`);
+    }
+    translation.text = textEs[item.id].trim();
+    if (!translation.text) throw new Error(`${item.id}: Spanish translation cannot be empty`);
+
+    if (item.layout === "devotional") {
+      const blocks = parseDevotionalText(translation.text);
+      if (blocks.length === 0 || blocks.every((block) => block.type !== "paragraph")) {
+        throw new Error(`${item.id}: Spanish devotional translation requires prayer text`);
+      }
+      const sourceTypes = parseDevotionalText(item.text).map((block) => block.type);
+      const translatedTypes = blocks.map((block) => block.type);
+      if (JSON.stringify(translatedTypes) !== JSON.stringify(sourceTypes)) {
+        throw new Error(`${item.id}: Spanish devotional structure must match the source`);
+      }
+      for (const block of blocks) {
+        if (block.type === "link" && !itemsById.has(block.item)) {
+          throw new Error(`${item.id}: unknown Spanish linked text id “${block.item}”`);
+        }
+      }
+    }
+  }
+
+  item.translations = { es: translation };
+}
+
+for (const id of Object.keys(textEs)) {
+  const sourceLanguage = itemsById.get(id)?.language;
+  if (!sourceLanguage || sourceLanguage === "la") {
+    throw new Error(`${id}: Spanish body translations require a non-Latin source language`);
+  }
+}
+
+const usedParallelHeadings = new Set();
+const usedParallelText = new Set();
+for (const item of items.filter((candidate) => candidate.layout === "parallel")) {
+  for (const block of parseParallelText(item.text)) {
+    if (block.type === "heading") {
+      const parts = splitParallelHeading(block.text);
+      usedParallelHeadings.add(parts.english ?? parts.text);
+    } else if (block.type === "pair") {
+      usedParallelText.add(parallelKey(block.english));
+    }
+  }
+}
+for (const source of parallelHeadingsEs.keys()) {
+  if (!usedParallelHeadings.has(source)) throw new Error(`Unused Spanish heading translation “${source}”`);
+}
+for (const key of parallelTextEs.keys()) {
+  if (!usedParallelText.has(key)) {
+    throw new Error(`Unused Spanish parallel translation key “${key}”`);
   }
 }
 

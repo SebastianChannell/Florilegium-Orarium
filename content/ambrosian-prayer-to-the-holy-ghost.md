@@ -4,6 +4,7 @@ title: Ambrosian Prayer to the Holy Ghost
 type: prayer
 devotion: Holy Ghost
 search: Nunc Sancte nobis Spiritus, Saint Ambrose, Holy Spirit, Paraclete
+language: en
 ---
 Now, O Holy Spirit, who art one
 With the Father and the Son,

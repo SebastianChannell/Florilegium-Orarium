@@ -100,6 +100,43 @@ a {
   font-style: italic;
 }
 
+.language-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  margin-top: 0.75rem;
+  padding: 0.15rem;
+  border-radius: 0.35rem;
+  background: var(--surface);
+}
+
+.language-button {
+  min-height: 2rem;
+  padding: 0 0.55rem;
+  border: 0;
+  border-radius: 0.25rem;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.72rem;
+  font-weight: 650;
+}
+
+.language-button:hover,
+.language-button:focus-visible {
+  color: var(--text);
+}
+
+.language-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.language-button.is-active {
+  background: var(--surface-hover);
+  color: var(--accent);
+}
+
 .search {
   position: relative;
 }

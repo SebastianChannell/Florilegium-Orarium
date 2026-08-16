@@ -4,6 +4,7 @@ title: Litany of the Passion
 type: prayer
 devotion: Passion of Our Lord
 search: Passion of Christ, Holy Cross, crucifixion, suffering, private devotion
+language: en
 ---
 Lord, have mercy on us.
 Christ, have mercy on us.

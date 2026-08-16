@@ -4,6 +4,7 @@ title: Agní Parthéne
 type: hymn
 devotion: Blessed Virgin Mary
 search: O Pure Virgin, Greek, transliteration, Marian, St. Nectarios
+language: el-Latn
 ---
 Agní Parthéne Déspoina,
 Áchrante Theotóke,

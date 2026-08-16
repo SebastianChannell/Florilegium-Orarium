@@ -4,6 +4,7 @@ title: Hail Holy Queen Enthroned
 type: hymn
 devotion: Blessed Virgin Mary
 search: Marian hymn, Salve Regina
+language: en
 ---
 Hail, holy Queen enthroned above, O Maria.
 Hail, Queen of mercy and of love, O Maria.

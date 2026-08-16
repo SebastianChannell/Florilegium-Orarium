@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#070606">
     <meta name="color-scheme" content="dark">
-    <meta name="description" content="A quiet, searchable collection of prayers and hymns in their original languages.">
+    <meta id="meta-description" name="description" content="A quiet, searchable collection of prayers and hymns in their original languages.">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Orarium — Sacrum Florilegium</title>
@@ -15,15 +15,19 @@
     <script type="module" src="./app.js"></script>
   </head>
   <body>
-    <a class="skip-link" href="#main-content">Skip to texts</a>
+    <a id="skip-link" class="skip-link" href="#main-content">Skip to texts</a>
 
     <div class="site-shell">
       <header class="site-header">
-        <a class="wordmark" href="./" aria-label="Orarium home">
+        <a id="home-link" class="wordmark" href="./" aria-label="Orarium home">
           <span>Sacrum Florilegium</span>
           <strong>Orarium</strong>
         </a>
         <p class="subtitle">Oráte et psállite Dómino.</p>
+        <div id="language-switch" class="language-switch" role="group" aria-label="Language">
+          <button class="language-button is-active" type="button" data-language="en" aria-pressed="true">English</button>
+          <button class="language-button" type="button" data-language="es" aria-pressed="false">Español</button>
+        </div>
       </header>
 
       <main id="main-content">
@@ -31,7 +35,7 @@
           <h1 id="browse-heading" class="visually-hidden">Prayers and hymns</h1>
 
           <form class="search" role="search" id="search-form">
-            <label class="visually-hidden" for="search-input">Search prayers and hymns</label>
+            <label id="search-label" class="visually-hidden" for="search-input">Search prayers and hymns</label>
             <svg class="search-icon" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20">
               <circle cx="11" cy="11" r="6.5"></circle>
               <path d="m16 16 4 4"></path>
@@ -49,12 +53,12 @@
 
           <details id="devotion-filter" class="devotion-filter">
             <summary>
-              <span>Devotions</span>
+              <span id="devotions-label">Devotions</span>
               <span id="devotion-selection" class="devotion-selection" aria-live="polite">All</span>
             </summary>
             <div class="devotion-panel">
               <fieldset>
-                <legend class="visually-hidden">Choose one or more devotions</legend>
+                <legend id="devotions-legend" class="visually-hidden">Choose one or more devotions</legend>
                 <div id="devotion-options" class="devotion-options"></div>
               </fieldset>
               <button id="clear-devotions" class="devotion-clear" type="button" hidden>Clear selection</button>
@@ -62,7 +66,7 @@
           </details>
 
           <div class="browse-tools">
-            <div class="filters" aria-label="Text type">
+            <div id="type-filters" class="filters" aria-label="Text type">
               <button class="filter is-active" type="button" data-filter="all" aria-pressed="true">All</button>
               <button class="filter" type="button" data-filter="prayer" aria-pressed="false">Prayers</button>
               <button class="filter" type="button" data-filter="hymn" aria-pressed="false">Hymns</button>
@@ -78,7 +82,7 @@
           <button id="back-button" class="back-button" type="button">← All texts</button>
           <h1 id="reader-title" tabindex="-1"></h1>
           <nav id="office-hours" class="office-hours" aria-label="Office Hours" hidden>
-            <p class="office-hours-label">Hours</p>
+            <p id="office-hours-label" class="office-hours-label">Hours</p>
             <ol id="office-hours-list" class="office-hours-list"></ol>
           </nav>
           <div id="reader-text" class="reader-text" dir="auto"></div>
@@ -92,7 +96,10 @@
     </div>
 
     <noscript>
-      <p class="noscript">JavaScript is required to search and open the texts.</p>
+      <p class="noscript">
+        JavaScript is required to search and open the texts.<br>
+        <span lang="es">Se requiere JavaScript para buscar y abrir los textos.</span>
+      </p>
     </noscript>
   </body>
 </html>
