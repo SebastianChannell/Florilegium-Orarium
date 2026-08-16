@@ -4,6 +4,7 @@ title: Prayer for a Happy Death
 type: prayer
 devotion: Holy Family
 search: Grace of a happy death, Jesus Mary Joseph, last agony, peaceful death
+language: en
 ---
 Jesus, Mary, Joseph, I give you my heart and my soul.
 

@@ -4,6 +4,7 @@ title: Ag Críost an Síol
 type: hymn
 devotion: Our Lord Jesus Christ
 search: Christ is the seed, Irish, Gaelic, devotional hymn
+language: ga
 ---
 Ag Críost an síol,
 ag Críost an fómhar;

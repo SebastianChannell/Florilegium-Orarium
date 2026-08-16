@@ -4,6 +4,7 @@ title: Grace Before and After Meals
 type: prayer
 devotion: Meals
 search: Bless us O Lord, table prayers, before meals, after meals, thanksgiving
+language: en
 ---
 Grace Before Meals
 

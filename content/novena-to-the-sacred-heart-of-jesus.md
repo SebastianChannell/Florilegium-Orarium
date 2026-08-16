@@ -4,6 +4,7 @@ title: Novena to the Sacred Heart of Jesus
 type: prayer
 devotion: Sacred Heart of Jesus
 search: For the Sacred Heart of Jesus, novena, adorable heart, conversion of sinners
+language: en
 ---
 O Adorable Jesus Who hast discovered to us Thy most Sacred Heart, that we may form some idea of the extent of Thy love, send forth Thy light and Thy grace into our hearts, that we may value as we ought so precious a favor. We adore thee, O Infinitely amiable Heart, and beseech thee to receive our adorations, in union with those thou thyself renderest to the Divinity on our altars, in union with the perfect homage of all thy saints, and in particular, in union with the unceasing adoration of the heavenly spirits, who crowd thy sanctuary during this glorious solemnity, and honor the presence of thy amiable Heart on our altars. Yet it is not for those pure and ardent spirits that thou burnest with love in the Holy Eucharist, it is for us, it is for all creatures, even for those who are most unmindful of all thy mercies.
 

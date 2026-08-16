@@ -1,7 +1,7 @@
 {
   "name": "Florilegium Orarium",
   "short_name": "Orarium",
-  "description": "A quiet, searchable collection of prayers and hymns.",
+  "description": "Prayers and hymns · Oraciones e himnos",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#070606",

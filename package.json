@@ -6,7 +6,8 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "check": "npm run build && node --test",
-    "dev": "npm run build && node scripts/serve.mjs"
+    "dev": "npm run build && node scripts/serve.mjs",
+    "translations:check": "node scripts/spanish-audit.mjs"
   },
   "engines": {
     "node": ">=20"

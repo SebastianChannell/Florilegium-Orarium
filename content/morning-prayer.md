@@ -4,6 +4,7 @@ title: Morning Prayer
 type: prayer
 devotion: Sacred Heart of Jesus
 search: morning offering, daily prayers, on rising, Immaculate Heart of Mary, baptismal vows, Apostleship of Prayer, intentions of the Pope
+language: en
 layout: devotional
 ---
 *Bless yourself on rising.*
