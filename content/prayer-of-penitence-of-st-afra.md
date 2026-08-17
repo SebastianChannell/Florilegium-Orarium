@@ -20,4 +20,4 @@ to the pile, and the saint was heard to say:
 
 >Having concluded her prayer she expired.
 
-> This is taken and adapted from [Victories of the Martyrs](https://reader.sacrumflorilegium.com/web/viewer?file=https%3A%2F%2Fassets.sacrumflorilegium.com%2Fpdfs%2Fst-alphonsus-ligouri%2Fvictories-of-the-martyrs.pdf) Pt. I, Pg. 86
+> This is taken and adapted from [Victories of the Martyrs](https://reader.sacrumflorilegium.com/web/viewer?file=https%3A%2F%2Fassets.sacrumflorilegium.com%2Fpdfs%2Fst-alphonsus-ligouri%2Fvictories-of-the-martyrs.pdf) Pt. I, Ch. X, Pg. 86
