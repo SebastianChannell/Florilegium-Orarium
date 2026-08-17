@@ -35,16 +35,16 @@ For any non-Latin body, add its BCP 47 language tag, such as `language: en` for 
 
 ## Automatic Spanish translations
 
-The **Generate Spanish translations** GitHub Action runs whenever the repository owner changes a file in `content/` on a non-main branch. Restricting secret-backed generation to owner-authored pushes prevents untrusted branches from spending API credits. For each added or edited non-Latin reading text, it:
+The **Generate Spanish translations** GitHub Action runs whenever the repository owner changes a file in `content/` on any branch, including `main`. Restricting secret-backed generation to owner-authored pushes prevents untrusted branches from spending API credits. On each run it scans the complete collection, skips current translations without making API requests, and generates every missing or stale non-Latin reading text. This makes overlapping or canceled pushes self-healing. The Action:
 
 1. sends the source to the OpenAI Responses API with a strict structured-output schema;
 2. generates a traditional, neutral Catholic Spanish title, search terms, and complete body;
 3. preserves the Markdown line structure, links, `V.` / `R.` / `Ant.` markers, crosses, and existing Latin phrases;
 4. writes `translations/es/<id>.md` with the source fingerprint and `review: required`;
 5. builds the site and runs every test and Spanish audit; and
-6. commits the Spanish draft back to the same branch for review.
+6. commits the Spanish draft back to the same branch.
 
-The workflow deliberately refuses to write directly to `main`. Review and, if necessary, edit the generated Spanish on its pull request. Change `review: required` to `review: approved` after the wording has been checked. If the English source changes later, its fingerprint becomes stale and the build rejects it until the action regenerates the Spanish.
+You may add or edit a prayer directly on `main`; the Action generates and commits its Spanish text there automatically. Generated files remain marked `review: required`, but that label does not block building or publishing, so the wording may be checked and edited later. Change it to `review: approved` after the wording has been checked. If the English source changes later, its fingerprint becomes stale and the next Action run regenerates it before validation.
 
 ### One-time GitHub setup
 
@@ -54,10 +54,11 @@ In the repository, open **Settings → Secrets and variables → Actions → New
 
 The workflow defaults to `gpt-5.6-terra`. To choose another compatible model without editing the workflow, add an Actions repository variable named `OPENAI_TRANSLATION_MODEL`. The implementation uses Structured Outputs so the returned title, search terms, and body always have the expected shape; generated devotional wording still requires human review. See the [official OpenAI Structured Outputs documentation](https://developers.openai.com/api/docs/guides/structured-outputs).
 
-The Action may also be run manually from its GitHub Actions page by entering a content id. The equivalent local command is:
+The Action may also be run manually from its GitHub Actions page. Enter a content id for one prayer, or leave it blank to scan the complete collection. The equivalent local commands are:
 
 ```sh
 OPENAI_API_KEY=... npm run translate:spanish -- --id prayer-id
+OPENAI_API_KEY=... npm run translate:spanish -- --all
 ```
 
 Begin each liturgical versicle and response on its own line with `V.` or `R.`. The reader automatically displays those markers in the established purple (`#8451CF`) for every current and future text; no HTML or other formatting is needed in the content file.

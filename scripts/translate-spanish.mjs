@@ -1,8 +1,8 @@
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { basename, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { devotionsEs } from "../translations/es.mjs";
+import { devotionsEs, sourceHashesEs } from "../translations/es.mjs";
 import {
   formatGeneratedTranslation,
   loadGeneratedTranslations,
@@ -237,12 +237,20 @@ export function changedContentPaths(base, head = "HEAD", { cwd = root } = {}) {
     .filter((entry) => existsSync(join(cwd, entry))))];
 }
 
+export function allContentPaths({ cwd = root } = {}) {
+  return readdirSync(join(cwd, "content"))
+    .filter((filename) => idPattern.test(filename.replace(/\.md$/, "")) && filename.endsWith(".md"))
+    .sort()
+    .map((filename) => `content/${filename}`);
+}
+
 export async function generateSpanishTranslations(paths, {
   apiKey = process.env.OPENAI_API_KEY,
   model = process.env.OPENAI_TRANSLATION_MODEL || defaultModel,
   force = false,
   fetchImpl = globalThis.fetch,
   destination = outputDirectory,
+  curatedSourceHashes = sourceHashesEs,
 } = {}) {
   const existing = loadGeneratedTranslations(destination);
   const results = [];
@@ -266,7 +274,8 @@ export async function generateSpanishTranslations(paths, {
     }
 
     const fingerprint = sourceFingerprint(item);
-    if (!force && existing.get(item.id)?.sourceHash === fingerprint) {
+    const currentSourceHash = existing.get(item.id)?.sourceHash ?? curatedSourceHashes[item.id];
+    if (!force && currentSourceHash === fingerprint) {
       results.push({ id: item.id, status: "unchanged" });
       continue;
     }
@@ -307,6 +316,7 @@ function usage() {
   return `Usage:
   node scripts/translate-spanish.mjs content/prayer-id.md [...]
   node scripts/translate-spanish.mjs --id prayer-id
+  node scripts/translate-spanish.mjs --all
   node scripts/translate-spanish.mjs --base <commit> [--head <commit>]
 
 Options:
@@ -315,11 +325,12 @@ Options:
 }
 
 function parseArguments(argv) {
-  const options = { paths: [], head: "HEAD", force: false };
+  const options = { paths: [], head: "HEAD", force: false, all: false };
   for (let index = 0; index < argv.length; index += 1) {
     const argument = argv[index];
     if (argument === "--help") options.help = true;
     else if (argument === "--force") options.force = true;
+    else if (argument === "--all") options.all = true;
     else if (argument === "--id") options.id = argv[++index];
     else if (argument === "--base") options.base = argv[++index];
     else if (argument === "--head") options.head = argv[++index];
@@ -340,6 +351,7 @@ async function main() {
     if (!idPattern.test(options.id)) throw new Error("--id must be a lowercase, hyphenated content id");
     options.paths.push(`content/${options.id}.md`);
   }
+  if (options.all) options.paths.push(...allContentPaths());
   if (options.base) options.paths.push(...changedContentPaths(options.base, options.head));
   if (options.paths.length === 0) throw new Error(usage());
 

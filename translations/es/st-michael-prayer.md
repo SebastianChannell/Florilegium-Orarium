@@ -1,6 +1,6 @@
 ---
 id: st-michael-prayer
-source_hash: 4fccd5bde89152cf84be570282cf772e27d55c329f07d02d11679d82076d3283
+source_hash: 844ddeeb5168e23519f5f4dd2aa1666eb95be14e3f4d4f1596247927bd617dea
 review: required
 model_json: "gpt-5.6-terra"
 title_json: "Oración a San Miguel Arcángel"
