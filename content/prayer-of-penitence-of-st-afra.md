@@ -7,9 +7,9 @@ search: St. Afra, saint, Spiritual Warfare, penitence
 language: en
 layout: devotional
 ---
-> The place selected for the execution of this terrible sentence was a little island in the river Lech. The saint, having been conducted to this place, and the executioners having tied her to the stake, she raised her eyes to heaven, and prayed after the following manner: 
+> The place selected for the execution of this terrible sentence was a little island in the river Lech. The saint, having been conducted to this place, and the executioners having tied her to the stake, she raised her eyes to heaven, and prayed after the following manner:
 
-“O Lord Jesus Christ, who earnest to call, not the just, but sinners to repentance, and who hast vouchsafed to make known unto us, that, upon whatever day the sinner shall return to Thee by contrition, Thou wilt forget all his of fences; receive me now, a poor sinner that offers (him/her)self to suffer this torture for Thy love. *By the fire which engulfed and delivered St. Afra to her glorious martyrdom*, deliver my soul from everlasting flames. 
+“O Lord Jesus Christ, who earnest to call, not the just, but sinners to repentance, and who hast vouchsafed to make known unto us, that, upon whatever day the sinner shall return to Thee by contrition, Thou wilt forget all his of fences; receive me now, a poor sinner that offers (him/her)self to suffer this torture for Thy love. *By the fire which engulfed and delivered St. Afra to her glorious martyrdom*, deliver my soul from everlasting flames.
 
 *Original: By this fire, which is about to burn my body,*
 

@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node scripts/build.mjs",
-    "check": "npm run build && node --test",
+    "build": "node scripts/build.mjs --allow-pending-spanish",
+    "check": "node scripts/build.mjs && node --test",
     "dev": "npm run build && node scripts/serve.mjs",
     "translate:spanish": "node scripts/translate-spanish.mjs",
     "translations:check": "node scripts/spanish-audit.mjs"

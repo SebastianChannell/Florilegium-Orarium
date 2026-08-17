@@ -10,6 +10,7 @@ import {
   sourceFingerprint,
 } from "../scripts/spanish-translation-data.mjs";
 import {
+  allContentPaths,
   generateSpanishTranslations,
   requestSpanishTranslation,
   validateGeneratedTranslation,
@@ -122,6 +123,7 @@ test("the generator writes a file-per-prayer override and then skips unchanged s
       model: "test-model",
       fetchImpl,
       destination: directory,
+      curatedSourceHashes: {},
     });
     assert.equal(first[0].status, "generated");
     assert.equal(requests, 1);
@@ -136,9 +138,27 @@ test("the generator writes a file-per-prayer override and then skips unchanged s
       model: "test-model",
       fetchImpl,
       destination: directory,
+      curatedSourceHashes: {},
     });
     assert.equal(second[0].status, "unchanged");
     assert.equal(requests, 1);
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
+
+test("complete all-content scans do not replace current curated translations", async () => {
+  const directory = mkdtempSync(join(tmpdir(), "orarium-curated-skip-"));
+  try {
+    const results = await generateSpanishTranslations(["content/act-of-adoration.md"], {
+      apiKey: "",
+      destination: directory,
+      fetchImpl: async () => {
+        throw new Error("Current curated text must not reach the translation API");
+      },
+    });
+    assert.equal(results[0].status, "unchanged");
+    assert.equal(loadGeneratedTranslations(directory).size, 0);
   } finally {
     rmSync(directory, { recursive: true, force: true });
   }
@@ -173,13 +193,35 @@ test("Latin source texts are skipped without making an API request", async () =>
   }
 });
 
-test("the GitHub workflow writes only to review branches and validates before committing", () => {
+test("all-content scans are stable and include every Markdown prayer", () => {
+  const paths = allContentPaths();
+  assert.deepEqual(paths, [...paths].sort());
+  assert.ok(paths.includes("content/act-of-adoration.md"));
+  assert.ok(paths.includes("content/prayer-of-penitence-of-st-afra.md"));
+});
+
+test("the GitHub workflow supports main, validates, and commits generated Spanish", () => {
   const workflow = readFileSync(new URL("../.github/workflows/generate-spanish.yml", import.meta.url), "utf8");
-  assert.match(workflow, /branches-ignore:\s+\- main/);
+  assert.doesNotMatch(workflow, /branches-ignore:/);
   assert.match(workflow, /OPENAI_API_KEY: \$\{\{ secrets\.OPENAI_API_KEY \}\}/);
-  assert.match(workflow, /github\.ref_name == 'main'/);
+  assert.doesNotMatch(workflow, /github\.ref_name == 'main'/);
+  assert.match(workflow, /translate-spanish\.mjs --all/);
   assert.match(workflow, /node scripts\/build\.mjs/);
   assert.match(workflow, /node --test/);
   assert.match(workflow, /node scripts\/spanish-audit\.mjs/);
+  assert.match(workflow, /git push origin "HEAD:\$\{GITHUB_REF_NAME\}"/);
   assert.match(workflow, /review: required/);
+});
+
+test("public builds tolerate pending Spanish while repository checks stay strict", () => {
+  const packageJson = JSON.parse(readFileSync(new URL("../package.json", import.meta.url), "utf8"));
+  const build = readFileSync(new URL("../scripts/build.mjs", import.meta.url), "utf8");
+  const workflow = readFileSync(new URL("../.github/workflows/generate-spanish.yml", import.meta.url), "utf8");
+
+  assert.match(packageJson.scripts.build, /--allow-pending-spanish/);
+  assert.equal(packageJson.scripts.check, "node scripts/build.mjs && node --test");
+  assert.match(build, /allowPendingSpanish/);
+  assert.match(build, /using the original text until automation finishes/);
+  assert.match(workflow, /node scripts\/build\.mjs/);
+  assert.doesNotMatch(workflow, /node scripts\/build\.mjs --allow-pending-spanish/);
 });
