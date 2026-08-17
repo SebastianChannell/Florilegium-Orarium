@@ -2,7 +2,7 @@
 id: st-michael-prayer
 title: St Michael Prayer
 type: prayer
-devotion: St. Michael
+devotion: Saints and Martyrs
 search: St. Michael, Michael, Spiritual Warfare
 language: en
 layout: devotional
