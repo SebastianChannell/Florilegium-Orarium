@@ -1,6 +1,6 @@
 ---
 id: st-michael-prayer
-source_hash: 6ea0b0f5d3ff19c2d57d04bc5b8e827d25f9ebd387c9940e5356fc77a2074800
+source_hash: 4fccd5bde89152cf84be570282cf772e27d55c329f07d02d11679d82076d3283
 review: required
 model_json: "gpt-5.6-terra"
 title_json: "Oración a San Miguel Arcángel"
@@ -12,7 +12,7 @@ Combate hoy la batalla del Señor, juntamente con los santos ángeles, como ya c
 
 Estos enemigos astutísimos han llenado y embriagado de hiel y amargura a la Iglesia, esposa del Cordero inmaculado, y han puesto manos impías sobre sus posesiones más sagradas. En el mismo Lugar Santo, donde fue establecida la Sede del santo Pedro y la Cátedra de la Verdad como luz del mundo, han levantado el trono de su abominable impiedad, con el inicuo designio de que, herido el Pastor, se dispersen las ovejas.
 
-Levántate, pues, oh Príncipe invencible, lleva auxilio contra los ataques de los espíritus perdidos al pueblo de Dios y dale la victoria. Te veneran como protector y patrono; en ti se gloría la santa Iglesia como defensa contra el poder maligno del infierno; a ti ha confiado Dios las almas de los hombres para que sean establecidas en la bienaventuranza celestial. Oh, ruega al Dios de paz que ponga a Satanás bajo nuestros pies, tan vencido que ya no pueda retener a los hombres en cautiverio ni dañar a la Iglesia. Presenta nuestras oraciones ante el Altísimo, para que pronto alcancen misericordia ante el Señor; y, venciendo al dragón, la serpiente antigua, que es el diablo y Satanás, haz que vuelva a ser cautivo en el abismo, para que no seduzca más a las naciones. 
+Levántate, pues, oh Príncipe invencible, lleva auxilio contra los ataques de los espíritus perdidos al pueblo de Dios y dale la victoria. Te veneran como protector y patrono; en ti se gloría la santa Iglesia como defensa contra el poder maligno del infierno; a ti ha confiado Dios las almas de los hombres para que sean establecidas en la bienaventuranza celestial. Oh, ruega al Dios de paz que ponga a Satanás bajo nuestros pies, tan vencido que ya no pueda retener a los hombres en cautiverio ni dañar a la Iglesia. Presenta nuestras oraciones ante el Altísimo, para que pronto alcancen misericordia ante el Señor; y, venciendo al dragón, la serpiente antigua, que es el diablo y Satanás, haz que vuelva a ser cautivo en el abismo, para que no seduzca más a las naciones.
 Amén.
 
 V. He aquí la Cruz del Señor; dispersaos, potencias enemigas.
@@ -23,7 +23,7 @@ V. Oh Señor, escucha mi oración.
 R. Y llegue a ti mi clamor.
 
 Oremos.
-Oh Dios, Padre de nuestro Señor Jesucristo, invocamos tu santo Nombre y, como suplicantes, imploramos tu clemencia, para que, por la intercesión de María, siempre Virgen Inmaculada y Madre nuestra, y del glorioso San Miguel Arcángel, te dignes socorrernos contra Satanás y todos los demás espíritus inmundos que vagan por el mundo para daño del género humano y perdición de las almas. 
+Oh Dios, Padre de nuestro Señor Jesucristo, invocamos tu santo Nombre y, como suplicantes, imploramos tu clemencia, para que, por la intercesión de María, siempre Virgen Inmaculada y Madre nuestra, y del glorioso San Miguel Arcángel, te dignes socorrernos contra Satanás y todos los demás espíritus inmundos que vagan por el mundo para daño del género humano y perdición de las almas.
 Amén.
 
 > Raccolta romana, 23 de julio de 1898, suplemento aprobado el 31 de julio de 1902, Londres: Burnes, Oates & Washbourne Ltd., 1935, 12.ª edición.

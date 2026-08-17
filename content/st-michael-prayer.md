@@ -13,7 +13,7 @@ Fight this day the battle of the Lord, together with the holy angels, as already
 
 These most crafty enemies have filled and inebriated with gall and bitterness the Church, the spouse of the immaculate Lamb, and have laid impious hands on her most sacred possessions. In the Holy Place itself, where the See of Holy Peter and the Chair of Truth has been set up as the light of the world, they have raised the throne of their abominable impiety, with the iniquitous design that when the Pastor has been struck, the sheep may be scattered.
 
-Arise then, O invincible Prince, bring help against the attacks of the lost spirits to the people of God, and give them the victory. They venerate thee as their protector and patron; in thee holy Church glories as her defense against the malicious power of hell; to thee has God entrusted the souls of men to be established in heavenly beatitude. Oh, pray to the God of peace that He may put Satan under our feet, so far conquered that he may no longer be able to hold men in captivity and harm the Church. Offer our prayers in the sight of the Most High, so that they may quickly find mercy in the sight of the Lord; and vanquishing the dragon, the ancient serpent, who is the devil and Satan, do thou again make him captive in the abyss, that he may no longer seduce the nations. 
+Arise then, O invincible Prince, bring help against the attacks of the lost spirits to the people of God, and give them the victory. They venerate thee as their protector and patron; in thee holy Church glories as her defense against the malicious power of hell; to thee has God entrusted the souls of men to be established in heavenly beatitude. Oh, pray to the God of peace that He may put Satan under our feet, so far conquered that he may no longer be able to hold men in captivity and harm the Church. Offer our prayers in the sight of the Most High, so that they may quickly find mercy in the sight of the Lord; and vanquishing the dragon, the ancient serpent, who is the devil and Satan, do thou again make him captive in the abyss, that he may no longer seduce the nations.
 Amen.
 
 V. Behold the Cross of the Lord; be scattered ye hostile powers.
@@ -24,7 +24,7 @@ V. O Lord, hear my prayer.
 R. And let my cry come unto Thee.
 
 Let us pray.
-O God, the Father of our Lord Jesus Christ, we call upon Thy holy Name, and as supplicants, we implore Thy clemency, that by the intercession of Mary, ever Virgin Immaculate and our Mother, and of the glorious St. Michael the Archangel, Thou wouldst deign to help us against Satan and all the other unclean spirits who wander about the world for the injury of the human race and the ruin of souls. 
+O God, the Father of our Lord Jesus Christ, we call upon Thy holy Name, and as supplicants, we implore Thy clemency, that by the intercession of Mary, ever Virgin Immaculate and our Mother, and of the glorious St. Michael the Archangel, Thou wouldst deign to help us against Satan and all the other unclean spirits who wander about the world for the injury of the human race and the ruin of souls.
 Amen.
 
 > Roman Raccolta, July 23, 1898, supplement approved July 31, 1902, London: Burnes, Oates & Washbourne Ltd., 1935, 12th edition.
