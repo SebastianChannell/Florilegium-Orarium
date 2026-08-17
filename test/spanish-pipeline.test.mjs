@@ -212,3 +212,16 @@ test("the GitHub workflow supports main, validates, and commits generated Spanis
   assert.match(workflow, /git push origin "HEAD:\$\{GITHUB_REF_NAME\}"/);
   assert.match(workflow, /review: required/);
 });
+
+test("public builds tolerate pending Spanish while repository checks stay strict", () => {
+  const packageJson = JSON.parse(readFileSync(new URL("../package.json", import.meta.url), "utf8"));
+  const build = readFileSync(new URL("../scripts/build.mjs", import.meta.url), "utf8");
+  const workflow = readFileSync(new URL("../.github/workflows/generate-spanish.yml", import.meta.url), "utf8");
+
+  assert.match(packageJson.scripts.build, /--allow-pending-spanish/);
+  assert.equal(packageJson.scripts.check, "node scripts/build.mjs && node --test");
+  assert.match(build, /allowPendingSpanish/);
+  assert.match(build, /using the original text until automation finishes/);
+  assert.match(workflow, /node scripts\/build\.mjs/);
+  assert.doesNotMatch(workflow, /node scripts\/build\.mjs --allow-pending-spanish/);
+});

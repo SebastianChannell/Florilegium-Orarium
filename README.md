@@ -44,7 +44,7 @@ The **Generate Spanish translations** GitHub Action runs whenever the repository
 5. builds the site and runs every test and Spanish audit; and
 6. commits the Spanish draft back to the same branch.
 
-You may add or edit a prayer directly on `main`; the Action generates and commits its Spanish text there automatically. Generated files remain marked `review: required`, but that label does not block building or publishing, so the wording may be checked and edited later. Change it to `review: approved` after the wording has been checked. If the English source changes later, its fingerprint becomes stale and the next Action run regenerates it before validation.
+You may add or edit a prayer directly on `main`; the Action generates and commits its Spanish text there automatically. While that short generation run is in progress, the public build falls back to the prayer's source text instead of failing. The Action itself still uses strict validation and commits the complete Spanish body before its run succeeds. Generated files remain marked `review: required`, but that label does not block building or publishing, so the wording may be checked and edited later. Change it to `review: approved` after the wording has been checked. If the English source changes later, its fingerprint becomes stale and the next Action run regenerates it before validation.
 
 ### One-time GitHub setup
 

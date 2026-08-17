@@ -28,6 +28,8 @@ const contentDirectory = join(root, "content");
 const generatedTranslationsDirectory = join(root, "translations", "es");
 const publicDirectory = join(root, "public");
 const outputDirectory = join(root, "dist");
+const allowPendingSpanish = process.argv.includes("--allow-pending-spanish");
+const pendingSpanish = new Map();
 
 const splitList = (value = "") =>
   value
@@ -265,7 +267,11 @@ for (const [id, generated] of generatedTranslations) {
   }
   const fingerprint = sourceFingerprint(item);
   if (generated.sourceHash !== fingerprint) {
-    throw new Error(`${generated.filename}: Spanish translation is stale; regenerate it from the current source`);
+    if (!allowPendingSpanish) {
+      throw new Error(`${generated.filename}: Spanish translation is stale; regenerate it from the current source`);
+    }
+    generatedTranslations.delete(id);
+    pendingSpanish.set(id, "generated Spanish is stale");
   }
 }
 
@@ -299,29 +305,36 @@ for (const item of items) {
   if (item.layout === "parallel") {
     translation.text = translateParallelText(item);
   } else if (item.language && item.language !== "la") {
-    const translatedText = generated?.text ?? textEs[item.id];
+    const curatedText = textEs[item.id];
+    const curatedIsCurrent = curatedText && sourceHashesEs[item.id] === sourceFingerprint(item);
+    const translatedText = generated?.text ?? (curatedIsCurrent ? curatedText : undefined);
     if (!translatedText) {
-      throw new Error(`${item.id}: non-Latin source text requires a complete Spanish translation`);
-    }
-    if (!generated && sourceHashesEs[item.id] !== sourceFingerprint(item)) {
-      throw new Error(`${item.id}: curated Spanish translation is stale; regenerate it from the current source`);
-    }
-    translation.text = translatedText.trim();
-    if (!translation.text) throw new Error(`${item.id}: Spanish translation cannot be empty`);
+      const reason = curatedText ? "curated Spanish is stale" : "Spanish has not been generated yet";
+      if (!allowPendingSpanish) {
+        if (curatedText) {
+          throw new Error(`${item.id}: curated Spanish translation is stale; regenerate it from the current source`);
+        }
+        throw new Error(`${item.id}: non-Latin source text requires a complete Spanish translation`);
+      }
+      pendingSpanish.set(item.id, reason);
+    } else {
+      translation.text = translatedText.trim();
+      if (!translation.text) throw new Error(`${item.id}: Spanish translation cannot be empty`);
 
-    if (item.layout === "devotional") {
-      const blocks = parseDevotionalText(translation.text);
-      if (blocks.length === 0 || blocks.every((block) => block.type !== "paragraph")) {
-        throw new Error(`${item.id}: Spanish devotional translation requires prayer text`);
-      }
-      const sourceTypes = parseDevotionalText(item.text).map((block) => block.type);
-      const translatedTypes = blocks.map((block) => block.type);
-      if (JSON.stringify(translatedTypes) !== JSON.stringify(sourceTypes)) {
-        throw new Error(`${item.id}: Spanish devotional structure must match the source`);
-      }
-      for (const block of blocks) {
-        if (block.type === "link" && !itemsById.has(block.item)) {
-          throw new Error(`${item.id}: unknown Spanish linked text id “${block.item}”`);
+      if (item.layout === "devotional") {
+        const blocks = parseDevotionalText(translation.text);
+        if (blocks.length === 0 || blocks.every((block) => block.type !== "paragraph")) {
+          throw new Error(`${item.id}: Spanish devotional translation requires prayer text`);
+        }
+        const sourceTypes = parseDevotionalText(item.text).map((block) => block.type);
+        const translatedTypes = blocks.map((block) => block.type);
+        if (JSON.stringify(translatedTypes) !== JSON.stringify(sourceTypes)) {
+          throw new Error(`${item.id}: Spanish devotional structure must match the source`);
+        }
+        for (const block of blocks) {
+          if (block.type === "link" && !itemsById.has(block.item)) {
+            throw new Error(`${item.id}: unknown Spanish linked text id “${block.item}”`);
+          }
         }
       }
     }
@@ -377,4 +390,7 @@ const serviceWorker = readFileSync(serviceWorkerPath, "utf8").replace(
 );
 writeFileSync(serviceWorkerPath, serviceWorker);
 
+for (const [id, reason] of pendingSpanish) {
+  console.warn(`Pending Spanish for ${id}: ${reason}; using the original text until automation finishes.`);
+}
 console.log(`Built ${items.length} texts in dist/`);
