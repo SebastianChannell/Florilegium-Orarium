@@ -17,6 +17,7 @@ export const devotionsEs = Object.freeze({
   "Passion of Our Lord": "Pasión de Nuestro Señor",
   Penance: "Penitencia",
   "Sacred Heart of Jesus": "Sagrado Corazón de Jesús",
+  "St. Michael": "San Miguel",
   "Saints and Martyrs": "Santos y Mártires",
   "Spiritual Warfare": "Combate espiritual",
 });
@@ -505,7 +506,7 @@ Jesús, María y José, asistidme en mi última agonía.
 
 Jesús, María y José, que mi alma expire en paz con vosotros. Amén.`,
 
-  "prayer-for-chasity": `Oh Señor Jesucristo, que dijiste: «Bienaventurados los limpios de corazón, porque ellos verán a Dios», concédeme la gracia de una castidad sin mancha. Favoreciste a san Juan con una señal especial de tu amistad por el gran amor que tienes a esta santa virtud; haz que yo la practique según mi estado, para que también pueda ser tu amigo predilecto. Me arrepiento de toda falta cometida contra la pureza en el pasado: de todo pensamiento indisciplinado, de toda palabra mala y de toda acción sensual o impura. Para el futuro prometo invocar tu nombre y el de tu Madre Inmaculada en toda tentación que me asalte; evitaré toda ocasión de pecado que pudiera llevarme a buscar una satisfacción pecaminosa; exigiré castidad en palabras y obras a quienes me rodean; y mortificaré mi cuerpo para fortalecerlo contra los ataques de los malos deseos. Además, procuraré ofrecer alguna expiación por todos los pecados contra la castidad que se cometen en el mundo y que hicieron tan intenso tu dolor físico durante tu amarga Pasión. Dedico mi vida a la defensa de esta virtud, para que el hogar cristiano sea defendido y protegido y muchas almas sean salvadas de la terrible condenación que merece la impureza. Oh María, Madre Inmaculada, inspira en mi corazón tu propio y gran amor por la virtud de la pureza.
+  "prayer-for-chasity": `Oh Señor Jesucristo, que dijiste: *«Bienaventurados los limpios de corazón, porque ellos verán a Dios»*, concédeme la gracia de una castidad sin mancha. Favoreciste a san Juan con una señal especial de tu amistad por el gran amor que tienes a esta santa virtud; haz que yo la practique según mi estado, para que también pueda ser tu amigo predilecto. Me arrepiento de toda falta cometida contra la pureza en el pasado: de todo pensamiento indisciplinado, de toda palabra mala y de toda acción sensual o impura. Para el futuro prometo invocar tu nombre y el de tu Madre Inmaculada en toda tentación que me asalte; evitaré toda ocasión de pecado que pudiera llevarme a buscar una satisfacción pecaminosa; exigiré castidad en palabras y obras a quienes me rodean; y mortificaré mi cuerpo para fortalecerlo contra los ataques de los malos deseos. Además, procuraré ofrecer alguna expiación por todos los pecados contra la castidad que se cometen en el mundo y que hicieron tan intenso tu dolor físico durante tu amarga Pasión. Dedico mi vida a la defensa de esta virtud, para que el hogar cristiano sea defendido y protegido y muchas almas sean salvadas de la terrible condenación que merece la impureza. Oh María, Madre Inmaculada, inspira en mi corazón tu propio y gran amor por la virtud de la pureza.
 
 > Tomado de: [Examen de conciencia para adultos](https://reader.sacrumflorilegium.com/?file=https%3A%2F%2Fassets.sacrumflorilegium.com%2Fpdfs%2Ffr-d-f-miller-cssr%2Fexamination-of-conscience-for-adults.pdf#page=33), cap. 8, pág. 33.`,
 });
@@ -531,7 +532,7 @@ export const sourceHashesEs = Object.freeze({
   "novena-to-the-sacred-heart-of-jesus": "cb911423b4456f2bab456b797e09e2a301ecdb0309475db677b6ed4590c582ab",
   "prayer-before-any-good-work": "b307fd9a1f640b0b4fc873f56bf0c6fa5b1d5f659417317425c57d522bb561d8",
   "prayer-for-a-happy-death": "8c7b736cc7c0a9e967eac4d8eb13ad27e101af043d8ffb53e650f9cb267b2e7a",
-  "prayer-for-chasity": "92782854e2012a1255d3640854056e76ad80dde261fdebb1b43ea2e1550e78bd",
+  "prayer-for-chasity": "2d1e5d69aba6788f857a7836634445476a3b710a78f5690890f45dbefae79a2d",
 });
 
 export const parallelHeadingsEs = new Map([

@@ -1,4 +1,4 @@
-—
+---
 id: st-michael-prayer
 title: St Michael Prayer
 type: prayer
@@ -6,7 +6,7 @@ devotion: St. Michael
 search: St. Michael, Michael, Spiritual Warfare
 language: en
 layout: devotional
-—
+---
 O Glorious Prince of the heavenly host, St. Michael the Archangel, defend us in the battle and in the terrible warfare that we are waging against the principalities and powers, against the rulers of this world of darkness, against the evil spirits. Come to the aid of man, whom Almighty God created immortal, made in His own image and likeness, and redeemed at a great price from the tyranny of Satan.
 
 Fight this day the battle of the Lord, together with the holy angels, as already thou hast fought the leader of the proud angels, Lucifer, and his apostate host, who were powerless to resist thee, nor was there place for them any longer in Heaven. That cruel, ancient serpent, who is called the devil or Satan who seduces the whole world, was cast into the abyss with his angels. Behold, this primeval enemy and slayer of men has taken courage. Transformed into an angel of light, he wanders about with all the multitude of wicked spirits, invading the earth in order to blot out the name of God and of His Christ, to seize upon, slay and cast into eternal perdition souls destined for the crown of eternal glory. This wicked dragon pours out, as a most impure flood, the venom of his malice on men of depraved mind and corrupt heart, the spirit of lying, of impiety, of blasphemy, and the pestilent breath of impurity, and of every vice and iniquity.
@@ -29,4 +29,4 @@ Amen.
 
 > Roman Raccolta, July 23, 1898, supplement approved July 31, 1902, London: Burnes, Oates & Washbourne Ltd., 1935, 12th edition.
 
-> One day, after celebrating Mass, the aged Pope Leo XIII was in conference with the Cardinals when suddenly he sank to the floor in a deep swoon. Physicians who hastened to his side could find no trace of his pulse and feared that he had expired. However, after a short interval the Holy Father regained consciousness and exclaimed with great emotion: “Oh, what a horrible picture I have been permitted to see!” He had been shown a vision of evil spirits who had been released from Hell and their efforts to destroy the Church. But in the midst of the horror the archangel St. Michael appeared and cast Satan and his legions into the abyss of hell. Soon afterwards Pope Leo XIII composed the following prayer to Saint Michael, which is the original version. 
+> One day, after celebrating Mass, the aged Pope Leo XIII was in conference with the Cardinals when suddenly he sank to the floor in a deep swoon. Physicians who hastened to his side could find no trace of his pulse and feared that he had expired. However, after a short interval the Holy Father regained consciousness and exclaimed with great emotion: “Oh, what a horrible picture I have been permitted to see!” He had been shown a vision of evil spirits who had been released from Hell and their efforts to destroy the Church. But in the midst of the horror the archangel St. Michael appeared and cast Satan and his legions into the abyss of hell. Soon afterwards Pope Leo XIII composed the following prayer to Saint Michael, which is the original version.
