@@ -510,6 +510,30 @@ Jesús, María y José, que mi alma expire en paz con vosotros. Amén.`,
 > Tomado de: [Examen de conciencia para adultos](https://reader.sacrumflorilegium.com/?file=https%3A%2F%2Fassets.sacrumflorilegium.com%2Fpdfs%2Ffr-d-f-miller-cssr%2Fexamination-of-conscience-for-adults.pdf#page=33), cap. 8, pág. 33.`,
 });
 
+export const sourceHashesEs = Object.freeze({
+  "act-of-adoration": "8430a87c948bc27a4f6fa9399cbfef3360c0617aa3593e4e3a5336e105da2922",
+  "act-of-charity": "25815b76612092e11ad80618717e7f5dcc95de1e39304b4d0b203a6029ebf5f3",
+  "act-of-contrition": "1fd2e1f20f6e6ed60564ca1ac9c45774b0049819553efa00adaa6eefef179d33",
+  "act-of-faith": "29a139760a78c9c07e1fcda584cfca422a9f971296cec75125a7a21e471ec9f7",
+  "act-of-hope": "53549fde2ef04bd2870886d6917f6d9024cfc08c389828c25bded1f9fd278254",
+  "ag-criost-an-siol": "21d4e688d268fbadabb29a72e80983844824d31130e02d4a812f1d2b44387215",
+  "agni-parthene": "8a6b9b91cd2685e7defbcaf5dd9929984dcdd89d36f9e3e41c291ac832ab8a3a",
+  "ambrosian-prayer-to-the-holy-ghost": "00b34efbc65c3449225d670f17f993774ed9cdc9ac9108b9f99dc0d7a43ddbb5",
+  "aspiration-of-st-clare": "583ee21fe41a1101aa62137bf6fd9298d19ae41626f660690f378ee03f44cac4",
+  "evening-prayers": "0bc42f349059e997c31296c2dfbca496967072e4f096671c49c9fd6b04f765bc",
+  "grace-before-and-after-meals": "3244d8069860759569fa17b41e673431e8a088bfe9bc6b2b5a74e2cec3e94e58",
+  "hail-holy-queen-enthroned": "3f0b4c7b2e1dd67d76b2c4027c03d0724ee232fb075f48fe479e117402a87a5f",
+  "kyrie-eleison": "bf18a7655a4bc952fa71c206f2e3a4ffe49b23e51843bccbf8bddf3545210192",
+  "litany-of-the-passion": "e6b3d7286f182a65ae922cc49e9fb8ee7bde57488a82c42723f94f902b99affa",
+  "memorare-to-the-sacred-heart-of-jesus": "466b69a67bc44f975561e9572867950d7d12840099143736822e954caddf4a13",
+  "morning-prayer": "297e935fbf7cebdb92c23941e490ea9f6c50ad8026129123f56a30205914d8c9",
+  "night-prayer-of-st-alphonsus-liguori": "4e550b0e2b3fc5e47b778fc7699539e8db8516c8e72235f73056af556904f0a2",
+  "novena-to-the-sacred-heart-of-jesus": "cb911423b4456f2bab456b797e09e2a301ecdb0309475db677b6ed4590c582ab",
+  "prayer-before-any-good-work": "b307fd9a1f640b0b4fc873f56bf0c6fa5b1d5f659417317425c57d522bb561d8",
+  "prayer-for-a-happy-death": "8c7b736cc7c0a9e967eac4d8eb13ad27e101af043d8ffb53e650f9cb267b2e7a",
+  "prayer-for-chasity": "92782854e2012a1255d3640854056e76ad80dde261fdebb1b43ea2e1550e78bd",
+});
+
 export const parallelHeadingsEs = new Map([
   ["Hymn", "Himno"],
   ["The Commendation", "Encomendación"],

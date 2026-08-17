@@ -1,0 +1,90 @@
+name: Generate Spanish translations
+
+"on":
+  push:
+    branches-ignore:
+      - main
+    paths:
+      - "content/*.md"
+  workflow_dispatch:
+    inputs:
+      content_id:
+        description: Content id to translate, without .md
+        required: true
+        type: string
+      force:
+        description: Regenerate even when the source has not changed
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: spanish-translation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  translate:
+    if: github.actor == github.repository_owner
+    runs-on: ubuntu-latest
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      OPENAI_TRANSLATION_MODEL: ${{ vars.OPENAI_TRANSLATION_MODEL }}
+
+    steps:
+      - name: Check out the source branch
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Keep generated translations off main
+        if: github.ref_name == 'main'
+        run: |
+          echo "::error::Run this workflow from a prayer branch so the Spanish wording can be reviewed before merge."
+          exit 1
+
+      - name: Generate Spanish from changed source
+        if: github.event_name == 'push'
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          HEAD_SHA: ${{ github.sha }}
+        run: node scripts/translate-spanish.mjs --base "$BEFORE_SHA" --head "$HEAD_SHA"
+
+      - name: Generate Spanish manually
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          CONTENT_ID: ${{ inputs.content_id }}
+          FORCE_TRANSLATION: ${{ inputs.force }}
+        run: |
+          if [[ "$FORCE_TRANSLATION" == "true" ]]; then
+            node scripts/translate-spanish.mjs --id "$CONTENT_ID" --force
+          else
+            node scripts/translate-spanish.mjs --id "$CONTENT_ID"
+          fi
+
+      - name: Validate the generated site
+        run: |
+          node scripts/build.mjs
+          node --test
+          node scripts/spanish-audit.mjs
+
+      - name: Commit the Spanish draft
+        run: |
+          if [[ -z "$(git status --porcelain -- translations/es)" ]]; then
+            echo "No Spanish translation change was needed."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add translations/es
+          git commit -m "Generate Spanish translation"
+          git push
+          echo "::notice::The generated Spanish file is marked review: required. Review its wording before merging."
