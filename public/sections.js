@@ -1,6 +1,5 @@
 const elements = {
   filters: document.querySelector("#type-filters"),
-  resultCount: document.querySelector("#result-count"),
   results: document.querySelector("#results"),
   languageButtons: [...document.querySelectorAll("[data-language]")],
 };
@@ -46,13 +45,11 @@ function syncButtons() {
 
 function applySectionFilter() {
   if (!elements.results) return;
-  let visible = 0;
 
   for (const result of elements.results.querySelectorAll(".result-item")) {
     const itemId = result.querySelector("[data-item-id]")?.dataset.itemId;
     const matches = activeSection === "all" || itemSections.get(itemId) === activeSection;
     result.hidden = !matches;
-    if (matches) visible += 1;
   }
 
   for (const group of elements.results.querySelectorAll(".index-section")) {
@@ -62,11 +59,6 @@ function applySectionFilter() {
     if (count) count.textContent = String(visibleItems.length);
   }
 
-  if (elements.resultCount) {
-    elements.resultCount.textContent = currentLanguage() === "es"
-      ? `${visible} texto${visible === 1 ? "" : "s"}`
-      : `${visible} text${visible === 1 ? "" : "s"}`;
-  }
   syncButtons();
 }
 
