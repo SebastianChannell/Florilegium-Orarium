@@ -7,7 +7,20 @@ const elements = {
 
 const itemSections = new Map();
 let sections = [];
-let activeSection = "all";
+let activeSection = new URLSearchParams(window.location.search).get("section") || "all";
+
+for (const method of ["pushState", "replaceState"]) {
+  const original = history[method].bind(history);
+  history[method] = (state, title, url) => {
+    if (url && activeSection !== "all") {
+      const next = new URL(url, window.location.href);
+      next.searchParams.delete("type");
+      next.searchParams.set("section", activeSection);
+      return original(state, title, `${next.pathname}${next.search}${next.hash}`);
+    }
+    return original(state, title, url);
+  };
+}
 
 function currentLanguage() {
   return document.documentElement.lang === "es" ? "es" : "en";
@@ -104,6 +117,7 @@ async function startSections() {
   sections = [...new Set(itemSections.values())]
     .sort((left, right) => left.localeCompare(right, "en", { sensitivity: "base" }));
   readSectionFromUrl();
+  writeSectionToUrl();
   buildFilters();
 
   const observer = new MutationObserver(() => applySectionFilter());
