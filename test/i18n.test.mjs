@@ -147,6 +147,7 @@ test("the interface supplies complete English and Spanish controls", () => {
 
   const html = readFileSync(new URL("../public/index.html", import.meta.url), "utf8");
   const app = readFileSync(new URL("../public/app.js", import.meta.url), "utf8");
+  const sections = readFileSync(new URL("../public/sections.js", import.meta.url), "utf8");
   const serviceWorker = readFileSync(new URL("../public/sw.js", import.meta.url), "utf8");
   assert.match(html, /data-language="en"/);
   assert.match(html, /data-language="es"/);
@@ -154,5 +155,8 @@ test("the interface supplies complete English and Spanish controls", () => {
   assert.match(app, /orarium-language/);
   assert.match(app, /item\.language \?\? "la"/);
   assert.match(app, /url\.searchParams\.set\("lang", state\.language\)/);
+  assert.doesNotMatch(html, /result-count/);
+  assert.doesNotMatch(app, /resultCount/);
+  assert.doesNotMatch(sections, /resultCount/);
   assert.match(serviceWorker, /\.\/i18n\.js/);
 });

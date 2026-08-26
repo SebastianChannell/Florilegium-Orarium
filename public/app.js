@@ -24,7 +24,6 @@ const elements = {
   readerText: document.querySelector("#reader-text"),
   readerTitle: document.querySelector("#reader-title"),
   readerView: document.querySelector("#reader-view"),
-  resultCount: document.querySelector("#result-count"),
   results: document.querySelector("#results"),
   searchForm: document.querySelector("#search-form"),
   searchInput: document.querySelector("#search-input"),
@@ -202,7 +201,6 @@ function renderList() {
   elements.results.replaceChildren(
     ...groups.map((group, index) => makeDevotionGroup(group, index, expanded)),
   );
-  elements.resultCount.textContent = uiText(state.language, "textCount", matches.length);
   elements.statusMessage.hidden = matches.length !== 0;
   elements.statusMessage.textContent = state.query
     ? state.language === "es"
@@ -630,7 +628,6 @@ document.addEventListener("keydown", (event) => {
 
 async function start() {
   updateInterfaceCopy();
-  elements.resultCount.textContent = uiText(state.language, "loading");
   try {
     const response = await fetch("./library.json");
     if (!response.ok) throw new Error(`Library request failed with ${response.status}`);
@@ -654,7 +651,6 @@ async function start() {
   } catch (error) {
     console.error(error);
     elements.results.replaceChildren();
-    elements.resultCount.textContent = uiText(state.language, "unavailable");
     elements.statusMessage.textContent = uiText(state.language, "errorLoading");
     elements.statusMessage.hidden = false;
   }
