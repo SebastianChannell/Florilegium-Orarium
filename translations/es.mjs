@@ -20,6 +20,7 @@ export const devotionsEs = Object.freeze({
   "St. Michael": "San Miguel",
   "Saints and Martyrs": "Santos y Mártires",
   "Spiritual Warfare": "Combate espiritual",
+  "Introduction to a Devout Life": "Introducción a la vida devota",
 });
 
 export const hoursEs = Object.freeze({
