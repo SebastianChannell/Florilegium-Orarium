@@ -21,6 +21,7 @@ export const devotionsEs = Object.freeze({
   "Saints and Martyrs": "Santos y Mártires",
   "Spiritual Warfare": "Combate espiritual",
   "Introduction to a Devout Life": "Introducción a la vida devota",
+  "Sacred Heart": "Sacred Heart",
 });
 
 export const hoursEs = Object.freeze({
