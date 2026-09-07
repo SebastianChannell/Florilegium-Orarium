@@ -1,4 +1,4 @@
-export const supportedLanguages = new Set(["en", "es"]);
+export const supportedLanguages = new Set(["en", "la", "es"]);
 
 const copy = {
   en: {
@@ -66,7 +66,7 @@ const copy = {
 };
 
 export function uiText(language, key, value) {
-  const selected = supportedLanguages.has(language) ? language : "en";
+  const selected = language === "es" ? "es" : "en";
   const entry = copy[selected][key] ?? copy.en[key] ?? key;
   return typeof entry === "function" ? entry(value) : entry;
 }
