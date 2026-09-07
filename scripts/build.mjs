@@ -10,6 +10,7 @@ import {
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseDevotionalText } from "../public/devotional-text.js";
+import { splitLanguageSections, choosePrimaryLanguage } from "../public/language-sections.js";
 import { parseParallelText, splitParallelHeading } from "../public/parallel-text.js";
 import { loadGeneratedTranslations, sourceFingerprint } from "./spanish-translation-data.mjs";
 import {
@@ -85,7 +86,21 @@ function parseTextFile(filename) {
   }
 
   const children = splitList(metadata.children);
-  const text = match[2].trim();
+  let languageSections;
+  try {
+    languageSections = splitLanguageSections(match[2]);
+  } catch (error) {
+    throw new Error(`${filename}: ${error.message}`);
+  }
+  const primaryLanguage = choosePrimaryLanguage(languageSections.sections, metadata.language);
+  const text = primaryLanguage
+    ? languageSections.sections[primaryLanguage]
+    : languageSections.text;
+  const inlineTranslations = Object.fromEntries(
+    Object.entries(languageSections.sections).filter(([language]) => language !== primaryLanguage),
+  );
+  const language = metadata.language || primaryLanguage;
+
   if (!text && children.length === 0) {
     throw new Error(`${filename}: prayer or hymn text cannot be empty`);
   }
@@ -126,10 +141,11 @@ function parseTextFile(filename) {
     devotion: metadata.devotion,
     search: splitList(metadata.search),
     text,
-    ...(metadata.language ? { language: metadata.language } : {}),
+    ...(language ? { language } : {}),
     ...(metadata.layout ? { layout: metadata.layout } : {}),
     ...(metadata.parent ? { parent: metadata.parent, hour: metadata.hour } : {}),
     ...(children.length > 0 ? { children } : {}),
+    ...(Object.keys(inlineTranslations).length > 0 ? { inlineTranslations } : {}),
   };
 }
 
@@ -265,6 +281,7 @@ for (const [id, generated] of generatedTranslations) {
   if (!item.language || item.language === "la" || item.layout === "parallel") {
     throw new Error(`${generated.filename}: generated body translations are only for non-Latin reading texts`);
   }
+  if (item.inlineTranslations?.es) continue;
   const fingerprint = sourceFingerprint(item);
   if (generated.sourceHash !== fingerprint) {
     if (!allowPendingSpanish) {
@@ -305,9 +322,12 @@ for (const item of items) {
   if (item.layout === "parallel") {
     translation.text = translateParallelText(item);
   } else if (item.language && item.language !== "la") {
+    const inlineSpanish = item.inlineTranslations?.es?.trim();
     const curatedText = textEs[item.id];
-    const curatedIsCurrent = curatedText && sourceHashesEs[item.id] === sourceFingerprint(item);
-    const translatedText = generated?.text ?? (curatedIsCurrent ? curatedText : undefined);
+    const curatedIsCurrent = !inlineSpanish && curatedText
+      ? sourceHashesEs[item.id] === sourceFingerprint(item)
+      : false;
+    const translatedText = inlineSpanish ?? generated?.text ?? (curatedIsCurrent ? curatedText : undefined);
     if (!translatedText) {
       const reason = curatedText ? "curated Spanish is stale" : "Spanish has not been generated yet";
       if (!allowPendingSpanish) {
@@ -340,7 +360,15 @@ for (const item of items) {
     }
   }
 
-  item.translations = { es: translation };
+  const translations = { es: translation };
+  if (item.inlineTranslations?.la) {
+    translations.la = { text: item.inlineTranslations.la.trim() };
+  }
+  if (item.inlineTranslations?.en && item.language !== "en") {
+    translations.en = { text: item.inlineTranslations.en.trim() };
+  }
+  item.translations = translations;
+  delete item.inlineTranslations;
 }
 
 for (const id of Object.keys(textEs)) {
