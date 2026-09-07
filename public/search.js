@@ -1,5 +1,7 @@
 import { localizedField } from "./i18n.js";
 
+const searchLanguages = ["en", "la", "es"];
+
 function collator(language = "en") {
   return new Intl.Collator(language, { sensitivity: "base" });
 }
@@ -18,7 +20,7 @@ export function normalizeSearchText(value = "") {
 export function prepareLibrary(items) {
   const prepared = items.map((item) => {
     const languages = {};
-    for (const language of ["en", "es"]) {
+    for (const language of searchLanguages) {
       const translation = item.translations?.[language] ?? {};
       const devotion = normalizeSearchText(translation.devotion ?? item.devotion);
       const search = normalizeSearchText((translation.search ?? item.search ?? []).join(" "));
@@ -37,7 +39,7 @@ export function prepareLibrary(items) {
     return {
       ...item,
       _search: {
-        all: `${languages.en.haystack} ${languages.es.haystack}`,
+        all: searchLanguages.map((language) => languages[language].haystack).join(" "),
         languages,
       },
     };
@@ -47,7 +49,7 @@ export function prepareLibrary(items) {
   for (const item of prepared) {
     if (!item.children?.length) continue;
 
-    for (const language of ["en", "es"]) {
+    for (const language of searchLanguages) {
       const childText = item.children
         .map((childId) => itemsById.get(childId)?._search.languages[language].text ?? "")
         .filter(Boolean)
@@ -56,7 +58,7 @@ export function prepareLibrary(items) {
       fields.text = `${fields.text} ${childText}`.trim();
       fields.haystack = [fields.title, fields.devotion, fields.search, fields.text].join(" ");
     }
-    item._search.all = `${item._search.languages.en.haystack} ${item._search.languages.es.haystack}`;
+    item._search.all = searchLanguages.map((language) => item._search.languages[language].haystack).join(" ");
   }
 
   return prepared;
@@ -72,7 +74,9 @@ function rankItem(item, normalizedQuery, tokens, language) {
   }
 
   const preferred = item._search.languages[language] ?? item._search.languages.en;
-  const alternate = item._search.languages[language === "es" ? "en" : "es"];
+  const alternates = searchLanguages
+    .filter((candidate) => candidate !== language)
+    .map((candidate) => item._search.languages[candidate]);
   let score = 0;
   if (preferred.title === normalizedQuery) score += 1_000;
   if (preferred.title.startsWith(normalizedQuery)) score += 500;
@@ -84,10 +88,12 @@ function rankItem(item, normalizedQuery, tokens, language) {
     if (preferred.devotion.includes(token)) score += 80;
     if (preferred.search.includes(token)) score += 70;
     if (preferred.text.includes(token)) score += 5;
-    if (alternate.title.includes(token)) score += 40;
-    if (alternate.devotion.includes(token)) score += 30;
-    if (alternate.search.includes(token)) score += 25;
-    if (alternate.text.includes(token)) score += 2;
+    for (const alternate of alternates) {
+      if (alternate.title.includes(token)) score += 40;
+      if (alternate.devotion.includes(token)) score += 30;
+      if (alternate.search.includes(token)) score += 25;
+      if (alternate.text.includes(token)) score += 2;
+    }
   }
 
   return score;
