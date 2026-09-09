@@ -156,6 +156,7 @@ export async function githubRequest(env, path, options = {}) {
       accept: "application/vnd.github+json",
       authorization: `Bearer ${token}`,
       "content-type": "application/json",
+      "user-agent": "Sacrum-Florilegium-Orarium",
       "x-github-api-version": "2022-11-28",
       ...(options.headers || {}),
     },
