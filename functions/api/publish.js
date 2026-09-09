@@ -7,6 +7,20 @@ import {
   utf8ToBase64,
 } from "../../src/ingest-common.js";
 
+async function githubError(response, fallback) {
+  const text = await response.text().catch(() => "");
+  if (text) {
+    try {
+      const payload = JSON.parse(text);
+      if (payload?.message) return payload.message;
+    } catch {
+      // Fall through to the status-based message below.
+    }
+  }
+
+  return `${fallback} GitHub returned HTTP ${response.status}.`;
+}
+
 export async function onRequestPost({ request, env }) {
   const unauthorized = requireAdmin(request, env);
   if (unauthorized) return unauthorized;
@@ -25,8 +39,7 @@ export async function onRequestPost({ request, env }) {
       return json({ error: `A text with id “${draft.id}” already exists.` }, 409);
     }
     if (existing.status !== 404) {
-      const details = await existing.json().catch(() => ({}));
-      return json({ error: details?.message || "Could not check the repository." }, 502);
+      return json({ error: await githubError(existing, "Could not check the repository.") }, 502);
     }
 
     const created = await githubRequest(env, path, {
@@ -37,11 +50,12 @@ export async function onRequestPost({ request, env }) {
         branch,
       }),
     });
-    const payload = await created.json().catch(() => ({}));
     if (!created.ok) {
-      return json({ error: payload?.message || "GitHub rejected the new prayer." }, created.status === 422 ? 409 : 502);
+      const status = created.status === 422 ? 409 : 502;
+      return json({ error: await githubError(created, "GitHub rejected the new prayer.") }, status);
     }
 
+    const payload = await created.json().catch(() => ({}));
     return json({
       ok: true,
       id: draft.id,
