@@ -1,0 +1,9 @@
+.reader-language-switch {
+  justify-content: center;
+  width: fit-content;
+  margin: 1rem auto 0;
+}
+
+.reader-language-switch .language-button[hidden] {
+  display: none;
+}
