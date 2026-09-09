@@ -13,7 +13,7 @@ const library = JSON.parse(
   readFileSync(new URL("../dist/library.json", import.meta.url), "utf8"),
 ).items;
 
-test("every text has complete Spanish display metadata", () => {
+test("translation metadata remains available while interface metadata stays in English", () => {
   assert.ok(library.length >= 99);
 
   for (const item of library) {
@@ -23,10 +23,10 @@ test("every text has complete Spanish display metadata", () => {
     assert.ok(spanish.devotion, `${item.id}: Spanish devotion`);
     assert.ok(Array.isArray(spanish.search), `${item.id}: Spanish search terms`);
     if (item.hour) assert.ok(spanish.hour, `${item.id}: Spanish Hour name`);
-  }
 
-  assert.equal(localizedField(library.find((item) => item.id === "morning-prayer"), "title", "es"), "Oración de la mañana");
-  assert.equal(localizedField(library.find((item) => item.id === "pater-noster"), "devotion", "es"), "Dios Padre");
+    assert.equal(localizedField(item, "title", "es"), item.title, `${item.id}: title stays in source interface language`);
+    assert.equal(localizedField(item, "devotion", "es"), item.devotion, `${item.id}: devotion stays in source interface language`);
+  }
 });
 
 test("available non-Latin Spanish bodies are structurally complete", () => {
@@ -42,6 +42,7 @@ test("available non-Latin Spanish bodies are structurally complete", () => {
     const spanish = item.translations.es.text;
     assert.ok(spanish, `${item.id}: Spanish body`);
     assert.notEqual(spanish, item.text, `${item.id}: source was actually translated`);
+    assert.equal(localizedText(item, "es"), spanish, `${item.id}: reader selects the Spanish prayer body`);
 
     if (item.layout === "devotional") {
       assert.deepEqual(
@@ -90,7 +91,7 @@ test("all Little Office Hours become Latin and Spanish without changing Latin", 
   assert.ok(translatedRows > 450, "the English Office column should be translated throughout");
 });
 
-test("Latin texts remain untouched", () => {
+test("Latin texts remain untouched when no translated body exists", () => {
   const preserved = library.filter((item) => !item.language && item.layout !== "parallel");
   assert.ok(preserved.length > 40);
 
@@ -100,16 +101,17 @@ test("Latin texts remain untouched", () => {
   }
 });
 
-test("Spanish titles, devotions, aliases, and full text are searchable", () => {
+test("translated words remain searchable while browse labels stay in English", () => {
   const prepared = prepareLibrary(library);
   const visible = browseLibrary(prepared);
 
   assert.equal(searchLibrary(visible, "Padre nuestro", "all", [], "es")[0].id, "pater-noster");
   assert.equal(searchLibrary(visible, "Nos diste Pan del cielo", "all", [], "es")[0].id, "little-office-of-the-blessed-sacrament");
   assert.equal(searchLibrary(visible, "Para expiar", "prayer", [], "es")[0].id, "evening-prayers");
-  assert.ok(
-    groupByDevotion(visible, "es").some((group) => group.devotion === "Santísima Virgen María"),
-  );
+
+  for (const group of groupByDevotion(visible, "es")) {
+    assert.equal(group.devotion, group.items[0].devotion, `${group.key}: devotion label stays in English/source metadata`);
+  }
 });
 
 test("Spanish versicles and responses retain the purple marker role", () => {
@@ -138,21 +140,35 @@ test("Spanish versicles and responses retain the purple marker role", () => {
   assert.ok(markers > 580);
 });
 
-test("the interface supplies complete English and Spanish controls", () => {
-  assert.equal(uiText("es", "prayers"), "Oraciones");
-  assert.equal(uiText("es", "hymns"), "Himnos");
-  assert.match(uiText("es", "description"), /oraciones e himnos/);
-  assert.equal(uiText("es", "textCount", 1), "1 texto");
-  assert.equal(uiText("es", "textCount", 2), "2 textos");
+test("the site shell is English and language controls live only in the reader", () => {
+  assert.equal(uiText("en", "prayers"), "Prayers");
+  assert.equal(uiText("es", "prayers"), "Prayers");
+  assert.equal(uiText("la", "hymns"), "Hymns");
+  assert.match(uiText("es", "description"), /prayers and hymns/);
+  assert.equal(uiText("es", "textCount", 1), "1 text");
+  assert.equal(uiText("es", "textCount", 2), "2 texts");
 
   const html = readFileSync(new URL("../public/index.html", import.meta.url), "utf8");
   const app = readFileSync(new URL("../public/app.js", import.meta.url), "utf8");
+  const readerLanguage = readFileSync(new URL("../public/reader-language.js", import.meta.url), "utf8");
   const serviceWorker = readFileSync(new URL("../public/sw.js", import.meta.url), "utf8");
+
   assert.match(html, /data-language="en"/);
+  assert.match(html, /data-language="la"/);
   assert.match(html, /data-language="es"/);
-  assert.match(html, /Se requiere JavaScript/);
+  assert.ok(html.indexOf('id="language-switch"') > html.indexOf('id="reader-view"'));
+  assert.doesNotMatch(html, /Se requiere JavaScript/);
+  assert.match(html, /reader-language\.js/);
+  assert.match(html, /reader-language\.css/);
+
   assert.match(app, /orarium-language/);
   assert.match(app, /item\.language \?\? "la"/);
-  assert.match(app, /url\.searchParams\.set\("lang", state\.language\)/);
+  assert.match(readerLanguage, /availableLanguages/);
+  assert.match(readerLanguage, /languageSwitch\.hidden = true/);
+  assert.match(readerLanguage, /document\.documentElement\.lang = "en"/);
+  assert.match(readerLanguage, /url\.searchParams\.delete\("lang"\)/);
+
   assert.match(serviceWorker, /\.\/i18n\.js/);
+  assert.match(serviceWorker, /\.\/reader-language\.js/);
+  assert.match(serviceWorker, /\.\/reader-language\.css/);
 });
