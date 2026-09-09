@@ -12,7 +12,9 @@
     <link rel="icon" href="./favicon.svg" type="image/svg+xml">
     <link rel="manifest" href="./manifest.webmanifest">
     <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./reader-language.css">
     <script type="module" src="./app.js"></script>
+    <script type="module" src="./reader-language.js"></script>
     <script type="module" src="./sections.js"></script>
   </head>
   <body>
@@ -41,11 +43,6 @@
             <a href="https://propria.sacrumflorilegium.com/">Propria</a>
           </nav>
         </details>
-        <div id="language-switch" class="language-switch" role="group" aria-label="Language">
-          <button class="language-button is-active" type="button" data-language="en" aria-pressed="true">English</button>
-          <button class="language-button" type="button" data-language="la" aria-pressed="false">Latin</button>
-          <button class="language-button" type="button" data-language="es" aria-pressed="false">Español</button>
-        </div>
       </header>
 
       <main id="main-content">
@@ -99,6 +96,11 @@
         <article id="reader-view" class="reader" aria-labelledby="reader-title" hidden>
           <button id="back-button" class="back-button" type="button">← All texts</button>
           <h1 id="reader-title" tabindex="-1"></h1>
+          <div id="language-switch" class="language-switch reader-language-switch" role="group" aria-label="Prayer language" hidden>
+            <button class="language-button is-active" type="button" data-language="en" aria-pressed="true">English</button>
+            <button class="language-button" type="button" data-language="la" aria-pressed="false">Latin</button>
+            <button class="language-button" type="button" data-language="es" aria-pressed="false">Español</button>
+          </div>
           <nav id="office-hours" class="office-hours" aria-label="Office Hours" hidden>
             <p id="office-hours-label" class="office-hours-label">Hours</p>
             <ol id="office-hours-list" class="office-hours-list"></ol>
@@ -114,10 +116,7 @@
     </div>
 
     <noscript>
-      <p class="noscript">
-        JavaScript is required to search and open the texts.<br>
-        <span lang="es">Se requiere JavaScript para buscar y abrir los textos.</span>
-      </p>
+      <p class="noscript">JavaScript is required to search and open the texts.</p>
     </noscript>
   </body>
 </html>
