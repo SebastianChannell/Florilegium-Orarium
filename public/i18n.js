@@ -47,7 +47,7 @@ export function localizedText(item, language = "en") {
   if (!item) return "";
 
   const sourceLanguage = item.language ?? "";
-  if (!sourceLanguage || language === sourceLanguage) return item.text ?? "";
+  if (sourceLanguage && language === sourceLanguage) return item.text ?? "";
 
   return item.translations?.[language]?.text ?? item.text ?? "";
 }
