@@ -2,6 +2,10 @@ const languageOrder = ["en", "la", "es"];
 const languageSwitch = document.querySelector("#language-switch");
 const languageButtons = [...document.querySelectorAll("[data-language]")];
 const readerView = document.querySelector("#reader-view");
+const searchInput = document.querySelector("#search-input");
+const statusMessage = document.querySelector("#status-message");
+const devotionOptions = document.querySelector("#devotion-options");
+const filterButtons = [...document.querySelectorAll("[data-filter]")];
 
 let itemsById = new Map();
 
@@ -49,6 +53,25 @@ function stripBrowseLanguageParameter() {
   history.replaceState(history.state, "", `${url.pathname}${url.search}`);
 }
 
+function syncBrowseStatus() {
+  if (!readerView.hidden || statusMessage.hidden) return;
+
+  const query = searchInput.value.trim();
+  const hasDevotionFilter = [...devotionOptions.querySelectorAll("[data-devotion]")]
+    .some((checkbox) => checkbox.checked);
+  const hasTypeFilter = filterButtons.some(
+    (button) => button.dataset.filter !== "all" && button.classList.contains("is-active"),
+  );
+
+  const text = query
+    ? `No text contains “${query}”.`
+    : hasDevotionFilter || hasTypeFilter
+      ? "No texts match the selected filters."
+      : "No texts are available in this section.";
+
+  if (statusMessage.textContent !== text) statusMessage.textContent = text;
+}
+
 function syncLanguageControls() {
   const item = currentItem();
   const readerOpen = !readerView.hidden && Boolean(item);
@@ -57,19 +80,22 @@ function syncLanguageControls() {
     languageSwitch.hidden = true;
     document.documentElement.lang = "en";
     stripBrowseLanguageParameter();
+    syncBrowseStatus();
     return;
   }
 
   const available = availableLanguages(item);
   const selected = effectiveLanguage(item, available);
+  const activeLanguage = languageButtons.find(
+    (button) => button.classList.contains("is-active"),
+  )?.dataset.language;
+  const activeIsAvailable = available.includes(activeLanguage);
 
   for (const button of languageButtons) {
     const isAvailable = available.includes(button.dataset.language);
     button.hidden = !isAvailable;
 
-    if (!isAvailable || !available.includes(
-      languageButtons.find((candidate) => candidate.classList.contains("is-active"))?.dataset.language,
-    )) {
+    if (!isAvailable || !activeIsAvailable) {
       const active = button.dataset.language === selected;
       button.classList.toggle("is-active", active);
       button.setAttribute("aria-pressed", String(active));
@@ -83,6 +109,7 @@ function syncLanguageControls() {
 const observer = new MutationObserver(syncLanguageControls);
 observer.observe(readerView, { attributes: true, attributeFilter: ["hidden"] });
 observer.observe(document.querySelector("#reader-title"), { childList: true, subtree: true });
+observer.observe(statusMessage, { attributes: true, attributeFilter: ["hidden"], childList: true });
 
 window.addEventListener("popstate", () => queueMicrotask(syncLanguageControls));
 
