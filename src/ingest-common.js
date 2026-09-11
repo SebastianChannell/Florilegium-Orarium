@@ -47,7 +47,7 @@ export function slugify(value = "") {
 }
 
 export function normalizeLanguages(input = []) {
-  const allowed = new Set(["LA", "EN", "SP"]);
+  const allowed = new Set(["LA", "EN", "SP", "IT"]);
   const result = [];
   const seen = new Set();
 
@@ -63,7 +63,7 @@ export function normalizeLanguages(input = []) {
     });
   }
 
-  const order = new Map([["LA", 0], ["EN", 1], ["SP", 2]]);
+  const order = new Map([["LA", 0], ["EN", 1], ["SP", 2], ["IT", 3]]);
   return result.sort((a, b) => order.get(a.code) - order.get(b.code));
 }
 
@@ -85,11 +85,6 @@ export function validateDraft(input = {}) {
   if (!new Set(["prayer", "hymn"]).has(type)) errors.push("Type must be prayer or hymn.");
   if (!devotion) errors.push("A devotion is required.");
   if (languages.length === 0) errors.push("At least one language text is required.");
-
-  const codes = new Set(languages.map((language) => language.code));
-  if (codes.has("SP") && !codes.has("EN")) {
-    errors.push("Spanish text requires an English section in the current Orarium language model.");
-  }
 
   if (sourceUrl) {
     try {

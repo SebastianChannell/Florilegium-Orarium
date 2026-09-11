@@ -9,10 +9,11 @@ Orarium is deployed as a Cloudflare Worker with Static Assets. `wrangler.jsonc` 
 1. Open `/add/` on the iPhone.
 2. Paste prayer text or a webpage URL.
 3. Tap **Prepare prayer**.
-4. Review the generated title, id, type, devotion, search terms, and `LA` / `EN` / `SP` sections.
-5. Generated translations are visibly marked **generated · review**. Source text is marked **source text**.
-6. Tap **Publish to Orarium**.
-7. The Git-integrated Worker deploys the resulting commit automatically. Existing GitHub translation automation continues to handle any missing Spanish body that was not included inline.
+4. Leave **Generate translations** off (the default) to prepare only the supplied language, or turn it on to include missing English and Spanish.
+5. Review the title, id, type, devotion, search terms, and `LA` / `EN` / `SP` / `IT` sections.
+6. In review, choose a missing language and tap **Add & translate** whenever another translation is wanted.
+7. Generated translations are visibly marked **generated · review** and remain editable. Source text is marked **source text**.
+8. Tap **Publish to Orarium**, then **Add another prayer** to restart without refreshing the page.
 
 The page is intentionally absent from the public navigation and includes `noindex`. The APIs require a separate admin key.
 

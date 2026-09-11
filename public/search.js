@@ -1,6 +1,6 @@
 import { localizedField } from "./i18n.js";
 
-const searchLanguages = ["en", "la", "es"];
+const searchLanguages = ["en", "la", "es", "it"];
 
 function collator(language = "en") {
   return new Intl.Collator(language, { sensitivity: "base" });

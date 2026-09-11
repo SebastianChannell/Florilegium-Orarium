@@ -361,11 +361,10 @@ for (const item of items) {
   }
 
   const translations = { es: translation };
-  if (item.inlineTranslations?.la) {
-    translations.la = { text: item.inlineTranslations.la.trim() };
-  }
-  if (item.inlineTranslations?.en && item.language !== "en") {
-    translations.en = { text: item.inlineTranslations.en.trim() };
+  for (const [language, text] of Object.entries(item.inlineTranslations ?? {})) {
+    if (language !== "es" && language !== item.language && text.trim()) {
+      translations[language] = { text: text.trim() };
+    }
   }
   item.translations = translations;
   delete item.inlineTranslations;

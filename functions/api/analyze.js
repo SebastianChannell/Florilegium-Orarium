@@ -100,13 +100,13 @@ function schema() {
       languages: {
         type: "array",
         minItems: 1,
-        maxItems: 3,
+        maxItems: 4,
         items: {
           type: "object",
           additionalProperties: false,
           required: ["code", "text", "provenance"],
           properties: {
-            code: { type: "string", enum: ["LA", "EN", "SP"] },
+            code: { type: "string", enum: ["LA", "EN", "SP", "IT"] },
             text: { type: "string" },
             provenance: { type: "string", enum: ["source", "generated"] },
           },
@@ -125,6 +125,7 @@ export async function onRequestPost({ request, env }) {
 
   try {
     const body = await request.json();
+    const generateTranslations = body.generateTranslations === true;
     const source = await resolveSource(body.source);
     const devotions = [...new Set((Array.isArray(body.devotions) ? body.devotions : []).map(oneLine).filter(Boolean))].slice(0, 100);
     const devotionInstruction = devotions.length
@@ -135,10 +136,10 @@ export async function onRequestPost({ request, env }) {
       "You prepare prayer and hymn entries for Orarium, a traditional Catholic prayer collection.",
       "Extract the principal prayer or hymn from the supplied material. Remove navigation, article commentary, advertisements, footnotes that are not part of the prayer, and unrelated prose.",
       "Preserve source-language wording faithfully. Do not modernize devotional wording unless the source itself is modern.",
-      "Recognize Latin as LA, English as EN, and Spanish as SP.",
-      "If English is present and Spanish is absent, generate a complete faithful traditional-neutral Catholic Spanish translation and mark SP generated.",
-      "If Latin is present and English is absent, generate complete English and Spanish translations from the Latin and mark them generated. Never generate or reconstruct Latin that is not present in the source.",
-      "If Spanish is present and English is absent, generate a complete English translation and mark EN generated. Never generate Latin.",
+      "Recognize Latin as LA, English as EN, Spanish as SP, and Italian as IT.",
+      generateTranslations
+        ? "Generate complete English and Spanish translations when either is missing, mark each generated translation generated, and never generate or reconstruct Latin that is not present in the source."
+        : "Do not generate translations. Return only languages actually present in the supplied source and mark them source.",
       "When multiple source languages are present, mark each copied language source. Generated translations must preserve paragraph breaks and liturgical V. / R. / Ant. markers.",
       "Do not add commentary to any language text. Put uncertainties only in notes.",
       "Use a concise stable lowercase-hyphen id. Use an English title when an English title is reasonably available; otherwise use the conventional source title.",

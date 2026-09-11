@@ -117,7 +117,7 @@ function availableBodyLanguages(item) {
     if (translation?.text?.trim()) available.add(language);
   }
 
-  return ["en", "la", "es"].filter((language) => available.has(language));
+  return ["en", "la", "es", "it"].filter((language) => available.has(language));
 }
 
 function installNoteLanguageStyle() {

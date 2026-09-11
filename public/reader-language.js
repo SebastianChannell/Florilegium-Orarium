@@ -1,4 +1,4 @@
-const languageOrder = ["en", "la", "es"];
+const languageOrder = ["en", "la", "es", "it"];
 const languageSwitch = document.querySelector("#language-switch");
 const languageButtons = [...document.querySelectorAll("[data-language]")];
 const readerView = document.querySelector("#reader-view");

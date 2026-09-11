@@ -26,7 +26,7 @@
           <div>
             <p class="eyebrow">Add a text</p>
             <h1 id="ingest-title">Paste. Review. Publish.</h1>
-            <p class="lede">Paste a prayer, hymn, or webpage URL. Orarium prepares the title, devotion, search terms, language sections, and any missing English or Spanish translation for review.</p>
+            <p class="lede">Paste a prayer, hymn, or webpage URL. Orarium prepares the text for review and only generates translations when you ask for them.</p>
           </div>
         </section>
 
@@ -58,6 +58,13 @@
           <label class="field">
             <span>Prayer text or webpage URL</span>
             <textarea id="source-input" rows="9" placeholder="Paste the prayer here, or paste a webpage URL…"></textarea>
+          </label>
+          <label class="toggle-row">
+            <span>
+              <strong>Generate translations</strong>
+              <small>Add missing English and Spanish during preparation</small>
+            </span>
+            <input id="generate-translations" type="checkbox" role="switch">
           </label>
           <button id="analyze-button" class="primary" type="button">Prepare prayer</button>
           <p id="analyze-status" class="status" role="status" aria-live="polite"></p>
@@ -104,40 +111,23 @@
             <p id="source-page-title"></p>
           </div>
 
-          <div class="language-grid">
-            <section class="language-card" data-language-card="LA">
-              <div class="language-heading">
-                <h3>LA · Latin</h3>
-                <select class="provenance" data-provenance="LA" aria-label="Latin provenance">
-                  <option value="source">Source text</option>
-                  <option value="generated">Generated</option>
-                </select>
-              </div>
-              <textarea data-language="LA" rows="10" placeholder="Leave blank if no Latin text is present."></textarea>
-            </section>
-
-            <section class="language-card" data-language-card="EN">
-              <div class="language-heading">
-                <h3>EN · English</h3>
-                <select class="provenance" data-provenance="EN" aria-label="English provenance">
-                  <option value="source">Source text</option>
-                  <option value="generated">Generated</option>
-                </select>
-              </div>
-              <textarea data-language="EN" rows="10" placeholder="English text"></textarea>
-            </section>
-
-            <section class="language-card" data-language-card="SP">
-              <div class="language-heading">
-                <h3>SP · Español</h3>
-                <select class="provenance" data-provenance="SP" aria-label="Spanish provenance">
-                  <option value="source">Source text</option>
-                  <option value="generated">Generated</option>
-                </select>
-              </div>
-              <textarea data-language="SP" rows="10" placeholder="Spanish text"></textarea>
-            </section>
+          <div class="translation-tools" aria-labelledby="translation-tools-title">
+            <div>
+              <h3 id="translation-tools-title">Add a language</h3>
+              <p>Choose a language to translate from the text already present. Every generated translation remains editable.</p>
+            </div>
+            <div class="translation-action">
+              <select id="translation-language" aria-label="Language to add">
+                <option value="EN">English</option>
+                <option value="SP">Español</option>
+                <option value="IT">Italiano</option>
+              </select>
+              <button id="translate-button" class="secondary" type="button">Add &amp; translate</button>
+            </div>
+            <p id="translate-status" class="status" role="status" aria-live="polite"></p>
           </div>
+
+          <div id="language-grid" class="language-grid"></div>
 
           <div id="analysis-notes" class="notes" hidden>
             <h3>Review notes</h3>
@@ -158,6 +148,7 @@
             <div id="preview-body"></div>
           </article>
           <button id="publish-button" class="primary publish" type="button">Publish to Orarium</button>
+          <button id="add-another-button" class="secondary add-another" type="button" hidden>Add another prayer</button>
           <p id="publish-status" class="status" role="status" aria-live="polite"></p>
         </section>
       </main>

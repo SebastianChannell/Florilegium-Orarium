@@ -1,4 +1,4 @@
-export const supportedLanguages = new Set(["en", "la", "es"]);
+export const supportedLanguages = new Set(["en", "la", "es", "it"]);
 
 const copy = {
   en: {

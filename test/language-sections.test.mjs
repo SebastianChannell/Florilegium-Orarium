@@ -20,6 +20,12 @@ test("EN, LA, and SP sections are extracted without rendering the authoring head
   assert.equal(choosePrimaryLanguage(parsed.sections, "en"), "en");
 });
 
+test("IT sections are available as Italian source text", () => {
+  const parsed = splitLanguageSections("## IT\n\nPreghiera italiana.\n\n## EN\n\nEnglish prayer.");
+  assert.equal(parsed.sections.it, "Preghiera italiana.");
+  assert.equal(choosePrimaryLanguage(parsed.sections), "en");
+});
+
 test("declared source language wins when present", () => {
   assert.equal(choosePrimaryLanguage({ en: "English", la: "Latin" }, "la"), "la");
 });

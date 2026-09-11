@@ -1,9 +1,11 @@
 import { onRequestPost as analyze } from "../functions/api/analyze.js";
 import { onRequestPost as publish } from "../functions/api/publish.js";
+import { onRequestPost as translate } from "../functions/api/translate.js";
 
 const apiRoutes = new Map([
   ["/api/analyze", analyze],
   ["/api/publish", publish],
+  ["/api/translate", translate],
 ]);
 
 function json(data, status = 200, headers = {}) {

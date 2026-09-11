@@ -1,11 +1,18 @@
 const $ = (selector) => document.querySelector(selector);
-const $$ = (selector) => [...document.querySelectorAll(selector)];
 const KEY_STORAGE = "orarium-admin-key";
+const LANGUAGE_DEFINITIONS = Object.freeze({
+  LA: { name: "Latin", placeholder: "Latin text" },
+  EN: { name: "English", placeholder: "English text" },
+  SP: { name: "Español", placeholder: "Spanish text" },
+  IT: { name: "Italiano", placeholder: "Italian text" },
+});
+const LANGUAGE_ORDER = ["LA", "EN", "SP", "IT"];
 
 const state = {
   devotions: [],
   sourceUrl: "",
   sourceTitle: "",
+  languages: [],
 };
 
 function slugify(value = "") {
@@ -87,12 +94,44 @@ function setStatus(element, message = "", kind = "") {
   element.className = `status${kind ? ` ${kind}` : ""}`;
 }
 
-function setLanguage(code, language) {
-  const textarea = $(`[data-language="${code}"]`);
-  const provenance = $(`[data-provenance="${code}"]`);
-  textarea.value = language?.text || "";
-  provenance.value = language?.provenance === "generated" ? "generated" : "source";
-  textarea.closest(".language-card").classList.toggle("is-empty", !textarea.value.trim());
+function renderLanguages(languages = state.languages) {
+  state.languages = [...languages]
+    .filter((language) => LANGUAGE_DEFINITIONS[language.code])
+    .sort((left, right) => LANGUAGE_ORDER.indexOf(left.code) - LANGUAGE_ORDER.indexOf(right.code));
+
+  const grid = $("#language-grid");
+  grid.replaceChildren(...state.languages.map((language) => {
+    const definition = LANGUAGE_DEFINITIONS[language.code];
+    const card = document.createElement("section");
+    card.className = "language-card";
+    card.dataset.languageCard = language.code;
+    card.innerHTML = `
+      <div class="language-heading">
+        <h3>${language.code} · ${definition.name}</h3>
+        <div class="language-actions">
+          <select class="provenance" data-provenance="${language.code}" aria-label="${definition.name} provenance">
+            <option value="source">Source text</option>
+            <option value="generated">Generated</option>
+          </select>
+          <button class="remove-language" type="button" data-remove-language="${language.code}" aria-label="Remove ${definition.name}">×</button>
+        </div>
+      </div>
+      <textarea data-language="${language.code}" rows="10" placeholder="${definition.placeholder}"></textarea>`;
+    card.querySelector("textarea").value = language.text || "";
+    card.querySelector("select").value = language.provenance === "generated" ? "generated" : "source";
+    return card;
+  }));
+
+  syncTranslationTargets();
+}
+
+function syncTranslationTargets() {
+  const select = $("#translation-language");
+  const existing = new Set(state.languages.map((language) => language.code));
+  for (const option of select.options) option.disabled = existing.has(option.value);
+  const firstAvailable = [...select.options].find((option) => !option.disabled);
+  if (select.selectedOptions[0]?.disabled) select.value = firstAvailable?.value || "";
+  $("#translate-button").disabled = !firstAvailable;
 }
 
 function populateDraft(draft) {
@@ -110,8 +149,7 @@ function populateDraft(draft) {
   $("#devotion").value = draft.devotion || state.devotions[0] || "";
   $("#search").value = (draft.search || []).join(", ");
 
-  const byCode = new Map((draft.languages || []).map((language) => [language.code, language]));
-  for (const code of ["LA", "EN", "SP"]) setLanguage(code, byCode.get(code));
+  renderLanguages(draft.languages || []);
 
   state.sourceUrl = draft.sourceUrl || "";
   state.sourceTitle = draft.sourceTitle || "";
@@ -141,10 +179,10 @@ function populateDraft(draft) {
 }
 
 function collectDraft() {
-  const languages = ["LA", "EN", "SP"].map((code) => ({
+  const languages = state.languages.map(({ code }) => ({
     code,
-    text: $(`[data-language="${code}"]`).value.trim(),
-    provenance: $(`[data-provenance="${code}"]`).value,
+    text: $(`[data-language="${code}"]`)?.value.trim() || "",
+    provenance: $(`[data-provenance="${code}"]`)?.value || "source",
   })).filter((language) => language.text);
 
   return {
@@ -196,13 +234,43 @@ async function analyze() {
   setBusy(button, true, "Preparing…", "Prepare prayer");
   setStatus(status, "Reading the source and preparing the entry…");
   try {
-    const { draft } = await api("../api/analyze", { source, devotions: state.devotions });
+    const { draft } = await api("../api/analyze", {
+      source,
+      devotions: state.devotions,
+      generateTranslations: $("#generate-translations").checked,
+    });
     populateDraft(draft);
     setStatus(status, "Prepared. Review the text below before publishing.", "success");
   } catch (error) {
     setStatus(status, error.message, "error");
   } finally {
     setBusy(button, false, "Preparing…", "Prepare prayer");
+  }
+}
+
+async function translateLanguage() {
+  const button = $("#translate-button");
+  const status = $("#translate-status");
+  const targetCode = $("#translation-language").value;
+  const draft = collectDraft();
+  if (!targetCode) return;
+  if (draft.languages.length === 0) {
+    setStatus(status, "Add source text before translating.", "error");
+    return;
+  }
+
+  setBusy(button, true, "Translating…", "Add & translate");
+  setStatus(status, `Translating into ${LANGUAGE_DEFINITIONS[targetCode].name}…`);
+  try {
+    const { language } = await api("../api/translate", { targetCode, languages: draft.languages });
+    renderLanguages([...draft.languages, language]);
+    updatePreview();
+    setStatus(status, `${LANGUAGE_DEFINITIONS[targetCode].name} added. Review and edit it before publishing.`, "success");
+  } catch (error) {
+    setStatus(status, error.message, "error");
+  } finally {
+    setBusy(button, false, "Translating…", "Add & translate");
+    syncTranslationTargets();
   }
 }
 
@@ -221,22 +289,35 @@ async function publish() {
     return;
   }
 
-  if (draft.languages.some((language) => language.code === "SP") && !draft.languages.some((language) => language.code === "EN")) {
-    setStatus(status, "Keep an English section when publishing Spanish so the current Orarium build can display both correctly.", "error");
-    return;
-  }
-
   setBusy(button, true, "Publishing…", "Publish to Orarium");
   setStatus(status, "Creating the Markdown file on main…");
   try {
     const result = await api("../api/publish", draft);
-    setStatus(status, `Published ${result.path}. Cloudflare and the Spanish review automation will pick up the commit automatically.`, "success");
+    setStatus(status, `Published ${result.path}. Cloudflare will deploy the commit automatically.`, "success");
     button.textContent = "Published ✓";
     button.disabled = true;
+    $("#add-another-button").hidden = false;
   } catch (error) {
     setStatus(status, error.message, "error");
     setBusy(button, false, "Publishing…", "Publish to Orarium");
   }
+}
+
+function resetForm() {
+  $("#source-input").value = "";
+  $("#generate-translations").checked = false;
+  $("#review-panel").hidden = true;
+  $("#preview-panel").hidden = true;
+  $("#add-another-button").hidden = true;
+  $("#publish-button").disabled = false;
+  $("#publish-button").textContent = "Publish to Orarium";
+  $("#id").removeAttribute("data-edited");
+  state.sourceUrl = "";
+  state.sourceTitle = "";
+  renderLanguages([]);
+  for (const id of ["analyze-status", "publish-status", "translate-status"]) setStatus($(`#${id}`));
+  $("#source-input").focus();
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 async function init() {
@@ -252,8 +333,12 @@ async function init() {
     setStatus($("#analyze-status"), error.message, "error");
   }
 
+  renderLanguages([]);
+
   $("#analyze-button").addEventListener("click", analyze);
   $("#publish-button").addEventListener("click", publish);
+  $("#translate-button").addEventListener("click", translateLanguage);
+  $("#add-another-button").addEventListener("click", resetForm);
   $("#admin-key").addEventListener("change", saveKeyIfNeeded);
   $("#remember-key").addEventListener("change", saveKeyIfNeeded);
 
@@ -266,11 +351,17 @@ async function init() {
     updatePreview();
   });
 
-  for (const element of $$("#review-panel input, #review-panel textarea, #review-panel select")) {
-    if (element.id === "title" || element.id === "id") continue;
-    element.addEventListener("input", updatePreview);
-    element.addEventListener("change", updatePreview);
-  }
+  $("#review-panel").addEventListener("input", (event) => {
+    if (event.target.id !== "title" && event.target.id !== "id") updatePreview();
+  });
+  $("#review-panel").addEventListener("change", updatePreview);
+  $("#language-grid").addEventListener("click", (event) => {
+    const button = event.target.closest("[data-remove-language]");
+    if (!button) return;
+    const draft = collectDraft();
+    renderLanguages(draft.languages.filter((language) => language.code !== button.dataset.removeLanguage));
+    updatePreview();
+  });
 }
 
 init();

@@ -2,13 +2,14 @@ const authoringCodes = Object.freeze({
   EN: "en",
   LA: "la",
   SP: "es",
+  IT: "it",
 });
 
 export const languageSectionCodes = new Map(Object.entries(authoringCodes));
 
 export function splitLanguageSections(value = "") {
   const text = String(value).replace(/\r\n/g, "\n").trim();
-  const headingPattern = /^##[ \t]+(EN|LA|SP)[ \t]*$/gim;
+  const headingPattern = /^##[ \t]+(EN|LA|SP|IT)[ \t]*$/gim;
   const matches = [...text.matchAll(headingPattern)];
 
   if (matches.length === 0) {
@@ -17,7 +18,7 @@ export function splitLanguageSections(value = "") {
 
   const prefix = text.slice(0, matches[0].index).trim();
   if (prefix) {
-    throw new Error("language-section text must begin with ## EN, ## LA, or ## SP");
+    throw new Error("language-section text must begin with ## EN, ## LA, ## SP, or ## IT");
   }
 
   const sections = {};
@@ -46,5 +47,6 @@ export function choosePrimaryLanguage(sections, declaredLanguage = "") {
   if (sections.en) return "en";
   if (sections.la) return "la";
   if (sections.es) return "es";
+  if (sections.it) return "it";
   return "";
 }

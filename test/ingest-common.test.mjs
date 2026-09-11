@@ -28,14 +28,17 @@ test("draftToMarkdown writes language headings without a language property", () 
   assert.match(result.markdown, /^generated-languages: EN, SP$/m);
 });
 
-test("Spanish cannot be published without English", () => {
+test("Italian and Spanish source sections can be published without forced English", () => {
   const result = validateDraft({
-    id: "solo-espanol",
-    title: "Solo Español",
+    id: "preghiera-italiana",
+    title: "Preghiera Italiana",
     type: "prayer",
     devotion: "Sacred Heart of Jesus",
-    languages: [{ code: "SP", text: "Jesús, en Ti confío.", provenance: "source" }],
+    languages: [
+      { code: "IT", text: "Gesù, confido in Te.", provenance: "source" },
+      { code: "SP", text: "Jesús, en Ti confío.", provenance: "generated" },
+    ],
   });
-  assert.equal(result.ok, false);
-  assert.match(result.errors.join(" "), /Spanish text requires an English section/);
+  assert.equal(result.ok, true);
+  assert.match(draftToMarkdown(result.draft).markdown, /## IT\n\nGesù, confido in Te\./);
 });

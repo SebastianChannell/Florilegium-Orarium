@@ -219,7 +219,7 @@ test("public builds tolerate pending Spanish while repository checks stay strict
   const workflow = readFileSync(new URL("../.github/workflows/generate-spanish.yml", import.meta.url), "utf8");
 
   assert.match(packageJson.scripts.build, /--allow-pending-spanish/);
-  assert.equal(packageJson.scripts.check, "node scripts/build.mjs && node --test");
+  assert.equal(packageJson.scripts.check, "node scripts/build-with-static-subdirs.mjs && node --test");
   assert.match(build, /allowPendingSpanish/);
   assert.match(build, /using the original text until automation finishes/);
   assert.match(workflow, /node scripts\/build\.mjs/);
