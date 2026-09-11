@@ -64,28 +64,29 @@
               spellcheck="false"
               placeholder="Search title, opening words, or text"
             >
+            <button id="clear-search" class="search-clear" type="button" aria-label="Clear search" hidden>×</button>
           </form>
 
-          <details id="devotion-filter" class="devotion-filter">
+          <details id="type-filter" class="type-filter">
             <summary>
-              <span id="devotions-label">Devotions</span>
-              <span id="devotion-selection" class="devotion-selection" aria-live="polite">All</span>
+              <span>Type</span>
+              <span id="type-selection" class="type-selection" aria-live="polite">All</span>
             </summary>
-            <div class="devotion-panel">
+            <div class="type-panel">
               <fieldset>
-                <legend id="devotions-legend" class="visually-hidden">Choose one or more devotions</legend>
-                <div id="devotion-options" class="devotion-options"></div>
+                <legend class="visually-hidden">Choose a text type</legend>
+                <div id="type-options" class="type-options">
+                  <label class="type-option"><input type="radio" name="type" value="all" data-filter="all" checked><span>All</span></label>
+                  <label class="type-option"><input type="radio" name="type" value="prayer" data-filter="prayer"><span>Prayers</span></label>
+                  <label class="type-option"><input type="radio" name="type" value="hymn" data-filter="hymn"><span>Hymns</span></label>
+                </div>
               </fieldset>
-              <button id="clear-devotions" class="devotion-clear" type="button" hidden>Clear selection</button>
             </div>
           </details>
 
+          <a class="add-text-button" href="./add/">+ Add prayer or hymn</a>
+
           <div class="browse-tools">
-            <div id="type-filters" class="filters" aria-label="Text type">
-              <button class="filter is-active" type="button" data-filter="all" aria-pressed="true">All</button>
-              <button class="filter" type="button" data-filter="prayer" aria-pressed="false">Prayers</button>
-              <button class="filter" type="button" data-filter="hymn" aria-pressed="false">Hymns</button>
-            </div>
             <p id="result-count" class="result-count" aria-live="polite">Loading…</p>
           </div>
 

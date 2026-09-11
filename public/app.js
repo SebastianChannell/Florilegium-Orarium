@@ -8,11 +8,7 @@ const elements = {
   backButton: document.querySelector("#back-button"),
   browseView: document.querySelector("#browse-view"),
   browseHeading: document.querySelector("#browse-heading"),
-  clearDevotions: document.querySelector("#clear-devotions"),
-  devotionsLabel: document.querySelector("#devotions-label"),
-  devotionsLegend: document.querySelector("#devotions-legend"),
-  devotionOptions: document.querySelector("#devotion-options"),
-  devotionSelection: document.querySelector("#devotion-selection"),
+  clearSearch: document.querySelector("#clear-search"),
   filters: [...document.querySelectorAll("[data-filter]")],
   homeLink: document.querySelector("#home-link"),
   languageButtons: [...document.querySelectorAll("[data-language]")],
@@ -31,7 +27,8 @@ const elements = {
   searchLabel: document.querySelector("#search-label"),
   skipLink: document.querySelector("#skip-link"),
   statusMessage: document.querySelector("#status-message"),
-  typeFilters: document.querySelector("#type-filters"),
+  typeFilter: document.querySelector("#type-filter"),
+  typeSelection: document.querySelector("#type-selection"),
 };
 
 function preferredLanguage() {
@@ -52,7 +49,6 @@ function preferredLanguage() {
 
 const state = {
   currentItem: null,
-  devotions: new Set(),
   filter: "all",
   items: [],
   language: preferredLanguage(),
@@ -63,7 +59,6 @@ function pageUrl({
   item,
   query = state.query,
   filter = state.filter,
-  devotions = state.devotions,
 } = {}) {
   const url = new URL(window.location.href);
   url.search = "";
@@ -71,9 +66,6 @@ function pageUrl({
   if (item) url.searchParams.set("text", item);
   if (query) url.searchParams.set("q", query);
   if (filter !== "all") url.searchParams.set("type", filter);
-  for (const devotion of [...devotions].sort()) {
-    url.searchParams.append("devotion", devotion);
-  }
   return `${url.pathname}${url.search}`;
 }
 
@@ -85,10 +77,6 @@ function updateInterfaceCopy() {
   elements.browseHeading.textContent = uiText(state.language, "title");
   elements.searchLabel.textContent = uiText(state.language, "search");
   elements.searchInput.placeholder = uiText(state.language, "searchPlaceholder");
-  elements.devotionsLabel.textContent = uiText(state.language, "devotions");
-  elements.devotionsLegend.textContent = uiText(state.language, "chooseDevotions");
-  elements.clearDevotions.textContent = uiText(state.language, "clearSelection");
-  elements.typeFilters.setAttribute("aria-label", uiText(state.language, "textType"));
   elements.results.setAttribute("aria-label", uiText(state.language, "devotionalIndex"));
   elements.officeHoursLabel.textContent = uiText(state.language, "hours");
   elements.languageSwitch.setAttribute("aria-label", uiText(state.language, "language"));
@@ -98,49 +86,15 @@ function updateInterfaceCopy() {
     prayer: uiText(state.language, "prayers"),
     hymn: uiText(state.language, "hymns"),
   };
-  for (const button of elements.filters) button.textContent = filterLabels[button.dataset.filter];
+  for (const input of elements.filters) {
+    input.nextElementSibling.textContent = filterLabels[input.dataset.filter];
+  }
 
   for (const button of elements.languageButtons) {
     const active = button.dataset.language === state.language;
     button.classList.toggle("is-active", active);
     button.setAttribute("aria-pressed", String(active));
   }
-}
-
-function syncDevotionControls() {
-  for (const checkbox of elements.devotionOptions.querySelectorAll("[data-devotion]")) {
-    checkbox.checked = state.devotions.has(checkbox.value);
-  }
-
-  const count = state.devotions.size;
-  elements.devotionSelection.textContent = count === 0
-    ? uiText(state.language, "all")
-    : uiText(state.language, "selected", count);
-  elements.clearDevotions.hidden = count === 0;
-}
-
-function buildDevotionOptions() {
-  const options = groupByDevotion(browseLibrary(state.items), state.language).map(({ key, devotion }, index) => {
-    const label = document.createElement("label");
-    label.className = "devotion-option";
-    label.htmlFor = `devotion-option-${index + 1}`;
-
-    const checkbox = document.createElement("input");
-    checkbox.id = label.htmlFor;
-    checkbox.type = "checkbox";
-    checkbox.name = "devotion";
-    checkbox.value = key;
-    checkbox.dataset.devotion = key;
-
-    const name = document.createElement("span");
-    name.textContent = devotion;
-
-    label.append(checkbox, name);
-    return label;
-  });
-
-  elements.devotionOptions.replaceChildren(...options);
-  syncDevotionControls();
 }
 
 function makeResult(item) {
@@ -194,7 +148,7 @@ function renderList() {
     browseLibrary(state.items),
     state.query,
     state.filter,
-    state.devotions,
+    [],
     state.language,
   );
   const groups = groupByDevotion(matches, state.language);
@@ -208,7 +162,7 @@ function renderList() {
     ? state.language === "es"
       ? `Ningún texto contiene «${state.query}».`
       : `No text contains “${state.query}”.`
-    : state.devotions.size > 0 || state.filter !== "all"
+    : state.filter !== "all"
       ? uiText(state.language, "noFilters")
       : uiText(state.language, "noAvailable");
   elements.browseView.hidden = false;
@@ -218,11 +172,14 @@ function renderList() {
 
 function setFilter(filter, { updateUrl = true } = {}) {
   state.filter = new Set(["all", "prayer", "hymn"]).has(filter) ? filter : "all";
-  for (const button of elements.filters) {
-    const active = button.dataset.filter === state.filter;
-    button.classList.toggle("is-active", active);
-    button.setAttribute("aria-pressed", String(active));
+  for (const input of elements.filters) {
+    input.checked = input.dataset.filter === state.filter;
   }
+  elements.typeSelection.textContent = {
+    all: uiText(state.language, "all"),
+    prayer: uiText(state.language, "prayers"),
+    hymn: uiText(state.language, "hymns"),
+  }[state.filter];
   renderList();
   if (updateUrl) history.replaceState({ view: "list", language: state.language }, "", pageUrl());
 }
@@ -475,7 +432,6 @@ function setLanguage(language, { updateUrl = true } = {}) {
   state.language = language;
   rememberLanguage(language);
   updateInterfaceCopy();
-  buildDevotionOptions();
 
   if (state.currentItem) {
     openReader(state.currentItem, {
@@ -512,15 +468,10 @@ function readLocation() {
     state.language = nextLanguage;
     rememberLanguage(nextLanguage);
     updateInterfaceCopy();
-    buildDevotionOptions();
   }
   state.query = params.get("q") ?? "";
-  const availableDevotions = new Set(state.items.map((item) => item.devotion));
-  state.devotions = new Set(
-    params.getAll("devotion").filter((devotion) => availableDevotions.has(devotion)),
-  );
   elements.searchInput.value = state.query;
-  syncDevotionControls();
+  elements.clearSearch.hidden = !state.query;
   setFilter(params.get("type") ?? "all", { updateUrl: false });
 
   const selectedId = params.get("text");
@@ -542,34 +493,24 @@ for (const button of elements.languageButtons) {
 
 elements.searchInput.addEventListener("input", () => {
   state.query = elements.searchInput.value.trim();
+  elements.clearSearch.hidden = !elements.searchInput.value;
   renderList();
   history.replaceState({ view: "list", language: state.language }, "", pageUrl());
 });
 
-elements.devotionOptions.addEventListener("change", (event) => {
-  if (!(event.target instanceof HTMLInputElement) || !event.target.matches("[data-devotion]")) return;
-
-  if (event.target.checked) {
-    state.devotions.add(event.target.value);
-  } else {
-    state.devotions.delete(event.target.value);
-  }
-
-  syncDevotionControls();
+elements.clearSearch.addEventListener("click", () => {
+  elements.searchInput.value = "";
+  state.query = "";
+  elements.clearSearch.hidden = true;
   renderList();
   history.replaceState({ view: "list", language: state.language }, "", pageUrl());
+  elements.searchInput.focus();
 });
 
-elements.clearDevotions.addEventListener("click", () => {
-  state.devotions.clear();
-  syncDevotionControls();
-  renderList();
-  history.replaceState({ view: "list", language: state.language }, "", pageUrl());
+for (const input of elements.filters) input.addEventListener("change", () => {
+  setFilter(input.dataset.filter);
+  elements.typeFilter.open = false;
 });
-
-for (const button of elements.filters) {
-  button.addEventListener("click", () => setFilter(button.dataset.filter));
-}
 
 elements.results.addEventListener("click", (event) => {
   const link = event.target.closest("[data-item-id]");
@@ -636,7 +577,6 @@ async function start() {
     if (!response.ok) throw new Error(`Library request failed with ${response.status}`);
     const library = await response.json();
     state.items = prepareLibrary(library.items);
-    buildDevotionOptions();
     const initialItem = new URLSearchParams(window.location.search).get("text");
     history.replaceState(
       initialItem

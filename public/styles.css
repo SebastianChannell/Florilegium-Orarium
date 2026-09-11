@@ -285,7 +285,7 @@ a {
 .search input {
   width: 100%;
   min-height: 3.25rem;
-  padding: 0.8rem 1rem 0.8rem 3rem;
+  padding: 0.8rem 3rem 0.8rem 3rem;
   border: 1px solid var(--line);
   border-radius: 0.5rem;
   outline: none;
@@ -306,14 +306,34 @@ a {
 }
 
 .search input::-webkit-search-cancel-button {
-  filter: invert(0.75);
+  display: none;
 }
 
-.devotion-filter {
+.search-clear {
+  position: absolute;
+  top: 50%;
+  right: 0.65rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  transform: translateY(-50%);
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 1.55rem;
+  line-height: 1;
+}
+
+.search-clear:hover,
+.search-clear:focus-visible { background: var(--surface-hover); color: var(--text); }
+
+.type-filter {
   margin-top: 0.55rem;
 }
 
-.devotion-filter summary {
+.type-filter summary {
   display: flex;
   align-items: center;
   min-height: 2.5rem;
@@ -326,54 +346,54 @@ a {
   list-style: none;
 }
 
-.devotion-filter summary::-webkit-details-marker {
+.type-filter summary::-webkit-details-marker {
   display: none;
 }
 
-.devotion-filter summary::before {
+.type-filter summary::before {
   width: 1.15rem;
   color: var(--accent);
   content: "+";
 }
 
-.devotion-filter[open] summary::before {
+.type-filter[open] summary::before {
   content: "−";
 }
 
-.devotion-filter summary:hover,
-.devotion-filter[open] summary {
+.type-filter summary:hover,
+.type-filter[open] summary {
   background: var(--surface);
   color: var(--text);
 }
 
-.devotion-selection {
+.type-selection {
   margin-left: auto;
   color: var(--faint);
   font-size: 0.72rem;
   font-weight: 500;
 }
 
-.devotion-panel {
+.type-panel {
   margin-top: 0.15rem;
   padding: 0.5rem;
   border-radius: 0.4rem;
   background: var(--surface);
 }
 
-.devotion-panel fieldset {
+.type-panel fieldset {
   min-width: 0;
   margin: 0;
   padding: 0;
   border: 0;
 }
 
-.devotion-options {
+.type-options {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.1rem 0.5rem;
 }
 
-.devotion-option {
+.type-option {
   display: flex;
   align-items: center;
   min-width: 0;
@@ -385,12 +405,12 @@ a {
   font-size: 0.8rem;
 }
 
-.devotion-option:hover {
+.type-option:hover {
   background: var(--surface-hover);
   color: var(--text);
 }
 
-.devotion-option input {
+.type-option input {
   flex: 0 0 auto;
   width: 1rem;
   height: 1rem;
@@ -398,32 +418,31 @@ a {
   accent-color: var(--accent);
 }
 
-.devotion-option input:checked + span {
+.type-option input:checked + span {
   color: var(--text);
 }
 
-.devotion-clear {
-  display: block;
-  min-height: 2.1rem;
-  margin: 0.25rem 0.25rem 0 auto;
-  padding: 0 0.45rem;
-  border: 0;
-  border-radius: 0.25rem;
-  background: transparent;
+.add-text-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.65rem;
+  margin-top: 0.45rem;
+  border: 1px solid var(--line);
+  border-radius: 0.4rem;
+  background: var(--surface);
   color: var(--accent);
-  cursor: pointer;
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.82rem;
+  font-weight: 650;
+  text-decoration: none;
 }
 
-.devotion-clear:hover {
-  background: var(--surface-hover);
-}
+.add-text-button:hover { background: var(--surface-hover); color: var(--text); }
 
 .browse-tools {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 1rem;
   min-height: 3.25rem;
 }
@@ -452,9 +471,9 @@ a {
   color: var(--text);
 }
 
-.filter:focus-visible,
-.devotion-filter summary:focus-visible,
-.devotion-clear:focus-visible,
+.type-filter summary:focus-visible,
+.search-clear:focus-visible,
+.add-text-button:focus-visible,
 .back-button:focus-visible,
 .devotional-link:focus-visible,
 .index-heading:focus-visible,
@@ -465,7 +484,7 @@ a {
   outline-offset: 3px;
 }
 
-.devotion-option input:focus-visible {
+.type-option input:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
@@ -931,7 +950,7 @@ a {
 }
 
 @media (max-width: 38rem) {
-  .devotion-options,
+  .type-options,
   .index-entries,
   .office-hours-list {
     grid-template-columns: 1fr;

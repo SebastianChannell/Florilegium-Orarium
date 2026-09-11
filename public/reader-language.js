@@ -4,7 +4,6 @@ const languageButtons = [...document.querySelectorAll("[data-language]")];
 const readerView = document.querySelector("#reader-view");
 const searchInput = document.querySelector("#search-input");
 const statusMessage = document.querySelector("#status-message");
-const devotionOptions = document.querySelector("#devotion-options");
 const filterButtons = [...document.querySelectorAll("[data-filter]")];
 
 let itemsById = new Map();
@@ -57,15 +56,13 @@ function syncBrowseStatus() {
   if (!readerView.hidden || statusMessage.hidden) return;
 
   const query = searchInput.value.trim();
-  const hasDevotionFilter = [...devotionOptions.querySelectorAll("[data-devotion]")]
-    .some((checkbox) => checkbox.checked);
   const hasTypeFilter = filterButtons.some(
-    (button) => button.dataset.filter !== "all" && button.classList.contains("is-active"),
+    (button) => button.dataset.filter !== "all" && button.checked,
   );
 
   const text = query
     ? `No text contains “${query}”.`
-    : hasDevotionFilter || hasTypeFilter
+    : hasTypeFilter
       ? "No texts match the selected filters."
       : "No texts are available in this section.";
 
