@@ -334,127 +334,6 @@ Señor, ten piedad.
 Señor, ten piedad.
 Señor, ten piedad.`,
 
-  "litany-of-the-passion": `Señor, ten piedad de nosotros.
-Cristo, ten piedad de nosotros.
-Señor, ten piedad de nosotros.
-
-Cristo, óyenos.
-Cristo, escúchanos benignamente.
-
-Respuesta: Ten piedad de nosotros.
-
-Dios Padre celestial,
-Dios Hijo, Redentor del mundo,
-Dios Espíritu Santo,
-Santísima Trinidad, un solo Dios,
-Jesús, Sabiduría eterna,
-Jesús, vendido por treinta monedas de plata,
-Jesús, postrado en tierra durante la oración,
-Jesús, confortado por un ángel,
-Jesús, bañado en sudor de sangre durante tu agonía,
-Jesús, entregado por Judas con un beso,
-Jesús, atado por los soldados,
-Jesús, abandonado por tus discípulos,
-Jesús, llevado ante Anás y Caifás,
-Jesús, abofeteado por un criado,
-Jesús, acusado por falsos testigos,
-Jesús, declarado reo de muerte,
-Jesús, cubierto de salivas,
-Jesús, con los ojos vendados,
-Jesús, golpeado en la mejilla,
-Jesús, negado tres veces por Pedro,
-Jesús, entregado a Pilato,
-Jesús, despreciado y escarnecido por Herodes,
-Jesús, vestido con una túnica blanca,
-Jesús, rechazado por Barrabás,
-Jesús, desgarrado por los azotes,
-Jesús, herido por nuestros pecados,
-Jesús, tenido por leproso,
-Jesús, cubierto con un manto de púrpura,
-Jesús, coronado de espinas,
-Jesús, golpeado en la cabeza con una caña,
-Jesús, cuya crucifixión exigieron los judíos,
-Jesús, condenado a una muerte ignominiosa,
-Jesús, entregado a la voluntad de tus enemigos,
-Jesús, cargado con el pesado madero de la cruz,
-Jesús, llevado como oveja al matadero,
-Jesús, despojado de tus vestiduras,
-Jesús, clavado en la cruz,
-Jesús, injuriado por los malhechores,
-Jesús, que prometiste el paraíso al ladrón arrepentido,
-Jesús, que encomendaste san Juan a tu Madre como hijo suyo,
-Jesús, que declaraste haber sido abandonado por tu Padre,
-Jesús, a quien en tu sed dieron a beber hiel y vinagre,
-Jesús, que atestiguaste que se había cumplido todo lo escrito acerca de Ti,
-Jesús, que encomendaste tu espíritu en manos de tu Padre,
-Jesús, obediente hasta la muerte de cruz,
-Jesús, traspasado por una lanza,
-Jesús, hecho propiciación por nosotros,
-Jesús, bajado de la cruz,
-Jesús, depositado en el sepulcro,
-Jesús, resucitado gloriosamente de entre los muertos,
-Jesús, ascendido al cielo,
-Jesús, nuestro abogado ante el Padre,
-Jesús, que enviaste sobre tus discípulos al Espíritu Santo Paráclito,
-Jesús, que exaltaste a tu Madre sobre los coros de los ángeles,
-Jesús, que vendrás a juzgar a vivos y muertos,
-
-Sé misericordioso; perdónanos, Señor.
-Sé misericordioso; escúchanos benignamente, Señor.
-
-Respuesta: Señor Jesús, líbranos.
-
-De todo mal,
-De todo pecado,
-De la ira, del odio y de toda mala voluntad,
-De la guerra, del hambre y de la peste,
-De todos los peligros del alma y del cuerpo,
-De la muerte eterna,
-Por tu purísima concepción,
-Por tu nacimiento milagroso,
-Por tu humilde circuncisión,
-Por tu bautismo y santo ayuno,
-Por tus trabajos y vigilias,
-Por tu cruel flagelación y coronación,
-Por tu sed, tus lágrimas y tu desnudez,
-Por tu preciosa muerte y tu cruz,
-Por tu gloriosa resurrección y ascensión,
-Por el envío del Espíritu Santo Paráclito,
-En el día del Juicio,
-
-Nosotros, pecadores, te rogamos que nos oigas.
-
-Respuesta: Te rogamos que nos oigas.
-
-Que te dignes perdonarnos,
-Que te dignes absolvernos,
-Que te dignes conducirnos a verdadera penitencia,
-Que te dignes derramar misericordiosamente en nuestros corazones la gracia del Espíritu Santo,
-Que te dignes defender y propagar tu santa Iglesia,
-Que te dignes conservar y acrecentar todas las asociaciones reunidas en tu santo nombre,
-Que te dignes concedernos la verdadera paz,
-Que te dignes darnos perseverancia en la gracia y en tu santo servicio,
-Que te dignes encender en nuestros corazones aquel fuego divino que consume a los santos y los transforma en Ti,
-Que te dignes unirnos a la compañía de tus santos,
-Que te dignes escucharnos benignamente,
-
-Cordero de Dios, que quitas los pecados del mundo, perdónanos, Señor.
-Cordero de Dios, que quitas los pecados del mundo, escúchanos benignamente, Señor.
-Cordero de Dios, que quitas los pecados del mundo, ten piedad de nosotros, Señor.
-
-Cristo, óyenos; Cristo, escúchanos benignamente.
-
-V. Te adoramos, oh Cristo, y te bendecimos.
-R. Porque por tu santa cruz redimiste al mundo.
-
-Oremos
-
-Oh Dios, que para redimir al mundo te dignaste nacer entre los hombres, ser circuncidado, rechazado por los judíos, entregado por el traidor Judas con un beso, atado con cuerdas y llevado al sacrificio como cordero inocente; que consentiste ser presentado sin pudor ante Anás, Caifás, Pilato y Herodes; ser acusado por falsos testigos, atormentado con azotes e insultos, coronado de espinas, golpeado, cubierto de salivas, velado tu divino rostro, herido con una caña, despojado de tus vestiduras, clavado y levantado en una cruz entre dos ladrones, recibir hiel y vinagre por bebida y, finalmente, ser traspasado por una lanza: por estos sacratísimos padecimientos, que yo, aunque indigno, me atrevo a contemplar; por tu santa cruz y por tu amarga muerte, líbrame, Señor, de las penas del infierno y dígnate conducirme al paraíso, adonde llevaste al ladrón crucificado contigo, Jesús mío, que con el Padre y el Espíritu Santo vives y reinas, Dios, por los siglos de los siglos.
-
-Amén.
-
-Padre nuestro, Avemaría y Gloria, cinco veces.`,
-
   "memorare-to-the-sacred-heart-of-jesus": `Acuérdate, oh dulcísimo Jesús, de que jamás fue abandonado ninguno de cuantos acudieron a tu Sagrado Corazón, imploraron su auxilio o pidieron misericordia.
 
 Lleno y animado por esta misma confianza, oh Corazón divino, soberano de todos los corazones, a Ti acudo y, oprimido bajo el peso de mis pecados, me postro ante Ti.
@@ -527,7 +406,6 @@ export const sourceHashesEs = Object.freeze({
   "grace-before-and-after-meals": "3244d8069860759569fa17b41e673431e8a088bfe9bc6b2b5a74e2cec3e94e58",
   "hail-holy-queen-enthroned": "3f0b4c7b2e1dd67d76b2c4027c03d0724ee232fb075f48fe479e117402a87a5f",
   "kyrie-eleison": "bf18a7655a4bc952fa71c206f2e3a4ffe49b23e51843bccbf8bddf3545210192",
-  "litany-of-the-passion": "e6b3d7286f182a65ae922cc49e9fb8ee7bde57488a82c42723f94f902b99affa",
   "memorare-to-the-sacred-heart-of-jesus": "466b69a67bc44f975561e9572867950d7d12840099143736822e954caddf4a13",
   "morning-prayer": "297e935fbf7cebdb92c23941e490ea9f6c50ad8026129123f56a30205914d8c9",
   "night-prayer-of-st-alphonsus-liguori": "4e550b0e2b3fc5e47b778fc7699539e8db8516c8e72235f73056af556904f0a2",
