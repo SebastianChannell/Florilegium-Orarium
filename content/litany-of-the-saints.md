@@ -166,49 +166,49 @@ Kyrie, eleison. *Kyrie, eleison.*
 Christe, eleison. *Christe, eleison.*
 Kyrie, eleison. *Kyrie, eleison.*
 Pater noster (silentio)
-Et ne nos inducas in tentationem. *Sed libera nos a malo.*
+Et ne nos inducas in tentationem. Sed libera nos a malo.
 Psalmus LXIX
 V. Deus, in adiutorium meum intende:
-R. *Domine ad adiuvandum me festina.*
+R. Domine ad adiuvandum me festina.
 V. Confundantur, et revereantur,
-R. *qui quaerunt animam meam.*
+R. qui quaerunt animam meam.
 V. Avertantur retrorsum, et erubescant,
-R. *qui volunt mihi mala.*
+R. qui volunt mihi mala.
 V. Avertantur statim erubescentes,
-R. *qui dicunt mihi: Euge, euge.*
+R. qui dicunt mihi: Euge, euge.
 V. Exultent et laetentur in te,
-R. *omnes qui quaerunt te:*
+R. omnes qui quaerunt te:
 V. Et dicant semper: Magnificetur Dominus:
-R. *qui diligunt salutare tuum*
+R. qui diligunt salutare tuum
 V. Ego vero egenus et pauper sum:
-R. *Deus adiuva me.*
+R. Deus adiuva me.
 V. Adiutor meus et liberator meus es tu:
-R. *Domine, ne moreris.*
+R. Domine, ne moreris.
 Gloria Patri, et Filio, et Spiritui Sancto. Sicut erat in principio, et nunc, et semper, et in saecula saeculorum. Amen.
 V. Salvos fac servos tuos.
-R. *Deus meus, sperantes in te.*
+R. Deus meus, sperantes in te.
 V. Esto nobis, Domine, turris fortitudinis.
-R. *A facie inimici.*
+R. A facie inimici.
 V. Nihil proficiat inimicus in nobis.
-R. *Et filius iniquitatis non apponat nocere nobis.*
+R. Et filius iniquitatis non apponat nocere nobis.
 V. Domine, non secundum peccata nostra facias nobis.
-R. *Neque secundum iniquitates nostras retribuas nobis.*
+R. Neque secundum iniquitates nostras retribuas nobis.
 V. Oremus pro Pontifice nostro N.
-R. *Dominus conservet eum, et vivificet eum, et beatum faciat eum in terra, et non tradat eum in animam inimicorum eius.*
+R. Dominus conservet eum, et vivificet eum, et beatum faciat eum in terra, et non tradat eum in animam inimicorum eius.
 V. Oremus pro benefactoribus nostris.
-R. *Retribuere dignare, Domine, omnibus nobis bona facientibus propter nomen tuum, vitam aeternam. Amen.*
+R. Retribuere dignare, Domine, omnibus nobis bona facientibus propter nomen tuum, vitam aeternam. Amen.
 V. Oremus pro fidelibus defunctis.
-R. *Requiem aeternam dona eis, Domine, et lux perpetua luceat eis.*
+R. Requiem aeternam dona eis, Domine, et lux perpetua luceat eis.
 V. Requiescant in pace.
-R. *Amen.*
+R. Amen.
 V. Pro fratribus nostris absentibus.
-R. *Salvos fac servos tuos, Deus meus, sperantes in te.*
+R. Salvos fac servos tuos, Deus meus, sperantes in te.
 V. Mitte eis, Domine, auxilium de sancto.
-R. *Et de Sion tuere eos.*
+R. Et de Sion tuere eos.
 V. Domine, exaudi orationem meam.
-R. *Et clamor meus ad te veniat.*
+R. Et clamor meus ad te veniat.
 V. Dominus vobiscum.
-R. *Et cum spiritu tuo.*
+R. Et cum spiritu tuo.
 
 Collecta
 
@@ -226,11 +226,11 @@ Fidelium, Deus omnium Conditor et Redemptor, animabus famulorum famularumque tua
 Actiones nostras, quaesumus, Domine, aspirando praeveni et adiuvando prosequere: ut cuncta oratio et operatio a te semper incipiat et per te coepta finiatur.
 Omnipotens sempiterne Deus, qui vivorum dominaris simul et mortuorum, omniumque misereris, quos tuos fide et opere futuros esse praenoscis: te supplices exoramus; ut pro quibus effundere preces decrevimus, quosque vel praesens saeculum adhuc in carne retinet vel futurum iam exutos corpore suscepit, intercedentibus omnibus Sanctis tuis, pietatis tuae clementia, omnium delictorum suorum veniam consequantur. Per Dominum nostrum Iesum Christum.
 V. Dominus vobiscum.
-R. *Et cum spiritu tuo.*
+R. Et cum spiritu tuo.
 V. Exaudiat nos omnipotens et misericors Dominus.
-R. *Amen.*
+R. Amen.
 V. Et fidelium animae per misericordiam Dei requiescant in pace.
-R. *Amen.*
+R. Amen.
 
 ## EN
 
@@ -392,49 +392,49 @@ Kyrie, eleison. *Kyrie, eleison.*
 Christe, eleison. *Christe, eleison.*
 Kyrie, eleison. *Kyrie, eleison.*
 Our Father (in silence until)
-And lead us not into temptation, *but deliver us from evil.*
+And lead us not into temptation, but deliver us from evil.
 Psalm 69 (70)
 V. O God, come to my assistance;
-R. *O Lord, make haste to help me.*
+R. O Lord, make haste to help me.
 V. Let them be confounded and ashamed;
-R. *those who seek my life.*
+R. those who seek my life.
 V. Let them be rebuffed and disgraced,
-R. *those who wish me evil.*
+R. those who wish me evil.
 V. Let them be turned away blushing for shame,
-R. *those who say unto me: Aha! Aha!.*
+R. those who say unto me: Aha! Aha!.
 V. But let all those who seek Thee:
-R. *rejoice and be glad in Thee.*
+R. rejoice and be glad in Thee.
 V. And may they always say: "Great is the Lord",
-R. *all those who delight in Thy salvation.*
+R. all those who delight in Thy salvation.
 V. But I am afflicted and poor ,
-R. *O God, help me.*
+R. O God, help me.
 V. Thou art my helper and deliverer,
-R. *O Lord, do not delay.*
+R. O Lord, do not delay.
 Glory be to the Father, and to the Son, and to the Holy Spirit. As it was in the beginning, is now, and ever shall be, world without end. Amen.
 V. Save Thy servants.
-R. *My God, who hope in Thee.*
+R. My God, who hope in Thee.
 V. Be unto us, O Lord, a tower of strength.
-R. *In the face of the enemy.*
+R. In the face of the enemy.
 V. Let not the enemy prevail against us.
-R. *Nor the son of iniquity have power to harm us.*
+R. Nor the son of iniquity have power to harm us.
 V. O Lord, deal not with us according to our sins.
-R. *Nor render unto us according to our sins.*
+R. Nor render unto us according to our sins.
 V. Let us pray for our Sovereign Pontiff N.
-R. *The Lord preserve him and give him life, and make him blessed upon the earth, and deliver him not up to the will of his enemies.*
+R. The Lord preserve him and give him life, and make him blessed upon the earth, and deliver him not up to the will of his enemies.
 V. Let us pray for our benefactors.
-R. *Deign to grant, O Lord, for the sake of Thy Name, eternal life to all those who do good to us.*
+R. Deign to grant, O Lord, for the sake of Thy Name, eternal life to all those who do good to us.
 V. Let us pray for the faithful departed.
-R. *Eternal rest grant unto them, O Lord: and let perpetual light shine upon them.*
+R. Eternal rest grant unto them, O Lord: and let perpetual light shine upon them.
 V. May they rest in peace.
-R. *Amen.*
+R. Amen.
 V. For our absent brethren.
-R. *Save Thy servants who hope in Thee, O my God.*
+R. Save Thy servants who hope in Thee, O my God.
 V. Send them help, O Lord, from Thy holy place.
-R. *And from Sion protect them.*
+R. And from Sion protect them.
 V. O Lord, hear my prayer.
-R. *And let my cry come unto Thee.*
+R. And let my cry come unto Thee.
 V. The Lord be with you.
-R. *And with thy spirit.*
+R. And with thy spirit.
 
 Collects
 
@@ -452,11 +452,11 @@ O God, the Creator and redeemer of all the faithful, grant to the souls of Thy d
 Direct, we beseech Thee, O Lord, our actions by Thy holy inspirations and carry them on by Thy gracious assistance; that every prayer and work of ours may always begin with Thee and through Thee be happily ended.
 Almighty and everlasting God, Who hast dominion over the living and the dead, and art merciful to all whom Thou foreknowest shall be Thine by faith and good works: we humbly beseech Thee; that they for whom we intend to pour forth our prayers, whether this present world still detains them in the flesh, or the world to come has already received them out of their bodies, may, through the intercession of all Thy Saints, and in Thy compassionate goodness, obtain the pardon of all their sins. Through Christ our Lord.
 V. The Lord be with you.
-R. *And with Thy spirit.*
+R. And with Thy spirit.
 V. May the almighty and most merciful Lord graciously hear us.
-R. *Amen.*
+R. Amen.
 V. And may the souls of the faithful departed, through the mercy of God, rest in peace.
-R. *Amen.*
+R. Amen.
 
 ## SP
 
@@ -618,51 +618,51 @@ Señor, ten piedad. *Señor, ten piedad.*
 Cristo, ten piedad. *Cristo, ten piedad.*
 Señor, ten piedad. *Señor, ten piedad.*
 Padre nuestro (en silencio)
-Y no nos dejes caer en la tentación. *sino líbranos del mal.*
+Y no nos dejes caer en la tentación. sino líbranos del mal.
 
 Salmo 69 (70)
 
 V. Oh Dios, ven en mi auxilio.
-R. *Señor, date prisa en socorrerme.*
+R. Señor, date prisa en socorrerme.
 V. Sean confundidos y avergonzados
-R. *los que buscan mi vida.*
+R. los que buscan mi vida.
 V. Retrocedan cubiertos de vergüenza
-R. *los que desean mi mal.*
+R. los que desean mi mal.
 V. Vuélvanse atrás avergonzados
-R. *los que me dicen: ¡Bien, bien!*
+R. los que me dicen: ¡Bien, bien!
 V. Alégrense y regocíjense en Ti
-R. *todos los que te buscan.*
+R. todos los que te buscan.
 V. Y digan siempre: Grande es el Señor,
-R. *todos los que aman tu salvación.*
+R. todos los que aman tu salvación.
 V. Yo soy pobre y necesitado:
-R. *oh Dios, ayúdame.*
+R. oh Dios, ayúdame.
 V. Tú eres mi ayuda y mi libertador:
-R. *Señor, no tardes.*
+R. Señor, no tardes.
 Gloria al Padre y al Hijo y al Espíritu Santo. Como era en el principio, ahora y siempre, por los siglos de los siglos. Amén.
 V. Salva a tus siervos.
-R. *Dios mío, que esperan en Ti.*
+R. Dios mío, que esperan en Ti.
 V. Sé para nosotros, Señor, torre de fortaleza.
-R. *frente al enemigo.*
+R. frente al enemigo.
 V. Que el enemigo nada pueda contra nosotros.
-R. *ni el hijo de la iniquidad pueda hacernos daño.*
+R. ni el hijo de la iniquidad pueda hacernos daño.
 V. Señor, no nos trates según nuestros pecados.
-R. *ni nos pagues según nuestras iniquidades.*
+R. ni nos pagues según nuestras iniquidades.
 V. Oremos por nuestro Sumo Pontífice N.
-R. *El Señor lo conserve, le dé vida y lo haga dichoso en la tierra, y no lo entregue a la voluntad de sus enemigos.*
+R. El Señor lo conserve, le dé vida y lo haga dichoso en la tierra, y no lo entregue a la voluntad de sus enemigos.
 V. Oremos por nuestros bienhechores.
-R. *Concédeles, Señor, la vida eterna por tu Nombre.*
+R. Concédeles, Señor, la vida eterna por tu Nombre.
 V. Oremos por los fieles difuntos.
-R. *Dales, Señor, el descanso eterno y brille para ellos la luz perpetua.*
+R. Dales, Señor, el descanso eterno y brille para ellos la luz perpetua.
 V. Descansen en paz.
-R. *Amén.*
+R. Amén.
 V. Por nuestros hermanos ausentes.
-R. *Salva a tus siervos, Dios mío, que esperan en Ti.*
+R. Salva a tus siervos, Dios mío, que esperan en Ti.
 V. Envíales, Señor, auxilio desde tu santuario.
-R. *y desde Sion protégelos.*
+R. y desde Sion protégelos.
 V. Señor, escucha mi oración.
-R. *y llegue a Ti mi clamor.*
+R. y llegue a Ti mi clamor.
 V. El Señor esté con vosotros.
-R. *Y con tu espíritu.*
+R. Y con tu espíritu.
 
 Oraciones
 
@@ -680,8 +680,8 @@ Oh Dios, Creador y Redentor de todos los fieles, concede a las almas de tus sier
 Prevén, Señor, nuestras acciones con tu inspiración y acompáñalas con tu ayuda, para que toda oración y obra nuestra comience siempre en Ti y, una vez comenzada, por Ti termine.
 Dios todopoderoso y eterno, que dominas a vivos y muertos y tienes misericordia de cuantos sabes que serán tuyos por la fe y las obras: te suplicamos por aquellos por quienes hemos decidido orar, tanto los que aún viven en este mundo como los que ya lo han dejado, para que, por la intercesión de todos tus Santos y la clemencia de tu bondad, alcancen el perdón de todos sus pecados. Por nuestro Señor Jesucristo.
 V. El Señor esté con vosotros.
-R. *Y con tu espíritu.*
+R. Y con tu espíritu.
 V. Que nos escuche el Señor todopoderoso y misericordioso.
-R. *Amén.*
+R. Amén.
 V. Y las almas de los fieles difuntos, por la misericordia de Dios, descansen en paz.
-R. *Amén.*
+R. Amén.

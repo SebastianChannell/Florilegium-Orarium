@@ -111,7 +111,8 @@ Lamb of God, Who takest away the sins of the world, *spare us, O Lord.*
 Lamb of God, Who takest away the sins of the world, *graciously hear us, O Lord.*
 Lamb of God, Who takest away the sins of the world, *have mercy on us, O Lord.*
 
-Christ, *hear us;* Christ, *graciously hear us.*
+Christ, *hear us;*
+Christ, *graciously hear us.*
 
 V. We adore Thee, O Christ, and praise Thee:
 R. Because by Thy holy cross Thou hast redeemed the world.
@@ -128,7 +129,9 @@ Pater, Ave, and Gloria five times.
 
 Litaniae vitae et passionis Domini nostri Iesu Christi
 
-Kyrie eleison. *Christe eleison.* Kyrie eleison.
+Kyrie, *eleison.*
+Christe, *eleison.*
+Kyrie, *eleison.*
 Iesu Christe, *audi nos.*
 Iesu Christe, *exaudi nos.*
 Pater de caelis Deus, *Miserere nobis.*
@@ -311,10 +314,12 @@ Agnus Dei, qui tollis peccata mundi, *Exaudi nos, Iesu.*
 Agnus Dei, qui tollis peccata mundi, *miserere nobis, Iesu.*
 Iesu Christe, *Audi nos.*
 Iesu Christe, *Exaudi nos.*
-Kyrie eleison. *Christe eleison.* Kyrie eleison.
+Kyrie, *eleison.*
+Christe, *eleison.*
+Kyrie, *eleison.*
 Pater Noster. Ave Maria.
 V. Adoramus te, Christe, et benedicimus tibi;
-R. *Quia per sanctam crucem tuam redemisti mundum.*
+R. Quia per sanctam crucem tuam redemisti mundum.
 Oremus:
 
 Domine Iesu Christe, Fili Dei vivi, pone passionem, crucem et mortem tuam inter iudicium tuum et animam meam, nunc et in hora mortis meae: et mihi largiri digneris gratiam et misericordiam, vivis et defunctis requiem et veniam, ecclesiae tuae pacem et concordiam et nobis peccatoribus vitam et gloriam sempiternam. Qui vivis et regnas in saecula saeculorum. Amen.
@@ -423,7 +428,8 @@ Cordero de Dios, que quitas los pecados del mundo, *perdónanos, Señor.*
 Cordero de Dios, que quitas los pecados del mundo, *escúchanos benignamente, Señor.*
 Cordero de Dios, que quitas los pecados del mundo, *ten piedad de nosotros, Señor.*
 
-Cristo, *óyenos;* Cristo, *escúchanos benignamente.*
+Cristo, *óyenos;*
+Cristo, *escúchanos benignamente.*
 
 V. Te adoramos, oh Cristo, y te bendecimos.
 R. Porque por tu santa cruz redimiste al mundo.

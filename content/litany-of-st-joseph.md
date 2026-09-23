@@ -8,9 +8,11 @@ latin-source: https://www.preces-latinae.org/thesaurus/Ioseph/LitStIoeseph.html
 ---
 ## LA
 
-Kyrie, eleison. *Christe, eleison.*
-Kyrie, eleison.
-Christe, audi nos. *Christe, exaudi nos.*
+Kyrie, *eleison.*
+Christe, *eleison.*
+Kyrie, *eleison.*
+Christe, *audi nos.*
+Christe, *exaudi nos.*
 Pater de caelis, Deus, *miserere nobis.*
 Fili, Redemptor mundi, Deus, *miserere nobis.*
 Spiritus Sancte Deus, *miserere nobis.*
@@ -45,16 +47,18 @@ Agnus Dei, qui tollis peccata mundi, *parce nobis, Domine.*
 Agnus Dei, qui tollis peccata mundi, *exaudi nos, Domine.*
 Agnus Dei, qui tollis peccata mundi, *miserere nobis.*
 V. Constituit eum dominum domus suae.
-R. *Et principem omnis possessionis suae.*
+R. Et principem omnis possessionis suae.
 
 Oremus
 Deus, qui in ineffabili providentia beatum Ioseph sanctissimae Genetricis tuae Sponsum eligere dignatus es, praesta, quaesumus, ut quem protectorem veneramur in terris, intercessorem habere mereamur in caelis: Qui vivis et regnas in saecula saeculorum. Amen.
 
 ## EN
 
-Lord, have mercy on us. *Christ, have mercy on us.*
-Lord, have mercy on us.
-Christ, hear us. *Christ, graciously hear us.*
+Lord, *have mercy on us.*
+Christ, *have mercy on us.*
+Lord, *have mercy on us.*
+Christ, *hear us.*
+Christ, *graciously hear us.*
 God the Father of heaven, *have mercy on us.*
 God the Son, Redeemer of the world, *have mercy on us.*
 God the Holy Spirit, *have mercy on us.*
@@ -89,7 +93,7 @@ Lamb of God, who takes away the sins of the world, *spare us, O Lord.*
 Lamb of God, who takes away the sins of the world, *graciously hear us, O Lord.*
 Lamb of God, who takes away the sins of the world, *have mercy on us.*
 V. He made him the lord of his household.
-R. *And prince over all his possessions.*
+R. And prince over all his possessions.
 
 Let us pray
 O God, in Thy ineffable providence Thou wert pleased to choose Blessed Joseph to be the spouse of Thy most holy Mother, grant, we beg Thee, that we may be worthy to have him for our intercessor in heaven whom on earth we venerate as our Protector; Thou who livest and reignest forever and ever.  Amen.
@@ -138,7 +142,7 @@ Cordero de Dios, que quitas los pecados del mundo, *escúchanos, Señor.*
 Cordero de Dios, que quitas los pecados del mundo, *ten piedad de nosotros.*
 
 V. Lo constituyó señor de su casa.
-R. *Y príncipe de todos sus bienes.*
+R. Y príncipe de todos sus bienes.
 
 Oremos
 
