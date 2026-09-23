@@ -8,9 +8,11 @@ latin-source: https://www.preces-latinae.org/thesaurus/Filius/LitPSDNIC.html
 ---
 ## LA
 
-Kyrie, eleison, *Christe, eleison.*
-Kyrie, eleison
-Christe, audi nos, *Christe, exaudi nos.*
+Kyrie, *eleison.*
+Christe, *eleison.*
+Kyrie, *eleison.*
+Christe, *audi nos.*
+Christe, *exaudi nos.*
 Pater de caelis, Deus, *miserere nobis.*
 Fili, Redemptor mundi, Deus, *miserere nobis.*
 Spiritus Sancte, Deus, *miserere nobis.*
@@ -43,16 +45,18 @@ Agnus Dei, qui tollis peccata mundi, *parce nobis, Domine.*
 Agnus Dei, qui tollis peccata mundi, *exaudi nos, Domine.*
 Agnus Dei, qui tollis peccata mundi, *miserere nobis, Domine.*
 V. Redemisti nos, Domine, in sanguine tuo.
-R. *Et fecisti nos Deo nostro regnum.*
+R. Et fecisti nos Deo nostro regnum.
 
 Oremus;
-Omnipotens sempiterne Deus, qui unigenitum Filium tuum mundi Redemptorem constituisti, ac eius sanguine placari voluisti: concede, quaesumus, salutis nostrae pretium ita venerari, atque a praesentis vitae malis eius virtute defendi in terris, ut fructu perpetuo laetemur in caelis. Per eundem Christum Dominum nostrum. *Amen.*
+Omnipotens sempiterne Deus, qui unigenitum Filium tuum mundi Redemptorem constituisti, ac eius sanguine placari voluisti: concede, quaesumus, salutis nostrae pretium ita venerari, atque a praesentis vitae malis eius virtute defendi in terris, ut fructu perpetuo laetemur in caelis. Per eundem Christum Dominum nostrum. Amen.
 
 ## EN
 
-Lord, have mercy, *Christ, have mercy.*
-Lord, have mercy.
-Christ, hear us. *Christ, graciously hear us.*
+Lord, *have mercy.*
+Christ, *have mercy.*
+Lord, *have mercy.*
+Christ, *hear us.*
+Christ, *graciously hear us.*
 God the Father of Heaven, *have mercy on us.*
 God the Son, Redeemer of the world, *have mercy on us.*
 God, the Holy Spirit, *have mercy on us.*
@@ -85,10 +89,10 @@ Lamb of God, who taketh away the sins of the world, *spare us, O Lord.*
 Lamb of God, who taketh away the sins of the world, *graciously hear us, O Lord.*
 Lamb of God, who taketh away the sins of the world, *have mercy on us, O Lord.*
 V. Thou hast redeemed us, O Lord, in Thy Blood.
-R. *And made us, for our God, a kingdom.*
+R. And made us, for our God, a kingdom.
 
 Let us pray;
-Almighty and eternal God, Thou hast appointed Thine only-begotten Son the Redeemer of the world and willed to be appeased by his blood. Grant, we beg of Thee, that we may worthily adore this price of our salvation and through its power be safeguarded from the evils of the present life so that we may rejoice in its fruits forever in heaven. Through the same Christ our Lord. *Amen.*
+Almighty and eternal God, Thou hast appointed Thine only-begotten Son the Redeemer of the world and willed to be appeased by his blood. Grant, we beg of Thee, that we may worthily adore this price of our salvation and through its power be safeguarded from the evils of the present life so that we may rejoice in its fruits forever in heaven. Through the same Christ our Lord. Amen.
 
 ## SP
 
@@ -132,7 +136,7 @@ Cordero de Dios, que quitas los pecados del mundo, *escúchanos, Señor.*
 Cordero de Dios, que quitas los pecados del mundo, *ten piedad de nosotros, Señor.*
 
 V. Nos redimiste, Señor, con tu Sangre.
-R. *Y nos hiciste reino para nuestro Dios.*
+R. Y nos hiciste reino para nuestro Dios.
 
 Oremos
 
