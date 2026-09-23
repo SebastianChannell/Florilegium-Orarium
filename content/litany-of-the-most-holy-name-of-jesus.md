@@ -8,8 +8,11 @@ latin-source: https://www.preces-latinae.org/thesaurus/Filius/LitSNI.html
 ---
 ## LA
 
-Kyrie, eleison, *Christe, eleison.*
-Kyrie, eleison. Iesu, audi nos, *Iesu, exaudi nos.*
+Kyrie, *eleison.*
+Christe, *eleison.*
+Kyrie, *eleison.*
+Iesu, *audi nos.*
+Iesu, *exaudi nos.*
 Pater de caelis, Deus, *miserere nobis.*
 Fili, Redemptor mundi, Deus, *miserere nobis.*
 Spiritus Sancte, Deus, *miserere nobis.*
@@ -87,8 +90,11 @@ Sancti Nominis tui, Domine, timorem pariter et amorem fac nos habere perpetuum, 
 
 ## EN
 
-Lord, have mercy. *Christ, have mercy.*
-Lord, have mercy. Jesus, hear us. *Jesus, graciously hear us.*
+Lord, *have mercy.*
+Christ, *have mercy.*
+Lord, *have mercy.*
+Jesus, *hear us.*
+Jesus, *graciously hear us.*
 God, the Father of Heaven, *have mercy on us.*
 God, the Son, Redeemer of the world, *have mercy on us.*
 God, the Holy Spirit, *have mercy on us.*
