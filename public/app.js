@@ -347,7 +347,7 @@ function renderReaderText(item) {
   }
 
   const text = localizedText(item, state.language);
-  elements.readerText.replaceChildren(...(item.id === "litany-of-the-passion"
+  elements.readerText.replaceChildren(...(item.id.startsWith("litany-of-")
     ? makeLitanyNodes(text)
     : makeLiturgicalNodes(text)));
 }
