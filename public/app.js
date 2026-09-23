@@ -208,6 +208,21 @@ function makeLiturgicalNodes(text) {
   });
 }
 
+function makeLitanyNodes(text) {
+  const nodes = [];
+  let cursor = 0;
+  for (const match of String(text).matchAll(/\*([^*\n]+)\*/g)) {
+    nodes.push(...makeLiturgicalNodes(text.slice(cursor, match.index)));
+    const response = document.createElement("span");
+    response.className = "litany-response";
+    response.textContent = match[1];
+    nodes.push(response);
+    cursor = match.index + match[0].length;
+  }
+  nodes.push(...makeLiturgicalNodes(text.slice(cursor)));
+  return nodes;
+}
+
 function makeParallelCell(text, language) {
   const cell = document.createElement("div");
   cell.className = "parallel-cell";
@@ -331,7 +346,10 @@ function renderReaderText(item) {
     return;
   }
 
-  elements.readerText.replaceChildren(...makeLiturgicalNodes(localizedText(item, state.language)));
+  const text = localizedText(item, state.language);
+  elements.readerText.replaceChildren(...(item.id.startsWith("litany-of-")
+    ? makeLitanyNodes(text)
+    : makeLiturgicalNodes(text)));
 }
 
 function openReader(item, {

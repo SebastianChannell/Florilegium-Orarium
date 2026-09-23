@@ -699,6 +699,11 @@ a {
   font-weight: 700;
 }
 
+.litany-response {
+  color: var(--accent);
+  font-style: italic;
+}
+
 .reader-text.is-devotional {
   line-height: 1.75;
   white-space: normal;
