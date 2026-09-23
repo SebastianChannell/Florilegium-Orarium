@@ -210,16 +210,28 @@ function makeLiturgicalNodes(text) {
 
 function makeLitanyNodes(text) {
   const nodes = [];
-  let cursor = 0;
-  for (const match of String(text).matchAll(/\*([^*\n]+)\*/g)) {
-    nodes.push(...makeLiturgicalNodes(text.slice(cursor, match.index)));
-    const response = document.createElement("span");
-    response.className = "litany-response";
-    response.textContent = match[1];
-    nodes.push(response);
-    cursor = match.index + match[0].length;
+  let inConcludingPrayer = false;
+  for (const [index, line] of String(text).split("\n").entries()) {
+    if (index) nodes.push(document.createTextNode("\n"));
+    if (/^(?:Oremus|Let us pray|Oremos|Pater noster|Our Father|Padre nuestro)\b/i.test(line.trim())) {
+      inConcludingPrayer = true;
+    }
+    // Versicles and concluding prayers keep their text plain; only the V./R. marker is colored.
+    if (inConcludingPrayer || /^[VR]\.\s/.test(line.trim())) {
+      nodes.push(...makeLiturgicalNodes(line.replace(/\*([^*]+)\*/g, "$1")));
+      continue;
+    }
+    let cursor = 0;
+    for (const match of line.matchAll(/\*([^*]+)\*/g)) {
+      nodes.push(...makeLiturgicalNodes(line.slice(cursor, match.index)));
+      const response = document.createElement("span");
+      response.className = "litany-response";
+      response.textContent = match[1];
+      nodes.push(response);
+      cursor = match.index + match[0].length;
+    }
+    nodes.push(...makeLiturgicalNodes(line.slice(cursor)));
   }
-  nodes.push(...makeLiturgicalNodes(text.slice(cursor)));
   return nodes;
 }
 
