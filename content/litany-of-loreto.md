@@ -8,9 +8,11 @@ latin-source: https://www.preces-latinae.org/thesaurus/BVM/Laurentanae.html
 ---
 ## LA
 
-Kyrie, eleison. *Christe, eleison.*
-Kyrie, eleison.
-Christe, audi nos. *Christe, exaudi nos.*
+Kyrie, *eleison.*
+Christe, *eleison.*
+Kyrie, *eleison.*
+Christe, *audi nos.*
+Christe, *exaudi nos.*
 Pater de caelis, Deus, *miserere nobis.*
 Fili, Redemptor mundi, Deus, *miserere nobis.*
 Spiritus Sancte Deus, *miserere nobis.*
@@ -68,43 +70,45 @@ Agnus Dei, qui tollis peccata mundi, *parce nobis, Domine.*
 Agnus Dei, qui tollis peccata mundi, *exaudi nos, Domine.*
 Agnus Dei, qui tollis peccata mundi, *miserere nobis.*
 V. Ora pro nobis, Sancta Dei Genetrix,
-R. *Ut digni efficiamur promissionibus Christi.*
+R. Ut digni efficiamur promissionibus Christi.
 
 Oremus
-Concede nos famulos tuos, quaesumus, Domine Deus, perpetua mentis et corporis sanitate gaudere: et gloriosa beatae Mariae semper Virginis intercessione, a praesenti liberari tristitia, et aeterna perfrui laetitia. Per Christum Dominum nostrum. *Amen.*
+Concede nos famulos tuos, quaesumus, Domine Deus, perpetua mentis et corporis sanitate gaudere: et gloriosa beatae Mariae semper Virginis intercessione, a praesenti liberari tristitia, et aeterna perfrui laetitia. Per Christum Dominum nostrum. Amen.
 
 
 Tempore Adventus:
 
 V. Angelus Domini nuntiavit Mariae,
-R. *Et concepit de Spiritu Sancto.*
+R. Et concepit de Spiritu Sancto.
 
 Oremus
-Deus, qui de beatae Mariae Virginis utero Verbum tuum, Angelo nuntiante, carnem suscipere voluisti: praesta supplicibus tuis; ut, qui vere eam Genetricem Dei credimus, eius apud te intercessionibus adiuvemur. Per Christum Dominum nostrum. *Amen.*
+Deus, qui de beatae Mariae Virginis utero Verbum tuum, Angelo nuntiante, carnem suscipere voluisti: praesta supplicibus tuis; ut, qui vere eam Genetricem Dei credimus, eius apud te intercessionibus adiuvemur. Per Christum Dominum nostrum. Amen.
 
 
 Tempore Nativitatis:
 
 V. Post partum, Virgo, inviolata permansisti,
-R. *Dei Genetrix, intercede pro nobis.*
+R. Dei Genetrix, intercede pro nobis.
 
 Oremus
-Deus, qui salutis aeternae, beatae Mariae virginitate fecunda, humano generi praemia praestitisti: tribue, quaesumus; ut ipsam pro nobis intercedere sentiamus, per quam meruimus Filium tuum auctorem vitae suscipere. Qui tecum vivit et regnat in saecula saeculorum. *Amen.*
+Deus, qui salutis aeternae, beatae Mariae virginitate fecunda, humano generi praemia praestitisti: tribue, quaesumus; ut ipsam pro nobis intercedere sentiamus, per quam meruimus Filium tuum auctorem vitae suscipere. Qui tecum vivit et regnat in saecula saeculorum. Amen.
 
 
 Tempore Paschali:
 
 V. Gaude et laetare, Virgo Maria, alleluia.
-R. *Quia surrexit Dominus vere, alleluia.*
+R. Quia surrexit Dominus vere, alleluia.
 
 Oremus
-Deus, qui per resurrectionem Filii tui, Domini nostri Iesu Christi, mundum laetificare dignatus es: praesta, quaesumus: ut, per eius Genetricem Virginem Mariam, perpetuae capiamus gaudia vitae. Per eundem Christum Dominum nostrum. *Amen.*
+Deus, qui per resurrectionem Filii tui, Domini nostri Iesu Christi, mundum laetificare dignatus es: praesta, quaesumus: ut, per eius Genetricem Virginem Mariam, perpetuae capiamus gaudia vitae. Per eundem Christum Dominum nostrum. Amen.
 
 ## EN
 
-Lord, have mercy on us. *Christ, have mercy on us.*
-Lord, have mercy on us.
-Christ, hear us. *Christ, graciously hear us.*
+Lord, *have mercy on us.*
+Christ, *have mercy on us.*
+Lord, *have mercy on us.*
+Christ, *hear us.*
+Christ, *graciously hear us.*
 God the Father of heaven, *have mercy on us.*
 God the Son, Redeemer of the world, *have mercy on us.*
 God the Holy Spirit, *have mercy on us.*
@@ -162,37 +166,37 @@ Lamb of God, who takes away the sins of the world, *spare us, O Lord.*
 Lamb of God, who takes away the sins of the world, *graciously hear us, O Lord.*
 Lamb of God, who takes away the sins of the world, *have mercy on us.*
 V. Pray for us, O holy Mother of God,
-R. *That we may be made worthy of the promises of Christ.*
+R. That we may be made worthy of the promises of Christ.
 
 Let us pray
-Grant, we beseech Thee, O Lord God, that we Thy servants, may enjoy lasting health of mind and body, and by the glorious intercession of the Blessed Mary, ever Virgin, be delivered from present sorrow and enter into the joy of eternal happiness. Through Christ our Lord. *Amen.*
+Grant, we beseech Thee, O Lord God, that we Thy servants, may enjoy lasting health of mind and body, and by the glorious intercession of the Blessed Mary, ever Virgin, be delivered from present sorrow and enter into the joy of eternal happiness. Through Christ our Lord. Amen.
 
 
 Advent Season
 
 V. The angel of the Lord declared unto Mary;
-R. *And she conceived of the Holy Spirit.*
+R. And she conceived of the Holy Spirit.
 
 Let us pray
-O God, Thou hast willed that at the message of an angel Thy Word should take flesh in the womb of the Blessed Virgin Mary; grant to Thy suppliant people, that we, who believe her to be truly the Mother of God, may be helped by her intercession with Thee. Through Christ our Lord. *Amen.*
+O God, Thou hast willed that at the message of an angel Thy Word should take flesh in the womb of the Blessed Virgin Mary; grant to Thy suppliant people, that we, who believe her to be truly the Mother of God, may be helped by her intercession with Thee. Through Christ our Lord. Amen.
 
 
 Christmas Season
 
 V. After giving birth, O Virgin, thou remained a virgin.
-R. *Mother of God, intercede for us.*
+R. Mother of God, intercede for us.
 
 Let us pray
-O God, by the fruitful virginity of Blessed Mary, Thou hast bestowed upon the human race the rewards of eternal salvation; grant, we beseech Thee, that we may feel the power of her intercession, through whom we have been made worthy to receive the Author of life, Thy Son. Who with Thee lives and reigns forever. *Amen.*
+O God, by the fruitful virginity of Blessed Mary, Thou hast bestowed upon the human race the rewards of eternal salvation; grant, we beseech Thee, that we may feel the power of her intercession, through whom we have been made worthy to receive the Author of life, Thy Son. Who with Thee lives and reigns forever. Amen.
 
 
 Easter Season
 
 V. Rejoice and be glad, O Virgin Mary, alleluia.
-R. *Because the Lord is truly risen, alleluia.*
+R. Because the Lord is truly risen, alleluia.
 
 Let us pray
-O God, who by the Resurrection of Thy Son, our Lord Jesus Christ, granted joy to the whole world: grant we beg Thee, that through the intercession of the Virgin Mary, His Mother, we may lay hold of the joys of eternal life. Through the same Christ our Lord. *Amen.*
+O God, who by the Resurrection of Thy Son, our Lord Jesus Christ, granted joy to the whole world: grant we beg Thee, that through the intercession of the Virgin Mary, His Mother, we may lay hold of the joys of eternal life. Through the same Christ our Lord. Amen.
 
 ## SP
 
@@ -261,7 +265,7 @@ Cordero de Dios, que quitas los pecados del mundo, *escúchanos, Señor.*
 Cordero de Dios, que quitas los pecados del mundo, *ten piedad de nosotros.*
 
 V. Ruega por nosotros, santa Madre de Dios.
-R. *Para que seamos dignos de alcanzar las promesas de Cristo.*
+R. Para que seamos dignos de alcanzar las promesas de Cristo.
 
 Oremos
 
@@ -269,18 +273,18 @@ Te suplicamos, Señor Dios nuestro, que concedas a tus siervos gozar de perpetua
 
 En tiempo de Adviento:
 V. El ángel del Señor anunció a María.
-R. *Y concibió por obra del Espíritu Santo.*
+R. Y concibió por obra del Espíritu Santo.
 Oremos
 Oh Dios, que quisiste que tu Verbo tomara carne en el seno de la bienaventurada Virgen María por el anuncio del ángel: concédenos que quienes la reconocemos como verdadera Madre de Dios seamos ayudados por su intercesión ante Ti. Por el mismo Cristo nuestro Señor. Amén.
 
 En tiempo de Navidad:
 V. Después del parto permaneciste, Virgen, inviolada.
-R. *Madre de Dios, intercede por nosotros.*
+R. Madre de Dios, intercede por nosotros.
 Oremos
 Oh Dios, que por la fecunda virginidad de la bienaventurada María concediste al género humano los bienes de la salvación eterna: concédenos experimentar la intercesión de aquella por quien recibimos al Autor de la vida, Jesucristo, tu Hijo y Señor nuestro. Amén.
 
 En tiempo pascual:
 V. Alégrate y regocíjate, Virgen María, aleluya.
-R. *Porque verdaderamente resucitó el Señor, aleluya.*
+R. Porque verdaderamente resucitó el Señor, aleluya.
 Oremos
 Oh Dios, que por la resurrección de tu Hijo, nuestro Señor Jesucristo, te dignaste alegrar al mundo: concédenos, por su Madre la Virgen María, alcanzar el gozo de la vida eterna. Por Cristo nuestro Señor. Amén.
