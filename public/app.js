@@ -6,6 +6,10 @@ import { parseParallelText, splitParallelHeading } from "./parallel-text.js";
 
 const elements = {
   backButton: document.querySelector("#back-button"),
+  sidebar: document.querySelector("#browse-sidebar"),
+  sidebarToggle: document.querySelector("#sidebar-toggle"),
+  sidebarClose: document.querySelector("#sidebar-close"),
+  sidebarBackdrop: document.querySelector("#sidebar-backdrop"),
   browseView: document.querySelector("#browse-view"),
   browseHeading: document.querySelector("#browse-heading"),
   clearSearch: document.querySelector("#clear-search"),
@@ -54,6 +58,32 @@ const state = {
   language: preferredLanguage(),
   query: "",
 };
+
+let focusBeforeSidebar = null;
+
+function openSidebar({ focusSearch = false } = {}) {
+  if (!document.body.classList.contains("sidebar-open")) {
+    focusBeforeSidebar = document.activeElement;
+    document.body.classList.add("sidebar-open");
+    elements.sidebar.inert = false;
+    elements.sidebar.setAttribute("aria-hidden", "false");
+    elements.sidebarToggle.setAttribute("aria-expanded", "true");
+  }
+  (focusSearch ? elements.searchInput : elements.sidebarClose).focus({ preventScroll: true });
+}
+
+function closeSidebar({ restoreFocus = true } = {}) {
+  if (!document.body.classList.contains("sidebar-open")) return;
+  document.body.classList.remove("sidebar-open");
+  elements.sidebar.setAttribute("aria-hidden", "true");
+  elements.sidebar.inert = true;
+  elements.sidebarToggle.setAttribute("aria-expanded", "false");
+  if (restoreFocus) {
+    const target = focusBeforeSidebar?.isConnected ? focusBeforeSidebar : elements.sidebarToggle;
+    target.focus({ preventScroll: true });
+  }
+  focusBeforeSidebar = null;
+}
 
 function pageUrl({
   item,
@@ -378,6 +408,7 @@ function openReader(item, {
     return;
   }
 
+  closeSidebar({ restoreFocus: false });
   state.currentItem = item;
   const itemTitle = localizedField(item, "title", state.language);
   elements.readerTitle.textContent = itemTitle;
@@ -447,6 +478,7 @@ function showBrowse({ replace = false } = {}) {
   const method = replace ? "replaceState" : "pushState";
   history[method]({ view: "list", language: state.language }, "", pageUrl());
   window.scrollTo({ top: 0, behavior: "auto" });
+  openSidebar();
 }
 
 function rememberLanguage(language) {
@@ -486,6 +518,7 @@ function setLanguage(language, { updateUrl = true } = {}) {
 }
 
 function readLocation() {
+  const cameFromReader = Boolean(state.currentItem);
   const params = new URLSearchParams(window.location.search);
   const requestedLanguage = params.get("lang");
   const historyLanguage = history.state?.language;
@@ -512,10 +545,15 @@ function readLocation() {
     });
   } else {
     renderList();
+    if (cameFromReader) openSidebar();
   }
 }
 
 elements.searchForm.addEventListener("submit", (event) => event.preventDefault());
+
+elements.sidebarToggle.addEventListener("click", () => openSidebar());
+elements.sidebarClose.addEventListener("click", () => closeSidebar());
+elements.sidebarBackdrop.addEventListener("click", () => closeSidebar());
 
 for (const button of elements.languageButtons) {
   button.addEventListener("click", () => setLanguage(button.dataset.language));
@@ -593,9 +631,34 @@ elements.backButton.addEventListener("click", () => {
 window.addEventListener("popstate", readLocation);
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "/" && !elements.browseView.hidden && document.activeElement !== elements.searchInput) {
+  const sidebarOpen = document.body.classList.contains("sidebar-open");
+  if (event.key === "Escape" && sidebarOpen) {
     event.preventDefault();
-    elements.searchInput.focus();
+    closeSidebar();
+    return;
+  }
+
+  if (event.key === "Tab" && sidebarOpen) {
+    const focusable = [...elements.sidebar.querySelectorAll(
+      'button:not([disabled]), a[href], input:not([disabled]), summary, [tabindex]:not([tabindex="-1"])',
+    )].filter((element) => element.getClientRects().length);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && (document.activeElement === first || !elements.sidebar.contains(document.activeElement))) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && (document.activeElement === last || !elements.sidebar.contains(document.activeElement))) {
+      event.preventDefault();
+      first.focus();
+    }
+    return;
+  }
+
+  const editable = document.activeElement?.matches('input, textarea, [contenteditable="true"]');
+  if (event.key === "/" && !event.altKey && !event.ctrlKey && !event.metaKey && !editable) {
+    event.preventDefault();
+    openSidebar({ focusSearch: true });
   }
 });
 
