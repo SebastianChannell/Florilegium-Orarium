@@ -59,6 +59,7 @@ const state = {
   query: "",
 };
 
+const expandedDevotions = new Set();
 let focusBeforeSidebar = null;
 
 function openSidebar({ focusSearch = false } = {}) {
@@ -145,10 +146,16 @@ function makeResult(item) {
   return listItem;
 }
 
-function makeDevotionGroup({ devotion, items }, index, expanded) {
+function makeDevotionGroup({ key, devotion, items }, index, expanded) {
   const section = document.createElement("details");
   section.className = "index-section";
-  section.open = expanded;
+  section.open = expanded || expandedDevotions.has(key);
+  section.addEventListener("toggle", () => {
+    // Searching expands all results temporarily without changing the saved tree.
+    if (state.query) return;
+    if (section.open) expandedDevotions.add(key);
+    else expandedDevotions.delete(key);
+  });
 
   const headingRow = document.createElement("summary");
   headingRow.className = "index-heading";
@@ -690,6 +697,7 @@ async function start() {
     elements.resultCount.textContent = uiText(state.language, "unavailable");
     elements.statusMessage.textContent = uiText(state.language, "errorLoading");
     elements.statusMessage.hidden = false;
+    openSidebar();
   }
 
   if ("serviceWorker" in navigator) {
