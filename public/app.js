@@ -174,7 +174,12 @@ function makeDevotionGroup({ key, devotion, items }, index, expanded) {
   list.className = "index-entries";
   list.append(...items.map(makeResult));
 
-  headingRow.append(heading, count);
+  const chevron = document.createElement("span");
+  chevron.className = "index-chevron";
+  chevron.setAttribute("aria-hidden", "true");
+  chevron.textContent = "›";
+
+  headingRow.append(heading, count, chevron);
   section.append(headingRow, list);
   return section;
 }
@@ -686,6 +691,7 @@ async function start() {
       window.location.href,
     );
     readLocation();
+    if (!initialItem) openSidebar();
     history.replaceState(
       { ...history.state, language: state.language },
       "",
